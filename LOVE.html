@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>给宝贝的每日情话</title>
+  <style>
+    body {
+      font-family: "Microsoft YaHei", sans-serif;
+      background: linear-gradient(135deg, #ffebee, #f8bbd0);
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c2185b;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      max-width: 380px;
+    }
+    h1 { font-size: 28px; margin: 0 0 20px 0; }
+    .date { font-size: 16px; color: #e91e63; margin-bottom: 30px; }
+    .message {
+      font-size: 22px;
+      line-height: 1.6;
+      min-height: 180px;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>❤️ 给宝贝的每日情话 ❤️</h1>
+    <div class="date" id="date"></div>
+    <div class="message" id="message">点击下方按钮获取今天的情话～</div>
+    <button onclick="showLove()">换一句情话</button>
+  </div>
+
+  <script>
+    const messages = [
+      "今天也想你想到心口发疼，你就是我心里最柔软的那一块。",
+      "如果爱你是错，我宁愿一错再错。",
+      "遇见你之后，我终于明白什么叫「此生有幸」。",
+      "想把全世界的好都给你，但首先想把我自己给你。",
+      "你不用多好，我喜欢就好。",
+      "和你在一起的每一天，都是我最喜欢的日常。",
+      "谢谢你出现在我的人生里，让我懂得了什么是心动。",
+      "我最大的幸运，就是在对的时间遇见了你。",
+      "想牵着你的手，走过每一个春夏秋冬。",
+      "宝贝，你今天也要被我偷偷爱着哦～",
+      "我对你的喜欢，比昨天多了一点，比明天少了一点。",
+      "你笑起来的样子，是我见过最治愈的风景。"
+      // 你可以继续在这里添加更多情话（建议加50-100条）
+    ];
+
+    function showLove() {
+      const today = new Date().toLocaleDateString('zh-CN');
+      document.getElementById
