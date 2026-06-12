@@ -515,10 +515,26 @@
       const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
       const dateStr = now.toLocaleDateString('zh-CN', options);
       const hour = now.getHours();
-      let greeting = "晚上好噢";
 
-      if (hour >= 5 && hour < 11) greeting = "早安呀";
-      else if (hour >= 11 && hour < 14) greeting = "午安哦";
+      /*
+        更自然的时间判断：
+        05:00 - 10:59  早安
+        11:00 - 13:59  午安
+        14:00 - 17:59  下午好
+        18:00 - 21:59  晚上好
+        22:00 - 04:59  夜深啦
+      */
+      let greeting = "夜深啦";
+
+      if (hour >= 5 && hour < 11) {
+        greeting = "早安呀";
+      } else if (hour >= 11 && hour < 14) {
+        greeting = "午安哦";
+      } else if (hour >= 14 && hour < 18) {
+        greeting = "下午好呀";
+      } else if (hour >= 18 && hour < 22) {
+        greeting = "晚上好噢";
+      }
 
       document.getElementById('date').innerText = `${greeting} · ${dateStr}`;
     }
