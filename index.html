@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>给宝贝的每日情话</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -10,18 +10,24 @@
     body {
       font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
       background: linear-gradient(135deg, #ffebee, #f8bbd0);
-      height: 100vh;
+      /* 核心修改：改为 min-height，防止手机端浏览器地址栏收缩时导致全粉 */
+      min-height: 100vh; 
       display: flex;
       align-items: center;
       justify-content: center;
       color: #c2185b;
       text-align: center;
       padding: 20px;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom)); /* 适配iPhone底部安全区 */
       overflow-x: hidden; 
+      -webkit-tap-highlight-color: transparent; 
     }
 
     /* --- 极简漂浮爱心元素 --- */
-    .floating-hearts { position: absolute; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .floating-hearts { 
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+      z-index: 0; pointer-events: none; overflow: hidden; /* 固定定位，且绝不遮挡主界面 */
+    }
     .heart {
       position: absolute; bottom: -50px;
       background-color: rgba(233, 30, 99, 0.15); 
@@ -36,7 +42,7 @@
     /* --- 核心卡片样式 --- */
     .card {
       position: relative; z-index: 1;
-      background: rgba(255, 255, 255, 0.9); 
+      background: rgba(255, 255, 255, 0.95); /* 稍微提高不透明度，让字更清晰 */
       padding: 40px 30px;
       border-radius: 24px; 
       box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1); 
@@ -61,18 +67,27 @@
     /* --- 底部微文案 --- */
     .footer-note { font-size: 12px; color: #f48fb1; letter-spacing: 1px; opacity: 0.8;}
 
+    /* --- 通用按钮基础样式与过渡 --- */
+    button {
+      transition: all 0.2s ease; 
+      outline: none; border: none; cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     /* --- 右上角历史按钮样式 --- */
     .history-btn {
       position: absolute; top: 15px; right: 15px;
-      width: 36px; height: 36px; border-radius: 50%;
+      width: 40px; height: 40px; border-radius: 50%; 
       background: linear-gradient(45deg, #ec407a, #e91e63);
-      color: white; border: none; font-size: 16px;
-      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 16px;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
-      transition: all 0.3s ease; outline: none;
-      padding: 0; /* 清除默认padding让图标居中 */
     }
-    .history-btn:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(233, 30, 99, 0.4); }
+    /* 手机端按压反馈 */
+    .history-btn:active { 
+      transform: scale(0.85) rotate(-10deg); 
+      box-shadow: 0 2px 5px rgba(233, 30, 99, 0.3);
+    }
 
     /* --- 历史记录弹窗样式 --- */
     .modal-overlay {
@@ -98,11 +113,17 @@
     }
     .history-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
     .history-date { font-size: 12px; color: #e91e63; margin-bottom: 5px; font-weight: bold;}
+
+    /* 底部关闭按钮样式 */
     .close-btn { 
       margin-top: 20px; background: #f8bbd0; color: #c2185b; 
-      padding: 10px 0; width: 100%; font-weight: bold; border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s ease;
+      padding: 14px 0; width: 100%; font-weight: bold; border-radius: 50px; 
     }
-    .close-btn:hover { background: #f48fb1; box-shadow: none; transform: none;}
+    /* 关闭按钮按压反馈 */
+    .close-btn:active { 
+      background: #f48fb1; 
+      transform: scale(0.95); 
+    }
   </style>
 </head>
 <body>
@@ -130,7 +151,7 @@
     <div class="modal-card">
       <div class="modal-title">🕰️ 我们的专属回忆</div>
       <div id="historyList"></div>
-      <button class="close-btn" onclick="closeHistory(event, true)">关闭</button>
+      <button class="close-btn" onclick="closeHistory(event, true)">我知道了</button>
     </div>
   </div>
 
