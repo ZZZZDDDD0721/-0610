@@ -4,120 +4,146 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>给宝贝的每日情话</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
       background: linear-gradient(135deg, #ffebee, #f8bbd0);
-      min-height: 100vh; 
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #c2185b;
       text-align: center;
       padding: 20px;
-      padding-bottom: calc(20px + env(safe-area-inset-bottom)); 
-      overflow-x: hidden; 
-      -webkit-tap-highlight-color: transparent; 
+      padding-bottom: calc(20px + env(safe-area-inset-bottom));
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    .floating-hearts { 
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-      z-index: 0; pointer-events: none; overflow: hidden; 
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
 
     .heart {
-      position: absolute; bottom: -50px;
-      background-color: rgba(233, 30, 99, 0.15); 
-      border-radius: 50%; 
+      position: absolute;
+      bottom: -50px;
+      background-color: rgba(233, 30, 99, 0.15);
+      border-radius: 50%;
       animation: floatUp linear infinite;
     }
 
     @keyframes floatUp {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-      100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     .card {
-      position: relative; z-index: 1;
-      background: rgba(255, 255, 255, 0.95); 
+      position: relative;
+      z-index: 1;
+      background: rgba(255, 255, 255, 0.95);
       padding: 40px 30px;
-      border-radius: 24px; 
-      box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1); 
-      max-width: 400px; width: 100%;
-      backdrop-filter: blur(10px); 
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
+      max-width: 400px;
+      width: 100%;
+      backdrop-filter: blur(10px);
     }
 
-    h1 { 
-      font-size: 24px; 
-      margin-bottom: 10px; 
-      font-weight: 600; 
-      letter-spacing: 1px; 
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
 
-    .date { 
-      font-size: 14px; 
-      color: #e91e63; 
-      margin-bottom: 20px; 
-      opacity: 0.8; 
+    .date {
+      font-size: 14px;
+      color: #e91e63;
+      margin-bottom: 20px;
+      opacity: 0.8;
     }
 
     .message-box {
-      font-size: 20px; 
-      line-height: 1.8; 
-      min-height: 160px; 
-      display: flex; 
-      align-items: center; 
+      font-size: 20px;
+      line-height: 1.8;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      padding: 0 10px; 
+      padding: 0 10px;
       margin-bottom: 20px;
     }
 
-    .cursor { 
-      display: inline-block; 
-      width: 2px; 
-      height: 20px; 
-      background: #e91e63; 
-      margin-left: 4px; 
-      animation: blink 1s infinite; 
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 20px;
+      background: #e91e63;
+      margin-left: 4px;
+      animation: blink 1s infinite;
       vertical-align: middle;
     }
 
-    @keyframes blink { 
-      0%, 100% { opacity: 1; } 
-      50% { opacity: 0; } 
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
 
-    .footer-note { 
-      font-size: 12px; 
-      color: #f48fb1; 
-      letter-spacing: 1px; 
+    .footer-note {
+      font-size: 12px;
+      color: #f48fb1;
+      letter-spacing: 1px;
       opacity: 0.8;
     }
 
     button {
-      transition: all 0.2s ease; 
-      outline: none; 
-      border: none; 
+      transition: all 0.2s ease;
+      outline: none;
+      border: none;
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
 
     .history-btn {
-      position: absolute; 
-      top: 15px; 
+      position: absolute;
+      top: 6px;
       right: 15px;
       height: 38px;
       padding: 0 13px;
-      border-radius: 999px; 
+      border-radius: 999px;
       background: linear-gradient(45deg, #ec407a, #e91e63);
-      color: white; 
+      color: white;
       font-size: 13px;
       font-weight: 600;
-      letter-spacing: .5px;
-      display: flex; 
-      align-items: center; 
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
       justify-content: center;
       gap: 4px;
       box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
@@ -131,18 +157,18 @@
       top: -13px;
       padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .95);
+      background: rgba(255, 255, 255, 0.95);
       color: #e91e63;
       font-size: 10px;
       font-weight: 700;
-      box-shadow: 0 3px 8px rgba(233, 30, 99, .16);
-      transform: scale(.92);
-      opacity: .88;
+      box-shadow: 0 3px 8px rgba(233, 30, 99, 0.16);
+      transform: scale(0.92);
+      opacity: 0.88;
     }
 
-    .history-btn:active { 
-      transform: scale(0.94) translateY(1px); 
-      box-shadow: 0 2px 7px rgba(233, 30, 99, 0.32), inset 0 -2px 4px rgba(0,0,0,0.08); 
+    .history-btn:active {
+      transform: scale(0.94) translateY(1px);
+      box-shadow: 0 2px 7px rgba(233, 30, 99, 0.32), inset 0 -2px 4px rgba(0, 0, 0, 0.08);
     }
 
     @keyframes historyBtnHint {
@@ -150,6 +176,7 @@
         transform: translateY(0);
         box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
       }
+
       50% {
         transform: translateY(-2px);
         box-shadow: 0 8px 18px rgba(233, 30, 99, 0.36);
@@ -157,86 +184,86 @@
     }
 
     .modal-overlay {
-      position: fixed; 
-      top: 0; 
-      left: 0; 
-      width: 100%; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3); 
+      background: rgba(0, 0, 0, 0.3);
       backdrop-filter: blur(5px);
-      z-index: 10; 
-      display: flex; 
-      align-items: center; 
+      z-index: 10;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      opacity: 0; 
-      pointer-events: none; 
-      transition: opacity 0.8s ease; 
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
     }
 
-    .modal-overlay.active { 
-      opacity: 1; 
-      pointer-events: auto; 
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     .modal-card {
-      background: white; 
-      width: 90%; 
-      max-width: 380px; 
+      background: white;
+      width: 90%;
+      max-width: 380px;
       max-height: 70vh;
-      border-radius: 20px; 
-      padding: 30px 20px; 
+      border-radius: 20px;
+      padding: 30px 20px;
       overflow-y: auto;
       box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
-      transform: scale(0.95) translateY(20px); 
-      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); 
+      transform: scale(0.95) translateY(20px);
+      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    .modal-overlay.active .modal-card { 
-      transform: scale(1) translateY(0); 
+    .modal-overlay.active .modal-card {
+      transform: scale(1) translateY(0);
     }
 
-    .modal-title { 
-      font-size: 18px; 
-      margin-bottom: 20px; 
-      color: #c2185b; 
+    .modal-title {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #c2185b;
     }
 
-    .history-item { 
-      text-align: left; 
-      margin-bottom: 15px; 
-      padding-bottom: 15px; 
-      border-bottom: 1px dashed #f8bbd0; 
-      font-size: 14px; 
-      line-height: 1.6; 
+    .history-item {
+      text-align: left;
+      margin-bottom: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px dashed #f8bbd0;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
-    .history-item:last-child { 
-      border-bottom: none; 
-      margin-bottom: 0; 
+    .history-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
       padding-bottom: 0;
     }
 
-    .history-date { 
-      font-size: 12px; 
-      color: #e91e63; 
-      margin-bottom: 5px; 
+    .history-date {
+      font-size: 12px;
+      color: #e91e63;
+      margin-bottom: 5px;
       font-weight: bold;
     }
 
-    .close-btn { 
-      margin-top: 20px; 
-      background: #f8bbd0; 
-      color: #c2185b; 
-      padding: 14px 0; 
-      width: 100%; 
-      font-weight: bold; 
-      border-radius: 50px; 
+    .close-btn {
+      margin-top: 20px;
+      background: #f8bbd0;
+      color: #c2185b;
+      padding: 14px 0;
+      width: 100%;
+      font-weight: bold;
+      border-radius: 50px;
     }
 
-    .close-btn:active { 
-      background: #f48fb1; 
-      transform: scale(0.95) translateY(1px); 
-      box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
+    .close-btn:active {
+      background: #f48fb1;
+      transform: scale(0.95) translateY(1px);
+      box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
     }
 
     .envelope-egg {
@@ -247,24 +274,40 @@
       animation: envelopeBreath 2.6s ease-in-out infinite;
     }
 
-    .envelope-egg:hover { 
-      animation: envelopeShake 0.55s ease both; 
+    .envelope-egg:hover {
+      animation: envelopeShake 0.55s ease both;
     }
 
-    .envelope-egg:active { 
-      transform: scale(0.88) rotate(-8deg); 
+    .envelope-egg:active {
+      transform: scale(0.88) rotate(-8deg);
     }
 
     @keyframes envelopeBreath {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-2px) scale(1.06); }
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-2px) scale(1.06);
+      }
     }
 
     @keyframes envelopeShake {
-      0%, 100% { transform: rotate(0deg) scale(1.06); }
-      25% { transform: rotate(-10deg) scale(1.12); }
-      55% { transform: rotate(8deg) scale(1.1); }
-      75% { transform: rotate(-4deg) scale(1.08); }
+      0%, 100% {
+        transform: rotate(0deg) scale(1.06);
+      }
+
+      25% {
+        transform: rotate(-10deg) scale(1.12);
+      }
+
+      55% {
+        transform: rotate(8deg) scale(1.1);
+      }
+
+      75% {
+        transform: rotate(-4deg) scale(1.08);
+      }
     }
 
     .secret-overlay {
@@ -275,7 +318,7 @@
 
     .secret-letter {
       position: relative;
-      width: 86%; 
+      width: 86%;
       max-width: 350px;
       background: linear-gradient(180deg, #fffdfd, #fff5f8);
       border: 1px solid rgba(244, 143, 177, 0.45);
@@ -285,7 +328,7 @@
       box-shadow: 0 22px 50px rgba(194, 24, 91, 0.18);
       transform: translateY(28px) scale(0.88) rotate(-2deg);
       opacity: 0;
-      transition: transform 0.55s cubic-bezier(.2, 1.25, .35, 1), opacity 0.35s ease;
+      transition: transform 0.55s cubic-bezier(0.2, 1.25, 0.35, 1), opacity 0.35s ease;
       overflow: hidden;
     }
 
@@ -297,56 +340,56 @@
     .secret-letter::before {
       content: "";
       position: absolute;
-      left: -20%; 
+      left: -20%;
       top: -70px;
-      width: 140%; 
+      width: 140%;
       height: 110px;
-      background: linear-gradient(135deg, rgba(248,187,208,.55), rgba(255,255,255,.1));
+      background: linear-gradient(135deg, rgba(248, 187, 208, 0.55), rgba(255, 255, 255, 0.1));
       transform: rotate(-4deg);
     }
 
     .secret-stamp {
-      position: absolute; 
-      top: 14px; 
+      position: absolute;
+      top: 14px;
       right: 16px;
-      padding: 5px 8px; 
-      border: 1px dashed #ec407a; 
+      padding: 5px 8px;
+      border: 1px dashed #ec407a;
       border-radius: 10px;
-      color: #ec407a; 
-      font-size: 10px; 
+      color: #ec407a;
+      font-size: 10px;
       letter-spacing: 1px;
-      transform: rotate(8deg); 
-      opacity: .72;
+      transform: rotate(8deg);
+      opacity: 0.72;
     }
 
-    .secret-title { 
-      position: relative; 
-      font-size: 18px; 
-      font-weight: bold; 
-      margin-bottom: 14px; 
+    .secret-title {
+      position: relative;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 14px;
     }
 
-    .secret-content { 
-      position: relative; 
-      font-size: 16px; 
-      line-height: 1.8; 
-      color: #c2185b; 
+    .secret-content {
+      position: relative;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #c2185b;
     }
 
     .secret-close-btn {
-      position: relative; 
-      margin-top: 22px; 
-      width: 100%; 
+      position: relative;
+      margin-top: 22px;
+      width: 100%;
       padding: 13px 0;
-      border-radius: 999px; 
+      border-radius: 999px;
       background: linear-gradient(45deg, #f8bbd0, #f48fb1);
-      color: #ad1457; 
-      font-weight: bold; 
+      color: #ad1457;
+      font-weight: bold;
       box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
     }
 
-    .secret-close-btn:active { 
-      transform: scale(0.96); 
+    .secret-close-btn:active {
+      transform: scale(0.96);
     }
 
     .click-heart {
@@ -358,12 +401,12 @@
       font-style: normal;
       transform-origin: center;
       will-change: transform, opacity, filter;
-      animation: heartBurst var(--duration, 1.18s) cubic-bezier(.18, .85, .28, 1) forwards;
+      animation: heartBurst var(--duration, 1.18s) cubic-bezier(0.18, 0.85, 0.28, 1) forwards;
     }
 
     .click-heart.sparkle {
       color: #ffb3c7;
-      text-shadow: 0 0 10px rgba(255, 255, 255, .9), 0 0 14px rgba(233, 30, 99, .25);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 14px rgba(233, 30, 99, 0.25);
       animation-name: sparkleFade;
     }
 
@@ -373,19 +416,23 @@
         opacity: 0;
         filter: blur(0);
       }
+
       12% {
         transform: translate(-50%, -50%) scale(1.45) rotate(var(--rot-start));
         opacity: 1;
       }
+
       32% {
         transform: translate(calc(-50% + var(--tx-mid)), calc(-50% + var(--ty-mid))) scale(1) rotate(var(--rot));
         opacity: 1;
       }
+
       72% {
         transform: translate(calc(-50% + var(--tx-end)), calc(-50% + var(--ty-end))) scale(0.78) rotate(calc(var(--rot) + var(--spin)));
-        opacity: .88;
+        opacity: 0.88;
         filter: blur(0);
       }
+
       100% {
         transform: translate(calc(-50% + var(--tx-final)), calc(-50% + var(--ty-final))) scale(0.25) rotate(calc(var(--rot) + var(--spin) + 30deg));
         opacity: 0;
@@ -394,22 +441,23 @@
     }
 
     @keyframes sparkleFade {
-      0% { 
-        transform: translate(-50%, -50%) scale(.2); 
-        opacity: 0; 
+      0% {
+        transform: translate(-50%, -50%) scale(0.2);
+        opacity: 0;
       }
-      18% { 
-        transform: translate(-50%, -50%) scale(1.2); 
-        opacity: 1; 
+
+      18% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 1;
       }
+
       100% {
-        transform: translate(calc(-50% + var(--tx-final)), calc(-50% + var(--ty-final))) scale(.15) rotate(var(--spin));
+        transform: translate(calc(-50% + var(--tx-final)), calc(-50% + var(--ty-final))) scale(0.15) rotate(var(--spin));
         opacity: 0;
         filter: blur(2px);
       }
     }
 
-    /* 右上角按钮专用：气球感上飘爱心 */
     .history-balloon-heart {
       position: fixed;
       pointer-events: none;
@@ -419,44 +467,47 @@
       transform-origin: center;
       text-shadow: 0 0 8px rgba(233, 30, 99, 0.32), 0 5px 12px rgba(244, 143, 177, 0.28);
       will-change: transform, opacity, filter;
-      animation: historyBalloonFloat var(--duration, 1.85s) cubic-bezier(.22, .72, .28, 1) forwards;
+      animation: historyBalloonFloat var(--duration, 1.85s) cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
     }
 
     .history-balloon-heart.sparkle {
       color: #ffc1d4;
-      text-shadow: 0 0 10px rgba(255,255,255,.9), 0 0 14px rgba(233,30,99,.24);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 14px rgba(233, 30, 99, 0.24);
     }
 
     @keyframes historyBalloonFloat {
       0% {
-        transform: translate(-50%, -50%) scale(.32) rotate(var(--rot-start));
+        transform: translate(-50%, -50%) scale(0.32) rotate(var(--rot-start));
         opacity: 0;
         filter: blur(0);
       }
+
       16% {
         transform: translate(calc(-50% + var(--sway1)), calc(-50% - 10px)) scale(1.02) rotate(var(--rot-start));
         opacity: 1;
       }
+
       42% {
-        transform: translate(calc(-50% + var(--sway2)), calc(-50% + var(--rise-mid))) scale(.98) rotate(var(--rot-mid));
-        opacity: .97;
+        transform: translate(calc(-50% + var(--sway2)), calc(-50% + var(--rise-mid))) scale(0.98) rotate(var(--rot-mid));
+        opacity: 0.97;
       }
+
       72% {
-        transform: translate(calc(-50% + var(--sway3)), calc(-50% + var(--rise-end))) scale(.84) rotate(var(--rot-end));
-        opacity: .76;
-        filter: blur(.15px);
+        transform: translate(calc(-50% + var(--sway3)), calc(-50% + var(--rise-end))) scale(0.84) rotate(var(--rot-end));
+        opacity: 0.76;
+        filter: blur(0.15px);
       }
+
       100% {
-        transform: translate(calc(-50% + var(--sway4)), calc(-50% + var(--rise-final))) scale(.50) rotate(var(--rot-final));
+        transform: translate(calc(-50% + var(--sway4)), calc(-50% + var(--rise-final))) scale(0.5) rotate(var(--rot-final));
         opacity: 0;
         filter: blur(1.35px);
       }
     }
-
   </style>
 </head>
-<body>
 
+<body>
   <div class="floating-hearts" id="heartsContainer"></div>
 
   <div class="card">
@@ -510,20 +561,25 @@
       ["default", "余生很长，我只想和你慢慢走。"]
     ];
 
+    const secretMessages = [
+      "彩蛋：其实这封信每天都会刷新，但我想你的心情不会过期。",
+      "偷偷告诉你：点开这里的人，会被我多喜欢一点点。",
+      "这是一封没有邮票的小信，因为目的地一直都是你。",
+      "小秘密：页面上所有爱心，都是替我先抱抱你。"
+    ];
+
     function initDate() {
       const now = new Date();
-      const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
-      const dateStr = now.toLocaleDateString('zh-CN', options);
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long"
+      };
+
+      const dateStr = now.toLocaleDateString("zh-CN", options);
       const hour = now.getHours();
 
-      /*
-        更自然的时间判断：
-        05:00 - 10:59  早安
-        11:00 - 13:59  午安
-        14:00 - 17:59  下午好
-        18:00 - 21:59  晚上好
-        22:00 - 04:59  夜深啦
-      */
       let greeting = "夜深啦";
 
       if (hour >= 5 && hour < 11) {
@@ -536,74 +592,88 @@
         greeting = "晚上好噢";
       }
 
-      document.getElementById('date').innerText = `${greeting} · ${dateStr}`;
+      document.getElementById("date").innerText = `${greeting} · ${dateStr}`;
     }
 
     function getTodayMessage() {
       const now = new Date();
-      const mmdd = String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getDate()).padStart(2, '0');
-      const specificMsg = messages.find(m => m[0] === mmdd);
+      const mmdd =
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0");
+
+      const specificMsg = messages.find(item => item[0] === mmdd);
 
       if (specificMsg) return specificMsg[1];
 
-      const defaults = messages.filter(m => m[0] === "default");
+      const defaults = messages.filter(item => item[0] === "default");
       return defaults[Math.floor(Math.random() * defaults.length)][1];
     }
 
     function playTypewriter(text) {
-      const el = document.getElementById('messageText');
-      el.innerText = ""; 
+      const el = document.getElementById("messageText");
+      el.innerText = "";
+
       let i = 0;
 
       const timer = setInterval(() => {
-        if (i < text.length) { 
-          el.innerText += text.charAt(i); 
-          i++; 
-        } else { 
-          clearInterval(timer); 
+        if (i < text.length) {
+          el.innerText += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(timer);
         }
-      }, 60); 
+      }, 60);
     }
 
     function createHearts() {
-      const container = document.getElementById('heartsContainer');
+      const container = document.getElementById("heartsContainer");
 
-      for (let i = 0; i < 8; i++) { 
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
+      for (let i = 0; i < 8; i++) {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
 
-        const size = Math.random() * 20 + 10; 
-        heart.style.width = `${size}px`; 
+        const size = Math.random() * 20 + 10;
+
+        heart.style.width = `${size}px`;
         heart.style.height = `${size}px`;
-        heart.style.left = Math.random() * 100 + '%';
-        heart.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
-        heart.style.animationDelay = (Math.random() * 10) + 's'; 
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = Math.random() * 10 + 10 + "s";
+        heart.style.animationDelay = Math.random() * 10 + "s";
 
         container.appendChild(heart);
       }
     }
 
     function getPointerPoint(e) {
-      const point = e.changedTouches ? e.changedTouches[0] : (e.touches ? e.touches[0] : e);
-      return { x: point.clientX, y: point.clientY };
+      const point = e.changedTouches ? e.changedTouches[0] : e.touches ? e.touches[0] : e;
+      return {
+        x: point.clientX,
+        y: point.clientY
+      };
     }
 
     function createHeartBurst(x, y, options = {}) {
       const count = options.count || 6;
-      const symbols = options.symbols || ['❤', '💕', '♡', '💗'];
-      const colors = ['#ff2f6d', '#ff4081', '#e91e63', '#ff6f91'];
+      const symbols = options.symbols || ["❤", "💕", "♡", "💗"];
+      const colors = ["#ff2f6d", "#ff4081", "#e91e63", "#ff6f91"];
 
       for (let i = 0; i < count; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('click-heart');
+        const heart = document.createElement("div");
+        heart.classList.add("click-heart");
 
         const isSparkle = Math.random() < 0.22;
 
-        if (isSparkle) heart.classList.add('sparkle');
+        if (isSparkle) heart.classList.add("sparkle");
 
-        heart.innerText = isSparkle ? '✦' : symbols[Math.floor(Math.random() * symbols.length)];
+        heart.innerText = isSparkle
+          ? "✦"
+          : symbols[Math.floor(Math.random() * symbols.length)];
 
-        const size = isSparkle ? Math.floor(Math.random() * 7) + 10 : Math.floor(Math.random() * 14) + 17;
+        const size = isSparkle
+          ? Math.floor(Math.random() * 7) + 10
+          : Math.floor(Math.random() * 14) + 17;
+
         const txEnd = (Math.random() - 0.5) * (options.spread || 130);
         const tyEnd = -(Math.random() * 70 + 55);
         const txMid = txEnd * 0.38;
@@ -621,30 +691,24 @@
         heart.style.fontSize = `${size}px`;
         heart.style.animationDelay = `${delay}ms`;
 
-        heart.style.setProperty('--duration', `${duration}ms`);
-        heart.style.setProperty('--heart-color', colors[Math.floor(Math.random() * colors.length)]);
-        heart.style.setProperty('--tx-mid', `${txMid}px`);
-        heart.style.setProperty('--ty-mid', `${tyMid}px`);
-        heart.style.setProperty('--tx-end', `${txEnd}px`);
-        heart.style.setProperty('--ty-end', `${tyEnd}px`);
-        heart.style.setProperty('--tx-final', `${txFinal}px`);
-        heart.style.setProperty('--ty-final', `${tyFinal}px`);
-        heart.style.setProperty('--rot', `${rot}deg`);
-        heart.style.setProperty('--rot-start', `${rotStart}deg`);
-        heart.style.setProperty('--spin', `${spin}deg`);
+        heart.style.setProperty("--duration", `${duration}ms`);
+        heart.style.setProperty("--heart-color", colors[Math.floor(Math.random() * colors.length)]);
+        heart.style.setProperty("--tx-mid", `${txMid}px`);
+        heart.style.setProperty("--ty-mid", `${tyMid}px`);
+        heart.style.setProperty("--tx-end", `${txEnd}px`);
+        heart.style.setProperty("--ty-end", `${tyEnd}px`);
+        heart.style.setProperty("--tx-final", `${txFinal}px`);
+        heart.style.setProperty("--ty-final", `${tyFinal}px`);
+        heart.style.setProperty("--rot", `${rot}deg`);
+        heart.style.setProperty("--rot-start", `${rotStart}deg`);
+        heart.style.setProperty("--spin", `${spin}deg`);
 
         document.body.appendChild(heart);
 
-        setTimeout(() => heart.remove(), duration + delay + 120);
+        setTimeout(() => {
+          heart.remove();
+        }, duration + delay + 120);
       }
-    }
-
-    function createClickHeart(e) {
-      const { x, y } = getPointerPoint(e);
-
-      if (!x || !y) return;
-
-      createHeartBurst(x, y);
     }
 
     function createHeartBurstAroundElement(el, count = 14) {
@@ -654,7 +718,7 @@
         count,
         spread: 190,
         duration: 1260,
-        symbols: ['❤', '💌', '💕', '♡']
+        symbols: ["❤", "💌", "💕", "♡"]
       });
     }
 
@@ -663,39 +727,30 @@
       const baseX = rect.left + rect.width / 2;
       const baseY = rect.top + rect.height / 2;
 
-      const symbols = ['❤', '💕', '♡', '💗'];
-      const colors = ['#ff2f6d', '#ff4081', '#e91e63', '#ff6f91', '#f06292'];
+      const symbols = ["❤", "💕", "♡", "💗"];
+      const colors = ["#ff2f6d", "#ff4081", "#e91e63", "#ff6f91", "#f06292"];
 
-      /*
-        右上角按钮专用：
-        先从按钮附近一起冒出，再像小气球一样慢慢分散上飘。
-      */
       const count = 8;
 
       for (let i = 0; i < count; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('history-balloon-heart');
+        const heart = document.createElement("div");
+        heart.classList.add("history-balloon-heart");
 
-        const isSparkle = Math.random() < 0.10;
-        if (isSparkle) heart.classList.add('sparkle');
+        const isSparkle = Math.random() < 0.1;
 
-        heart.innerText = isSparkle ? '✦' : symbols[Math.floor(Math.random() * symbols.length)];
+        if (isSparkle) heart.classList.add("sparkle");
+
+        heart.innerText = isSparkle
+          ? "✦"
+          : symbols[Math.floor(Math.random() * symbols.length)];
 
         const size = isSparkle
           ? Math.floor(Math.random() * 5) + 8
           : Math.floor(Math.random() * 9) + 14;
 
-        /*
-          起点靠近按钮中心，避免一出现就散得太开。
-        */
         const startX = baseX + (Math.random() - 0.5) * 10;
         const startY = baseY + (Math.random() - 0.5) * 8;
 
-        /*
-          慢慢分散：
-          sway1 很小，sway4 更大；
-          整体略微偏左，避免贴着右边界。
-        */
         const order = i - (count - 1) / 2;
         const fan = order * 7 + (Math.random() - 0.5) * 8;
         const baseLeft = -(Math.random() * 14 + 8);
@@ -705,9 +760,6 @@
         const sway3 = baseLeft + fan * 0.75 + (Math.random() - 0.5) * 14;
         const sway4 = baseLeft + fan * 1.15 + (Math.random() - 0.5) * 18;
 
-        /*
-          全程向上，速度偏慢，像气球。
-        */
         const riseMid = -(Math.random() * 26 + 42);
         const riseEnd = riseMid - (Math.random() * 34 + 42);
         const riseFinal = riseEnd - (Math.random() * 42 + 48);
@@ -717,10 +769,6 @@
         const rotEnd = rotMid + (Math.random() - 0.5) * 16;
         const rotFinal = rotEnd + (Math.random() - 0.5) * 20;
 
-        /*
-          速度控制：
-          2.05s - 2.65s，慢慢飘走，不像爆开。
-        */
         const duration = Math.floor(Math.random() * 600) + 2050;
         const delay = i * 75 + Math.random() * 45;
 
@@ -728,104 +776,101 @@
         heart.style.top = `${startY}px`;
         heart.style.fontSize = `${size}px`;
         heart.style.animationDelay = `${delay}ms`;
-        heart.style.setProperty('--duration', `${duration}ms`);
-        heart.style.setProperty('--heart-color', colors[Math.floor(Math.random() * colors.length)]);
 
-        heart.style.setProperty('--sway1', `${sway1}px`);
-        heart.style.setProperty('--sway2', `${sway2}px`);
-        heart.style.setProperty('--sway3', `${sway3}px`);
-        heart.style.setProperty('--sway4', `${sway4}px`);
-
-        heart.style.setProperty('--rise-mid', `${riseMid}px`);
-        heart.style.setProperty('--rise-end', `${riseEnd}px`);
-        heart.style.setProperty('--rise-final', `${riseFinal}px`);
-
-        heart.style.setProperty('--rot-start', `${rotStart}deg`);
-        heart.style.setProperty('--rot-mid', `${rotMid}deg`);
-        heart.style.setProperty('--rot-end', `${rotEnd}deg`);
-        heart.style.setProperty('--rot-final', `${rotFinal}deg`);
+        heart.style.setProperty("--duration", `${duration}ms`);
+        heart.style.setProperty("--heart-color", colors[Math.floor(Math.random() * colors.length)]);
+        heart.style.setProperty("--sway1", `${sway1}px`);
+        heart.style.setProperty("--sway2", `${sway2}px`);
+        heart.style.setProperty("--sway3", `${sway3}px`);
+        heart.style.setProperty("--sway4", `${sway4}px`);
+        heart.style.setProperty("--rise-mid", `${riseMid}px`);
+        heart.style.setProperty("--rise-end", `${riseEnd}px`);
+        heart.style.setProperty("--rise-final", `${riseFinal}px`);
+        heart.style.setProperty("--rot-start", `${rotStart}deg`);
+        heart.style.setProperty("--rot-mid", `${rotMid}deg`);
+        heart.style.setProperty("--rot-end", `${rotEnd}deg`);
+        heart.style.setProperty("--rot-final", `${rotFinal}deg`);
 
         document.body.appendChild(heart);
 
-        setTimeout(() => heart.remove(), duration + delay + 200);
+        setTimeout(() => {
+          heart.remove();
+        }, duration + delay + 200);
       }
     }
 
-    const historyBtn = document.getElementById('historyBtn');
-    const historyModal = document.getElementById('historyModal');
-    const closeBtn = document.getElementById('closeBtn');
-    const listEl = document.getElementById('historyList');
+    const historyBtn = document.getElementById("historyBtn");
+    const historyModal = document.getElementById("historyModal");
+    const closeBtn = document.getElementById("closeBtn");
+    const listEl = document.getElementById("historyList");
 
-    const secretEnvelope = document.getElementById('secretEnvelope');
-    const secretModal = document.getElementById('secretModal');
-    const secretCloseBtn = document.getElementById('secretCloseBtn');
-    const secretContent = document.getElementById('secretContent');
+    const secretEnvelope = document.getElementById("secretEnvelope");
+    const secretModal = document.getElementById("secretModal");
+    const secretCloseBtn = document.getElementById("secretCloseBtn");
+    const secretContent = document.getElementById("secretContent");
 
-    const secretMessages = [
-      '彩蛋：其实这封信每天都会刷新，但我想你的心情不会过期。',
-      '偷偷告诉你：点开这里的人，会被我多喜欢一点点。',
-      '这是一封没有邮票的小信，因为目的地一直都是你。',
-      '小秘密：页面上所有爱心，都是替我先抱抱你。'
-    ];
-
-    secretEnvelope.addEventListener('click', function(e) {
+    secretEnvelope.addEventListener("click", function(e) {
       e.stopPropagation();
 
       createHeartBurstAroundElement(secretEnvelope, 18);
 
       secretContent.innerText = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-      secretModal.classList.add('active');
+      secretModal.classList.add("active");
     });
 
-    function closeSecretModal() { 
-      secretModal.classList.remove('active'); 
+    function closeSecretModal() {
+      secretModal.classList.remove("active");
     }
 
-    secretCloseBtn.addEventListener('click', closeSecretModal);
+    secretCloseBtn.addEventListener("click", closeSecretModal);
 
-    secretModal.addEventListener('click', function(e) { 
-      if (e.target === secretModal) closeSecretModal(); 
+    secretModal.addEventListener("click", function(e) {
+      if (e.target === secretModal) {
+        closeSecretModal();
+      }
     });
 
-    historyBtn.addEventListener('click', function(e) {
+    historyBtn.addEventListener("click", function(e) {
       e.stopPropagation();
 
       createHistoryButtonHeartBurst(historyBtn);
 
-      listEl.innerHTML = ''; 
+      listEl.innerHTML = "";
 
-      const historyItems = messages.filter(m => m[0] !== "default");
+      const historyItems = messages.filter(item => item[0] !== "default");
 
       if (historyItems.length === 0) {
         listEl.innerHTML = '<div style="text-align:center; color:#ccc;">还没有特定的纪念日情话哦~</div>';
       } else {
         historyItems.forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'history-item';
+          const div = document.createElement("div");
+          div.className = "history-item";
           div.innerHTML = `<div class="history-date">📅 ${item[0]}</div><div>${item[1]}</div>`;
           listEl.appendChild(div);
         });
       }
 
       setTimeout(() => {
-        historyModal.classList.add('active');
+        historyModal.classList.add("active");
       }, 180);
     });
 
-    function closeModal() { 
-      historyModal.classList.remove('active'); 
+    function closeModal() {
+      historyModal.classList.remove("active");
     }
 
-    closeBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener("click", closeModal);
 
-    historyModal.addEventListener('click', function(e) { 
-      if (e.target === historyModal) closeModal(); 
+    historyModal.addEventListener("click", function(e) {
+      if (e.target === historyModal) {
+        closeModal();
+      }
     });
 
-    window.onload = function() { 
-      initDate(); 
-      createHearts(); 
-      playTypewriter(getTodayMessage()); 
+    window.onload = function() {
+      initDate();
+      createHearts();
+      playTypewriter(getTodayMessage());
     };
   </script>
 </body>
