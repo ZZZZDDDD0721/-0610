@@ -125,18 +125,22 @@
       box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
     }
 
-    /* --- 新增：点击爆出的小爱心特效 --- */
+    /* --- 新增：点击爆出的纯红小爱心特效 --- */
     .click-heart {
       position: absolute;
       pointer-events: none; /* 防止遮挡点击事件 */
-      font-size: 16px;
+      color: #d50000; /* 纯红色 */
+      font-size: 20px;
       z-index: 99;
+      text-shadow: 0 0 5px rgba(213, 0, 0, 0.4); /* 微微的红色发光感 */
       animation: popHeart 0.8s ease-out forwards;
     }
+    
+    /* 优化后的散开动画 */
     @keyframes popHeart {
       0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-      50% { transform: translate(-50%, -150%) scale(1.2); opacity: 0.8; }
-      100% { transform: translate(-50%, -250%) scale(0.8); opacity: 0; }
+      40% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 1; }
+      100% { transform: translate(var(--tx), calc(var(--ty) - 40px)) scale(0.8); opacity: 0; }
     }
   </style>
 </head>
@@ -240,30 +244,37 @@
       }
     }
 
-    // 5. 新增：点击弹出小爱心特效
+    // 5. 新增：点击弹出大小不一的纯红小爱心特效
     function createClickHeart(e) {
-      const hearts = ['❤️', '💖', '💗', '💘', '✨'];
-      for(let i = 0; i < 3; i++) { // 每次点击随机生成3个小爱心
+      for(let i = 0; i < 3; i++) { // 固定生成3个
         const heart = document.createElement('div');
         heart.classList.add('click-heart');
-        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.innerText = '❤';
+        
+        // 设置随机大小 (14px 到 26px)
+        const randomSize = Math.floor(Math.random() * 12) + 14;
+        heart.style.fontSize = randomSize + 'px';
         
         // 设置初始位置为点击位置
         heart.style.left = e.clientX + 'px';
         heart.style.top = e.clientY + 'px';
         
-        // 增加一点随机的水平偏移，让散开更自然
-        const randomX = (Math.random() - 0.5) * 40; 
-        heart.style.transform = `translate(calc(-50% + ${randomX}px), -50%)`;
+        // 计算随机的散开方向（向左上、正上、右上）
+        const tx = (Math.random() - 0.5) * 60; // 水平偏移 -30px 到 30px
+        const ty = -(Math.random() * 40 + 30); // 垂直向上偏移 -30px 到 -70px
+        
+        // 将变量传给CSS动画
+        heart.style.setProperty('--tx', tx + 'px');
+        heart.style.setProperty('--ty', ty + 'px');
         
         document.body.appendChild(heart);
         
-        // 动画结束后自动移除元素，避免DOM堆积
+        // 动画结束后自动移除元素
         setTimeout(() => heart.remove(), 800);
       }
     }
 
-    // 6. 历史记录弹窗逻辑（改用 addEventListener 绑定，避免内联 onclick 冲突）
+    // 6. 历史记录弹窗逻辑
     const historyBtn = document.getElementById('historyBtn');
     const historyModal = document.getElementById('historyModal');
     const closeBtn = document.getElementById('closeBtn');
