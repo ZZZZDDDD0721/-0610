@@ -108,21 +108,52 @@
       position: absolute; 
       top: 15px; 
       right: 15px;
-      width: 40px; 
-      height: 40px; 
-      border-radius: 50%; 
+      height: 38px;
+      padding: 0 13px;
+      border-radius: 999px; 
       background: linear-gradient(45deg, #ec407a, #e91e63);
       color: white; 
-      font-size: 16px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .5px;
       display: flex; 
       align-items: center; 
       justify-content: center;
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+      gap: 4px;
+      box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
+      animation: historyBtnHint 2.8s ease-in-out infinite;
+    }
+
+    .history-btn::after {
+      content: "点我";
+      position: absolute;
+      right: 4px;
+      top: -13px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .95);
+      color: #e91e63;
+      font-size: 10px;
+      font-weight: 700;
+      box-shadow: 0 3px 8px rgba(233, 30, 99, .16);
+      transform: scale(.92);
+      opacity: .88;
     }
 
     .history-btn:active { 
-      transform: scale(0.85) translateY(1px); 
-      box-shadow: 0 1px 3px rgba(233, 30, 99, 0.4), inset 0 -2px 4px rgba(0,0,0,0.1); 
+      transform: scale(0.94) translateY(1px); 
+      box-shadow: 0 2px 7px rgba(233, 30, 99, 0.32), inset 0 -2px 4px rgba(0,0,0,0.08); 
+    }
+
+    @keyframes historyBtnHint {
+      0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
+      }
+      50% {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(233, 30, 99, 0.36);
+      }
     }
 
     .modal-overlay {
@@ -398,27 +429,27 @@
 
     @keyframes historyBalloonFloat {
       0% {
-        transform: translate(-50%, -50%) scale(.35) rotate(var(--rot-start));
+        transform: translate(-50%, -50%) scale(.32) rotate(var(--rot-start));
         opacity: 0;
         filter: blur(0);
       }
-      14% {
-        transform: translate(calc(-50% + var(--sway1)), calc(-50% - 12px)) scale(1.05) rotate(var(--rot-start));
+      16% {
+        transform: translate(calc(-50% + var(--sway1)), calc(-50% - 10px)) scale(1.02) rotate(var(--rot-start));
         opacity: 1;
       }
       42% {
         transform: translate(calc(-50% + var(--sway2)), calc(-50% + var(--rise-mid))) scale(.98) rotate(var(--rot-mid));
-        opacity: .96;
+        opacity: .97;
       }
       72% {
-        transform: translate(calc(-50% + var(--sway3)), calc(-50% + var(--rise-end))) scale(.82) rotate(var(--rot-end));
-        opacity: .72;
-        filter: blur(.2px);
+        transform: translate(calc(-50% + var(--sway3)), calc(-50% + var(--rise-end))) scale(.84) rotate(var(--rot-end));
+        opacity: .76;
+        filter: blur(.15px);
       }
       100% {
-        transform: translate(calc(-50% + var(--sway4)), calc(-50% + var(--rise-final))) scale(.52) rotate(var(--rot-final));
+        transform: translate(calc(-50% + var(--sway4)), calc(-50% + var(--rise-final))) scale(.50) rotate(var(--rot-final));
         opacity: 0;
-        filter: blur(1.4px);
+        filter: blur(1.35px);
       }
     }
 
@@ -429,7 +460,7 @@
   <div class="floating-hearts" id="heartsContainer"></div>
 
   <div class="card">
-    <button class="history-btn" id="historyBtn" title="查看往期情话">📖</button>
+    <button class="history-btn" id="historyBtn" title="查看往期情话">📖 往期</button>
 
     <h1>
       <span class="envelope-egg" id="secretEnvelope" title="点一下小信封，有彩蛋哦">💌</span>
@@ -621,14 +652,15 @@
 
       /*
         右上角按钮专用：
-        不再爆开，而是像气球一样慢慢往上飘。
-        数量略微增加，但每颗爱心更小、更慢、更轻。
+        先从按钮附近一起冒出，再像小气球一样慢慢分散上飘。
       */
-      for (let i = 0; i < 7; i++) {
+      const count = 8;
+
+      for (let i = 0; i < count; i++) {
         const heart = document.createElement('div');
         heart.classList.add('history-balloon-heart');
 
-        const isSparkle = Math.random() < 0.12;
+        const isSparkle = Math.random() < 0.10;
         if (isSparkle) heart.classList.add('sparkle');
 
         heart.innerText = isSparkle ? '✦' : symbols[Math.floor(Math.random() * symbols.length)];
@@ -638,38 +670,43 @@
           : Math.floor(Math.random() * 9) + 14;
 
         /*
-          起点不完全相同：
-          像从按钮周围轻轻冒出来，不是从一个点炸出来。
+          起点靠近按钮中心，避免一出现就散得太开。
         */
-        const startX = baseX + (Math.random() - 0.5) * 15;
-        const startY = baseY + (Math.random() - 0.5) * 10;
+        const startX = baseX + (Math.random() - 0.5) * 10;
+        const startY = baseY + (Math.random() - 0.5) * 8;
 
         /*
-          气球感核心：
-          rise 全部为负数，保证只往上；
-          sway 左右轻摆，但整体偏左一点，避免贴右边界。
+          慢慢分散：
+          sway1 很小，sway4 更大；
+          整体略微偏左，避免贴着右边界。
         */
-        const driftLeft = -(Math.random() * 26 + 10);
-        const sway1 = driftLeft + (Math.random() - 0.5) * 14;
-        const sway2 = driftLeft + (Math.random() - 0.5) * 30;
-        const sway3 = driftLeft + (Math.random() - 0.5) * 38;
-        const sway4 = driftLeft + (Math.random() - 0.5) * 46;
+        const order = i - (count - 1) / 2;
+        const fan = order * 7 + (Math.random() - 0.5) * 8;
+        const baseLeft = -(Math.random() * 14 + 8);
 
-        const riseMid = -(Math.random() * 30 + 45);
-        const riseEnd = riseMid - (Math.random() * 34 + 38);
-        const riseFinal = riseEnd - (Math.random() * 36 + 42);
+        const sway1 = baseLeft + fan * 0.12;
+        const sway2 = baseLeft + fan * 0.42 + (Math.random() - 0.5) * 8;
+        const sway3 = baseLeft + fan * 0.75 + (Math.random() - 0.5) * 14;
+        const sway4 = baseLeft + fan * 1.15 + (Math.random() - 0.5) * 18;
 
-        const rotStart = (Math.random() - 0.5) * 12;
-        const rotMid = rotStart + (Math.random() - 0.5) * 14;
-        const rotEnd = rotMid + (Math.random() - 0.5) * 18;
-        const rotFinal = rotEnd + (Math.random() - 0.5) * 22;
+        /*
+          全程向上，速度偏慢，像气球。
+        */
+        const riseMid = -(Math.random() * 26 + 42);
+        const riseEnd = riseMid - (Math.random() * 34 + 42);
+        const riseFinal = riseEnd - (Math.random() * 42 + 48);
+
+        const rotStart = (Math.random() - 0.5) * 10;
+        const rotMid = rotStart + (Math.random() - 0.5) * 12;
+        const rotEnd = rotMid + (Math.random() - 0.5) * 16;
+        const rotFinal = rotEnd + (Math.random() - 0.5) * 20;
 
         /*
           速度控制：
-          1.7s - 2.2s，比之前慢，像气球飘走。
+          2.05s - 2.65s，慢慢飘走，不像爆开。
         */
-        const duration = Math.floor(Math.random() * 500) + 1700;
-        const delay = i * 70 + Math.random() * 55;
+        const duration = Math.floor(Math.random() * 600) + 2050;
+        const delay = i * 75 + Math.random() * 45;
 
         heart.style.left = `${startX}px`;
         heart.style.top = `${startY}px`;
@@ -694,7 +731,7 @@
 
         document.body.appendChild(heart);
 
-        setTimeout(() => heart.remove(), duration + delay + 180);
+        setTimeout(() => heart.remove(), duration + delay + 200);
       }
     }
 
