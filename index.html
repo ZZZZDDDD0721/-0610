@@ -23,8 +23,7 @@
     /* --- 极简漂浮爱心元素 --- */
     .floating-hearts { position: absolute; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
     .heart {
-      position: absolute;
-      bottom: -50px;
+      position: absolute; bottom: -50px;
       background-color: rgba(233, 30, 99, 0.15); 
       border-radius: 50%; 
       animation: floatUp linear infinite;
@@ -59,17 +58,21 @@
     .cursor { display: inline-block; width: 2px; height: 20px; background: #e91e63; margin-left: 4px; animation: blink 1s infinite; vertical-align: middle;}
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-    /* --- 底部微文案与按钮 --- */
-    .footer-note { font-size: 12px; color: #f48fb1; letter-spacing: 1px; opacity: 0.8; margin-bottom: 15px;}
-    
-    button {
-      padding: 12px 30px;
+    /* --- 底部微文案 --- */
+    .footer-note { font-size: 12px; color: #f48fb1; letter-spacing: 1px; opacity: 0.8;}
+
+    /* --- 右上角历史按钮样式 --- */
+    .history-btn {
+      position: absolute; top: 15px; right: 15px;
+      width: 36px; height: 36px; border-radius: 50%;
       background: linear-gradient(45deg, #ec407a, #e91e63);
-      color: white; border: none; border-radius: 50px;
-      font-size: 14px; cursor: pointer; transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3); outline: none;
+      color: white; border: none; font-size: 16px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
+      transition: all 0.3s ease; outline: none;
+      padding: 0; /* 清除默认padding让图标居中 */
     }
-    button:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4); }
+    .history-btn:hover { transform: scale(1.1); box-shadow: 0 6px 15px rgba(233, 30, 99, 0.4); }
 
     /* --- 历史记录弹窗样式 --- */
     .modal-overlay {
@@ -97,7 +100,7 @@
     .history-date { font-size: 12px; color: #e91e63; margin-bottom: 5px; font-weight: bold;}
     .close-btn { 
       margin-top: 20px; background: #f8bbd0; color: #c2185b; 
-      padding: 10px 0; width: 100%; font-weight: bold;
+      padding: 10px 0; width: 100%; font-weight: bold; border-radius: 50px; border: none; cursor: pointer; transition: all 0.3s ease;
     }
     .close-btn:hover { background: #f48fb1; box-shadow: none; transform: none;}
   </style>
@@ -108,6 +111,9 @@
   <div class="floating-hearts" id="heartsContainer"></div>
 
   <div class="card">
+    <!-- 右上角历史按钮 -->
+    <button class="history-btn" onclick="openHistory()" title="查看往期情话">📖</button>
+
     <h1>💌 给宝贝的每日情话</h1>
     <div class="date" id="date"></div>
     
@@ -117,14 +123,12 @@
     </div>
 
     <div class="footer-note">· 每天一句，只说给你听 ·</div>
-    <!-- 改为打开历史记录的按钮 -->
-    <button onclick="openHistory()">📖 查看往期情话</button>
   </div>
 
   <!-- 历史情话弹窗 -->
   <div class="modal-overlay" id="historyModal" onclick="closeHistory(event)">
     <div class="modal-card">
-      <div class="modal-title">💞 我们的专属回忆</div>
+      <div class="modal-title">🕰️ 我们的专属回忆</div>
       <div id="historyList"></div>
       <button class="close-btn" onclick="closeHistory(event, true)">关闭</button>
     </div>
@@ -181,11 +185,8 @@
       let i = 0;
       const timer = setInterval(() => {
         if (i < text.length) {
-          el.innerText += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(timer);
-        }
+          el.innerText += text.charAt(i); i++;
+        } else { clearInterval(timer); }
       }, 60); 
     }
 
@@ -196,8 +197,7 @@
         const heart = document.createElement('div');
         heart.classList.add('heart');
         const size = Math.random() * 20 + 10; 
-        heart.style.width = `${size}px`;
-        heart.style.height = `${size}px`;
+        heart.style.width = `${size}px`; heart.style.height = `${size}px`;
         heart.style.left = Math.random() * 100 + '%';
         heart.style.animationDuration = (Math.random() * 10 + 10) + 's'; 
         heart.style.animationDelay = (Math.random() * 10) + 's'; 
@@ -208,9 +208,8 @@
     // 5. 历史记录弹窗逻辑
     function openHistory() {
       const listEl = document.getElementById('historyList');
-      listEl.innerHTML = ''; // 清空旧内容
+      listEl.innerHTML = ''; 
       
-      // 过滤掉 default 的通用情话，只展示特定日期的回忆
       const historyItems = messages.filter(m => m[0] !== "default");
       
       if (historyItems.length === 0) {
@@ -228,7 +227,6 @@
     }
 
     function closeHistory(event, forceClose = false) {
-      // 点击遮罩层或关闭按钮时关闭
       if (forceClose || event.target.id === 'historyModal') {
         document.getElementById('historyModal').classList.remove('active');
       }
@@ -236,9 +234,7 @@
 
     // 页面加载执行
     window.onload = function() {
-      initDate();
-      createHearts();
-      playTypewriter(getTodayMessage());
+      initDate(); createHearts(); playTypewriter(getTodayMessage());
     };
   </script>
 </body>
