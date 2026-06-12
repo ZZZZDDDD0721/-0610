@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>给宝贝的每日情话</title>
+  <title>给你的一点小开心</title>
 
   <style>
     * {
@@ -80,8 +80,21 @@
     .date {
       font-size: 14px;
       color: #e91e63;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
       opacity: 0.8;
+    }
+
+    .main-intention {
+      margin: 0 auto 18px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255, 245, 248, 0.96), rgba(255, 250, 253, 0.96));
+      border: 1px solid rgba(248, 187, 208, 0.55);
+      color: #ad1457;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: left;
+      box-shadow: 0 6px 16px rgba(233, 30, 99, 0.07);
     }
 
     .message-box {
@@ -113,6 +126,45 @@
       50% {
         opacity: 0;
       }
+    }
+
+    .daily-link-area {
+      margin: 0 auto 18px;
+    }
+
+    .daily-link-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #f06292, #ec407a);
+      color: white;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.22);
+      transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .daily-link-btn.empty {
+      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
+      color: #ad1457;
+    }
+
+    .daily-link-btn:active {
+      transform: scale(0.95) translateY(1px);
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.22);
+    }
+
+    .daily-link-tip {
+      margin-top: 8px;
+      color: #f48fb1;
+      font-size: 12px;
+      line-height: 1.5;
     }
 
     .footer-note {
@@ -591,20 +643,29 @@
   <div class="floating-hearts" id="heartsContainer"></div>
 
   <div class="card">
-    <button class="history-btn" id="historyBtn" title="查看往期情话">📖 回顾</button>
+    <button class="history-btn" id="historyBtn" title="查看时光札记">📖 回顾</button>
 
     <h1>
-      <span class="envelope-egg" id="secretEnvelope" title="点一下小信封，有彩蛋哦">💌</span>
-      给宝贝的每日情话
+      <span class="envelope-egg" id="secretEnvelope" title="点一下小信封，有一点小心情哦">💌</span>
+      给你的一点小开心
     </h1>
 
     <div class="date" id="date"></div>
+
+    <div class="main-intention">
+      其实这里不是只想写情话，更像是把一点点生活里的小心情、小碎片放进代码里。希望你偶尔点开看到的时候，心情能悄悄好一点点。
+    </div>
 
     <div class="message-box">
       <span id="messageText"></span><span class="cursor"></span>
     </div>
 
-    <div class="footer-note">· 有些话只说给你听 ·</div>
+    <div class="daily-link-area">
+      <a class="daily-link-btn empty" id="dailyLinkBtn" href="#" target="_blank" rel="noopener noreferrer">🔗 今日小链接</a>
+      <div class="daily-link-tip" id="dailyLinkTip">这里预留给每天想分享给你的有意思链接～</div>
+    </div>
+
+    <div class="footer-note">· 不是非要写情话，只是想让你看到时心情好一点 ·</div>
   </div>
 
   <div class="modal-overlay" id="historyModal">
@@ -623,9 +684,9 @@
   <div class="modal-overlay secret-overlay" id="secretModal">
     <div class="secret-letter">
       <div class="secret-stamp">ONLY YOU</div>
-      <div class="secret-title">💌 藏在信封里的悄悄话</div>
+      <div class="secret-title">💌 藏在信封里的小心情</div>
       <div class="secret-content" id="secretContent"></div>
-      <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
+      <button class="secret-close-btn" id="secretCloseBtn">把小心情收好</button>
     </div>
   </div>
 
@@ -633,24 +694,25 @@
     const messages = [
       ["2026-05-12", "我们在洛克相遇啦"],
       ["2026-05-15", "也是厚着脸向你要了微信哈哈"],
-      ["2026-06-7", "光遇出入新手村,宝求带带😄"],  
+      ["2026-06-07", "光遇出入新手村，宝求带带😄"],
       ["往后的每一天", "未完待续...."],
-      // ["12-25", "圣诞节我不想要礼物，只想把你抱紧一点。"],
-      ["default", "想把全世界的好都给你，但首先想把我自己给你。"],
-      ["default", "和你在一起的每一天，都是我最喜欢的日常。"],
-      ["default", "谢谢你出现在我的人生里，让我懂得了什么是心动。"],
-      ["default", "宝贝，你今天也要被我偷偷爱着哦～"],
-      ["default", "你笑起来的样子，是我见过最治愈的风景。"],
-      ["default", "我的世界本来很暗，是你带着星星闯了进来。"],
-      ["default", "喜欢你，是这辈子做过最不需要犹豫的决定。"],
-      ["default", "余生很长，我只想和你慢慢走。"]
+      ["default", "如果今天有点累，就先慢慢来，我在这里给你放一点小开心。"],
+      ["default", "希望你点开这里的时候，哪怕只是几秒钟，也能觉得世界温柔了一点。"],
+      ["default", "今天也不用很厉害，能好好照顾自己就已经很棒啦。"],
+      ["default", "把一些小碎片放在这里，是想让你偶尔看到时，心情能亮一点点。"]
     ];
 
+    const dailyLinks = ["06-12", "今天看到的有趣小东西", "https://so.szlcsc.com/global.html?k=c167777&hot-key=BAV199LT1G&searchSource=&lcsc_vid=FFENUgBRT1gLUFdUFlQNVlcFT1cIBgEAT1RfBlcCQFYxVlNSQ1hYXlRTQ1dcXzsOAxUeFF5JWBYZEEoVDQ0NFAdIFA4DSA%3D%3D&spm=sc.gb.hd.ss"];
+      // 在这里填每天想分享给她的链接，格式是：["日期", "按钮上显示的标题", "网址"]
+      // 日期可以写完整日期 "2026-06-12"，也可以只写月份日期 "06-12"
+      // 例子：["06-12", "今天看到的有趣小东西", "https://example.com"]
+    
+
     const secretMessages = [
-      "彩蛋：其实这封信每天都会刷新，但我想你的心情不会过期。",
-      "偷偷告诉你：点开这里的人，会被我多喜欢一点点。",
-      "这是一封没有邮票的小信，因为目的地一直都是你。",
-      "小秘密：页面上所有爱心，都是替我先抱抱你。"
+      "彩蛋：这里不是非要写得多浪漫，只是想在你点开时，给你一点小小的好心情。",
+      "偷偷告诉你：页面上的每个小东西，都是想让你今天轻松一点点。",
+      "这是一封没有邮票的小信，因为它只是想把一点温柔送到你眼前。",
+      "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。"
     ];
 
     function initDate() {
@@ -682,17 +744,63 @@
 
     function getTodayMessage() {
       const now = new Date();
-      const mmdd =
-        String(now.getMonth() + 1).padStart(2, "0") +
-        "-" +
-        String(now.getDate()).padStart(2, "0");
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
 
-      const specificMsg = messages.find(item => item[0] === mmdd);
+      const mmdd = `${month}-${day}`;
+      const fullDate = `${year}-${month}-${day}`;
+
+      const specificMsg = messages.find(item => item[0] === fullDate || item[0] === mmdd);
 
       if (specificMsg) return specificMsg[1];
 
       const defaults = messages.filter(item => item[0] === "default");
-      return defaults[Math.floor(Math.random() * defaults.length)][1];
+
+      if (defaults.length > 0) {
+        return defaults[Math.floor(Math.random() * defaults.length)][1];
+      }
+
+      return "今天也想给你留一点小开心，希望你看到的时候，心情能轻一点点。";
+    }
+
+    function getTodayLink() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+
+      const mmdd = `${month}-${day}`;
+      const fullDate = `${year}-${month}-${day}`;
+
+      return dailyLinks.find(item => item[0] === fullDate || item[0] === mmdd);
+    }
+
+    function initDailyLink() {
+      const linkBtn = document.getElementById("dailyLinkBtn");
+      const linkTip = document.getElementById("dailyLinkTip");
+      const todayLink = getTodayLink();
+
+      if (todayLink && todayLink[2]) {
+        linkBtn.href = todayLink[2];
+        linkBtn.innerText = `🔗 ${todayLink[1] || "今日小链接"}`;
+        linkBtn.classList.remove("empty");
+        linkTip.innerText = "点开看看今天想分享给你的有意思小东西～";
+      } else {
+        linkBtn.href = "#";
+        linkBtn.innerText = "🔗 今日小链接";
+        linkBtn.classList.add("empty");
+        linkTip.innerText = "这里预留给每天想分享给你的有意思链接～";
+      }
+
+      linkBtn.addEventListener("click", function(e) {
+        if (!todayLink || !todayLink[2]) {
+          e.preventDefault();
+          linkTip.innerText = "今天的小链接还没放上去，等我补给你～";
+        }
+
+        createHeartBurstAroundElement(linkBtn, 10);
+      });
     }
 
     function playTypewriter(text) {
@@ -928,7 +1036,7 @@
       const historyItems = messages.filter(item => item[0] !== "default");
 
       if (historyItems.length === 0) {
-        listEl.innerHTML = '<div style="text-align:center; color:#ccc;">还没有特定的纪念日情话哦~</div>';
+        listEl.innerHTML = '<div style="text-align:center; color:#ccc;">还没有新的时光札记哦~</div>';
       } else {
         historyItems.forEach(item => {
           const div = document.createElement("div");
@@ -965,6 +1073,7 @@
 
     window.onload = function() {
       initDate();
+      initDailyLink();
       createHearts();
       playTypewriter(getTodayMessage());
     };
