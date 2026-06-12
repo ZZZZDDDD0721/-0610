@@ -206,6 +206,7 @@
     }
 
     .modal-card {
+      position: relative;
       background: white;
       width: 90%;
       max-width: 380px;
@@ -226,6 +227,85 @@
       font-size: 18px;
       margin-bottom: 20px;
       color: #c2185b;
+    }
+
+    .history-help-btn {
+      position: absolute;
+      top: 17px;
+      right: 18px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(248, 187, 208, 0.7);
+      color: #c2185b;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 26px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
+      z-index: 2;
+    }
+
+    .history-help-btn:active {
+      transform: scale(0.9);
+      background: #f48fb1;
+    }
+
+    .history-info-pop {
+      position: relative;
+      display: none;
+      margin: -4px 0 18px;
+      padding: 15px 15px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff5f8, #fffafd);
+      border: 1px solid rgba(248, 187, 208, 0.78);
+      color: #ad1457;
+      font-size: 14px;
+      line-height: 1.8;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
+      animation: historyInfoIn 0.28s ease both;
+    }
+
+    .history-info-pop.active {
+      display: block;
+    }
+
+    .history-info-pop::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      right: 22px;
+      width: 12px;
+      height: 12px;
+      background: #fff5f8;
+      border-left: 1px solid rgba(248, 187, 208, 0.78);
+      border-top: 1px solid rgba(248, 187, 208, 0.78);
+      transform: rotate(45deg);
+    }
+
+    .history-info-title {
+      margin-bottom: 6px;
+      color: #c2185b;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .history-info-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes historyInfoIn {
+      0% {
+        transform: translateY(-6px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .history-item {
@@ -529,7 +609,12 @@
 
   <div class="modal-overlay" id="historyModal">
     <div class="modal-card">
+      <button class="history-help-btn" id="historyHelpBtn" title="为什么写时光札记">?</button>
       <div class="modal-title">🕰️ 时光札记</div>
+      <div class="history-info-pop" id="historyInfoPop">
+        <div class="history-info-title">关于时光札记</div>
+        <div class="history-info-text">记录这个的本意，是因为我觉得把生活的点滴写进代码里会是很浪漫的事呢，如果十年后二十年后...再看到这段代码，也许会有不一样的感悟叭hh</div>
+      </div>
       <div id="historyList"></div>
       <button class="close-btn" id="closeBtn">我知道了</button>
     </div>
@@ -803,6 +888,8 @@
     const historyModal = document.getElementById("historyModal");
     const closeBtn = document.getElementById("closeBtn");
     const listEl = document.getElementById("historyList");
+    const historyHelpBtn = document.getElementById("historyHelpBtn");
+    const historyInfoPop = document.getElementById("historyInfoPop");
 
     const secretEnvelope = document.getElementById("secretEnvelope");
     const secretModal = document.getElementById("secretModal");
@@ -835,6 +922,7 @@
 
       createHistoryButtonHeartBurst(historyBtn);
 
+      historyInfoPop.classList.remove("active");
       listEl.innerHTML = "";
 
       const historyItems = messages.filter(item => item[0] !== "default");
@@ -855,8 +943,16 @@
       }, 180);
     });
 
+    historyHelpBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(historyHelpBtn, 8);
+      historyInfoPop.classList.toggle("active");
+    });
+
     function closeModal() {
       historyModal.classList.remove("active");
+      historyInfoPop.classList.remove("active");
     }
 
     closeBtn.addEventListener("click", closeModal);
