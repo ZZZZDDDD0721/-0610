@@ -82,18 +82,18 @@
       display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 10px rgba(233, 30, 99, 0.3);
     }
-    /* 手机端按压反馈（更明显） */
+    /* 手机端按压反馈 */
     .history-btn:active { 
-      transform: scale(0.85) translateY(1px); /* 按下时轻微下沉 */
-      box-shadow: 0 1px 3px rgba(233, 30, 99, 0.4), inset 0 -2px 4px rgba(0,0,0,0.1); /* 增加内阴影模拟凹陷感 */
+      transform: scale(0.85) translateY(1px); 
+      box-shadow: 0 1px 3px rgba(233, 30, 99, 0.4), inset 0 -2px 4px rgba(0,0,0,0.1); 
     }
 
-    /* --- 历史记录弹窗样式（放慢动画） --- */
+    /* --- 历史记录弹窗样式（过渡时间调整为0.8s） --- */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(5px);
       z-index: 10; display: flex; align-items: center; justify-content: center;
-      opacity: 0; pointer-events: none; transition: opacity 0.5s ease; /* 遮罩层淡入变慢 */
+      opacity: 0; pointer-events: none; transition: opacity 0.8s ease; 
     }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
@@ -101,7 +101,7 @@
       background: white; width: 90%; max-width: 380px; max-height: 70vh;
       border-radius: 20px; padding: 30px 20px; overflow-y: auto;
       box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
-      transform: scale(0.95) translateY(20px); transition: all 0.5s ease; /* 弹窗从略小状态平滑放大 */
+      transform: scale(0.95) translateY(20px); transition: all 0.8s ease; 
     }
     .modal-overlay.active .modal-card { transform: scale(1) translateY(0); }
 
@@ -118,11 +118,25 @@
       margin-top: 20px; background: #f8bbd0; color: #c2185b; 
       padding: 14px 0; width: 100%; font-weight: bold; border-radius: 50px; 
     }
-    /* 关闭按钮按压反馈（更明显） */
+    /* 关闭按钮按压反馈 */
     .close-btn:active { 
       background: #f48fb1; 
       transform: scale(0.95) translateY(1px); 
       box-shadow: inset 0 -2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* --- 新增：点击爆出的小爱心特效 --- */
+    .click-heart {
+      position: absolute;
+      pointer-events: none; /* 防止遮挡点击事件 */
+      font-size: 16px;
+      z-index: 99;
+      animation: popHeart 0.8s ease-out forwards;
+    }
+    @keyframes popHeart {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      50% { transform: translate(-50%, -150%) scale(1.2); opacity: 0.8; }
+      100% { transform: translate(-50%, -250%) scale(0.8); opacity: 0; }
     }
   </style>
 </head>
@@ -133,7 +147,7 @@
 
   <div class="card">
     <!-- 右上角历史按钮 -->
-    <button class="history-btn" onclick="openHistory()" title="查看往期情话">📖</button>
+    <button class="history-btn" id="historyBtn" title="查看往期情话">📖</button>
 
     <h1>💌 给宝贝的每日情话</h1>
     <div class="date" id="date"></div>
@@ -147,11 +161,11 @@
   </div>
 
   <!-- 历史情话弹窗 -->
-  <div class="modal-overlay" id="historyModal" onclick="closeHistory(event)">
+  <div class="modal-overlay" id="historyModal">
     <div class="modal-card">
       <div class="modal-title">🕰️ 我们的专属回忆</div>
       <div id="historyList"></div>
-      <button class="close-btn" onclick="closeHistory(event, true)">我知道了</button>
+      <button class="close-btn" id="closeBtn">我知道了</button>
     </div>
   </div>
 
@@ -226,11 +240,39 @@
       }
     }
 
-    // 5. 历史记录弹窗逻辑
-    function openHistory() {
-      const listEl = document.getElementById('historyList');
-      listEl.innerHTML = ''; 
+    // 5. 新增：点击弹出小爱心特效
+    function createClickHeart(e) {
+      const hearts = ['❤️', '💖', '💗', '💘', '✨'];
+      for(let i = 0; i < 3; i++) { // 每次点击随机生成3个小爱心
+        const heart = document.createElement('div');
+        heart.classList.add('click-heart');
+        heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        
+        // 设置初始位置为点击位置
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        
+        // 增加一点随机的水平偏移，让散开更自然
+        const randomX = (Math.random() - 0.5) * 40; 
+        heart.style.transform = `translate(calc(-50% + ${randomX}px), -50%)`;
+        
+        document.body.appendChild(heart);
+        
+        // 动画结束后自动移除元素，避免DOM堆积
+        setTimeout(() => heart.remove(), 800);
+      }
+    }
+
+    // 6. 历史记录弹窗逻辑（改用 addEventListener 绑定，避免内联 onclick 冲突）
+    const historyBtn = document.getElementById('historyBtn');
+    const historyModal = document.getElementById('historyModal');
+    const closeBtn = document.getElementById('closeBtn');
+    const listEl = document.getElementById('historyList');
+
+    historyBtn.addEventListener('click', function(e) {
+      createClickHeart(e); // 触发爱心特效
       
+      listEl.innerHTML = ''; 
       const historyItems = messages.filter(m => m[0] !== "default");
       
       if (historyItems.length === 0) {
@@ -244,14 +286,17 @@
         });
       }
       
-      document.getElementById('historyModal').classList.add('active');
-    }
+      historyModal.classList.add('active');
+    });
 
-    function closeHistory(event, forceClose = false) {
-      if (forceClose || event.target.id === 'historyModal') {
-        document.getElementById('historyModal').classList.remove('active');
-      }
+    // 关闭弹窗逻辑
+    function closeModal() {
+      historyModal.classList.remove('active');
     }
+    closeBtn.addEventListener('click', closeModal);
+    historyModal.addEventListener('click', function(e) {
+      if (e.target === historyModal) closeModal();
+    });
 
     // 页面加载执行
     window.onload = function() {
