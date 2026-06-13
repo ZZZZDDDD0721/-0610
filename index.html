@@ -98,14 +98,37 @@
     }
 
     .message-box {
+      position: relative;
       font-size: 20px;
       line-height: 1.8;
       min-height: 160px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 10px;
+      padding: 28px 10px 0;
       margin-bottom: 20px;
+    }
+
+    .message-refresh-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(248, 187, 208, 0.78);
+      color: #c2185b;
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 32px;
+      text-align: center;
+      box-shadow: 0 5px 12px rgba(233, 30, 99, 0.16);
+      z-index: 2;
+    }
+
+    .message-refresh-btn:active {
+      transform: scale(0.9) rotate(18deg);
+      background: #f48fb1;
     }
 
     .cursor {
@@ -737,6 +760,7 @@
     </div>
 
     <div class="message-box">
+      <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句小暖心">↻</button>
       <span id="messageText"></span><span class="cursor"></span>
     </div>
 
@@ -810,12 +834,12 @@
       ["default", "愿今天的风温柔一点，路顺一点，心情也轻一点。"],
       ["default", "不管今天过得怎么样，都先奖励自己一个小小的休息吧。"],
       ["default", "如果今天只完成了一点点，也算数，因为你真的在往前走。"],
-      ["default", "希望你看到这些话时，嘴角能偷偷上扬一点点,那我会很开心的哦"],
+      ["default", "希望你看到这句话时，嘴角能偷偷上扬一点点。"],
       ["default", "今天的好运可能来得慢一点，但我希望它一定会找到你。"],
       ["default", "别把所有事情都扛在心里，偶尔偷懒一下也没关系。"],
       ["default", "愿你被生活轻轻抱住，而不是总被生活推着走。"],
       ["default", "今天也要相信，很多小美好正在路上，只是还没敲门。"],
-      ["default", "如果情绪乱乱的，就先深呼吸一下，慢慢来，我在这儿,随时可以找我哦。"],
+      ["default", "如果情绪乱乱的，就先深呼吸一下，慢慢来，我在这儿。"],
       ["default", "你不是不够好，只是有时候太累了，需要被温柔提醒一下。"],
       ["default", "愿你今天看到喜欢的颜色，听到舒服的声音，遇到顺心的小事。"],
       ["default", "这个页面不一定能解决什么，但想先给你一点点陪伴。"],
@@ -875,6 +899,31 @@
       document.getElementById("date").innerText = `${greeting} · ${dateStr}`;
     }
 
+    let currentWarmMessage = "";
+    let typewriterTimer = null;
+
+    function getRandomWarmMessage() {
+      const defaults = messages.filter(item => item[0] === "default");
+
+      if (defaults.length === 0) {
+        return "今天也想给你留一点小开心，希望你看到的时候，心情能轻一点点。";
+      }
+
+      let nextMessage = defaults[Math.floor(Math.random() * defaults.length)][1];
+
+      if (defaults.length > 1) {
+        let safeCount = 0;
+
+        while (nextMessage === currentWarmMessage && safeCount < 8) {
+          nextMessage = defaults[Math.floor(Math.random() * defaults.length)][1];
+          safeCount++;
+        }
+      }
+
+      currentWarmMessage = nextMessage;
+      return nextMessage;
+    }
+
     function getTodayMessage() {
       const now = new Date();
       const year = now.getFullYear();
@@ -886,15 +935,12 @@
 
       const specificMsg = messages.find(item => item[0] === fullDate || item[0] === mmdd);
 
-      if (specificMsg) return specificMsg[1];
-
-      const defaults = messages.filter(item => item[0] === "default");
-
-      if (defaults.length > 0) {
-        return defaults[Math.floor(Math.random() * defaults.length)][1];
+      if (specificMsg) {
+        currentWarmMessage = specificMsg[1];
+        return specificMsg[1];
       }
 
-      return "今天也想给你留一点小开心，希望你看到的时候，心情能轻一点点。";
+      return getRandomWarmMessage();
     }
 
     function getTodayLink() {
@@ -940,14 +986,19 @@
       const el = document.getElementById("messageText");
       el.innerText = "";
 
+      if (typewriterTimer) {
+        clearInterval(typewriterTimer);
+      }
+
       let i = 0;
 
-      const timer = setInterval(() => {
+      typewriterTimer = setInterval(() => {
         if (i < text.length) {
           el.innerText += text.charAt(i);
           i++;
         } else {
-          clearInterval(timer);
+          clearInterval(typewriterTimer);
+          typewriterTimer = null;
         }
       }, 60);
     }
@@ -1132,12 +1183,21 @@
     const historyHelpBtn = document.getElementById("historyHelpBtn");
     const historyInfoPop = document.getElementById("historyInfoPop");
 
+    const messageRefreshBtn = document.getElementById("messageRefreshBtn");
+
     const secretEnvelope = document.getElementById("secretEnvelope");
     const secretModal = document.getElementById("secretModal");
     const secretCloseBtn = document.getElementById("secretCloseBtn");
     const secretContent = document.getElementById("secretContent");
     const secretHelpBtn = document.getElementById("secretHelpBtn");
     const secretInfoPop = document.getElementById("secretInfoPop");
+
+    messageRefreshBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(messageRefreshBtn, 8);
+      playTypewriter(getRandomWarmMessage());
+    });
 
     secretEnvelope.addEventListener("click", function(e) {
       e.stopPropagation();
