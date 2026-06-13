@@ -483,7 +483,7 @@
     .secret-stamp {
       position: absolute;
       top: 14px;
-      right: 16px;
+      right: 54px;
       padding: 5px 8px;
       border: 1px dashed #ec407a;
       border-radius: 10px;
@@ -492,6 +492,28 @@
       letter-spacing: 1px;
       transform: rotate(8deg);
       opacity: 0.72;
+    }
+
+    .secret-help-btn {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(248, 187, 208, 0.72);
+      color: #c2185b;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 26px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
+      z-index: 3;
+    }
+
+    .secret-help-btn:active {
+      transform: scale(0.9);
+      background: #f48fb1;
     }
 
     .secret-title {
@@ -506,6 +528,64 @@
       font-size: 16px;
       line-height: 1.8;
       color: #c2185b;
+    }
+
+    .secret-info-pop {
+      position: relative;
+      display: none;
+      margin: -2px 0 14px;
+      padding: 14px 15px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff5f8, #fffafd);
+      border: 1px solid rgba(248, 187, 208, 0.78);
+      color: #ad1457;
+      font-size: 14px;
+      line-height: 1.8;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
+      animation: secretInfoIn 0.28s ease both;
+      z-index: 1;
+    }
+
+    .secret-info-pop.active {
+      display: block;
+    }
+
+    .secret-info-pop::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      right: 22px;
+      width: 12px;
+      height: 12px;
+      background: #fff5f8;
+      border-left: 1px solid rgba(248, 187, 208, 0.78);
+      border-top: 1px solid rgba(248, 187, 208, 0.78);
+      transform: rotate(45deg);
+    }
+
+    .secret-info-title {
+      margin-bottom: 6px;
+      color: #c2185b;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .secret-info-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes secretInfoIn {
+      0% {
+        transform: translateY(-6px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .secret-close-btn {
@@ -683,8 +763,13 @@
 
   <div class="modal-overlay secret-overlay" id="secretModal">
     <div class="secret-letter">
+      <button class="secret-help-btn" id="secretHelpBtn" title="关于这封小信">?</button>
       <div class="secret-stamp">ONLY YOU</div>
       <div class="secret-title">💌 藏在信封里的小秘密</div>
+      <div class="secret-info-pop" id="secretInfoPop">
+        <div class="secret-info-title">关于这封小信</div>
+        <div class="secret-info-text">这是一封没有邮票的小信，因为它只是想把一点温柔送到你眼前</div>
+      </div>
       <div class="secret-content" id="secretContent"></div>
       <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
     </div>
@@ -1005,18 +1090,29 @@
     const secretModal = document.getElementById("secretModal");
     const secretCloseBtn = document.getElementById("secretCloseBtn");
     const secretContent = document.getElementById("secretContent");
+    const secretHelpBtn = document.getElementById("secretHelpBtn");
+    const secretInfoPop = document.getElementById("secretInfoPop");
 
     secretEnvelope.addEventListener("click", function(e) {
       e.stopPropagation();
 
       createHeartBurstAroundElement(secretEnvelope, 18);
 
+      secretInfoPop.classList.remove("active");
       secretContent.innerText = secretMessages[Math.floor(Math.random() * secretMessages.length)];
       secretModal.classList.add("active");
     });
 
+    secretHelpBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(secretHelpBtn, 8);
+      secretInfoPop.classList.toggle("active");
+    });
+
     function closeSecretModal() {
       secretModal.classList.remove("active");
+      secretInfoPop.classList.remove("active");
     }
 
     secretCloseBtn.addEventListener("click", closeSecretModal);
