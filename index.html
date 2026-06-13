@@ -862,7 +862,7 @@
       // 日期可以写完整日期 "2026-06-13"，也可以只写月份日期 "06-13"
       // 例子：["06-13", "今天看到的有趣小东西", "https://example.com"]
 
-      ["06-13", "今天看到的有趣小东西", "https://www.bilibili.com/video/BV1uSVm6HECj/?spm_id_from=333.1007.tianma.1-1-1.click"]
+      ["06-13", "点这里是链接噢", "https://www.bilibili.com/video/BV1uSVm6HECj/?spm_id_from=333.1007.tianma.1-1-1.click"]
     ];
 
     const secretMessages = [
@@ -964,7 +964,7 @@
         linkBtn.href = todayLink[2];
         linkBtn.innerText = `🔗 ${todayLink[1] || "今日小链接"}`;
         linkBtn.classList.remove("empty");
-        linkTip.innerText = "点开看看今天想分享给你的有意思小东西～";
+        linkTip.innerText = "粥粥不定时更新噢～(没更新就是懒哈哈˶>ᗜ<˶)";
       } else {
         linkBtn.href = "#";
         linkBtn.innerText = "🔗 今日小链接";
