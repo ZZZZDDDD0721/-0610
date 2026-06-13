@@ -155,6 +155,13 @@
       margin: 0 auto 18px;
     }
 
+    .link-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
     .daily-link-btn {
       display: inline-flex;
       align-items: center;
@@ -171,6 +178,8 @@
       box-shadow: 0 8px 18px rgba(233, 30, 99, 0.22);
       transition: all 0.2s ease;
       -webkit-tap-highlight-color: transparent;
+      flex: 1;
+      min-width: 0;
     }
 
     .daily-link-btn.empty {
@@ -183,11 +192,72 @@
       box-shadow: 0 4px 10px rgba(233, 30, 99, 0.22);
     }
 
+    .archive-link-btn {
+      width: 44px;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #fff7fa, #ffe7ef);
+      border: 1px solid rgba(248, 187, 208, 0.9);
+      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.12);
+      color: #c2185b;
+      font-size: 22px;
+    }
+
+    .archive-link-btn:active {
+      transform: scale(0.94) translateY(1px);
+      background: linear-gradient(180deg, #ffeef4, #ffdce8);
+    }
+
     .daily-link-tip {
       margin-top: 8px;
       color: #f48fb1;
       font-size: 12px;
       line-height: 1.5;
+    }
+
+    .archive-item {
+      text-align: left;
+      margin-bottom: 16px;
+      padding: 14px 14px 12px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff8fb, #fffdfd);
+      border: 1px solid rgba(248, 187, 208, 0.7);
+      box-shadow: 0 6px 16px rgba(233, 30, 99, 0.08);
+    }
+
+    .archive-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .archive-date {
+      font-size: 12px;
+      color: #e91e63;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .archive-link-title {
+      display: inline-block;
+      color: #c2185b;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .archive-link-title:active {
+      opacity: 0.8;
+    }
+
+    .archive-desc {
+      color: #ad1457;
+      font-size: 13px;
+      line-height: 1.7;
     }
 
     .footer-note {
@@ -765,7 +835,10 @@
     </div>
 
     <div class="daily-link-area">
-      <a class="daily-link-btn empty" id="dailyLinkBtn" href="#" target="_blank" rel="noopener noreferrer">🔗 今日小链接</a>
+      <div class="link-actions">
+        <a class="daily-link-btn empty" id="dailyLinkBtn" href="#" target="_blank" rel="noopener noreferrer">🔗 今日小链接</a>
+        <button class="archive-link-btn" id="archiveLinkBtn" title="查看往期链接">📓</button>
+      </div>
       <div class="daily-link-tip" id="dailyLinkTip"></div>
     </div>
 
@@ -796,6 +869,14 @@
       </div>
       <div class="secret-content" id="secretContent"></div>
       <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="archiveModal">
+    <div class="modal-card">
+      <div class="modal-title">📓 往期链接</div>
+      <div id="archiveList"></div>
+      <button class="close-btn" id="archiveCloseBtn">收下这些往期分享</button>
     </div>
   </div>
 
@@ -858,11 +939,20 @@
     ];
 // 分享链接------------------------------------------------------------------------------------------------------------------------------------------------------------------
     const dailyLinks = [
-      // 在这里填每天想分享给她的链接，格式是：["日期", "按钮上显示的标题", "网址"]
+      // 在这里填每天想分享给她的“今日链接”，格式是：["日期", "按钮上显示的标题", "网址"]
       // 日期可以写完整日期 "2026-06-13"，也可以只写月份日期 "06-13"
-      // 例子：["06-13", "今天看到的有趣小东西", "https://example.com"]
+      // 例子：["06-13", "点这里是链接噢", "https://example.com"]
 
       ["06-13", "点这里是链接噢", "https://www.bilibili.com/video/BV1uSVm6HECj/?spm_id_from=333.1007.tianma.1-1-1.click"]
+    ];
+
+    const pastLinks = [
+      // 在这里填“往期链接”，格式是：["年月日", "标题", "网址", "简介"]
+      // 例子：["2026-06-10", "一个很可爱的小视频", "https://example.com", "今天路过时看到这个，感觉会让人嘴角上扬一点点。"]
+
+      ["2026-06-10", "会让人放松下来的小视频", "https://www.bilibili.com/", "今天想存进往期的一条小分享，适合心情有点乱的时候点开看看，轻轻放空一会儿。"],
+      ["2026-06-08", "很有意思的小网页", "https://example.com", "这个是那种看起来简单，但会让人觉得有点可爱的小东西，所以先帮你记在这里。"],
+      ["2026-06-05", "一首适合安静听的歌", "https://music.163.com/", "如果哪天有点累，或者只是想一个人安静一下，也许它会是一个刚刚好的背景声音。"]
     ];
 
     const secretMessages = [
@@ -985,6 +1075,27 @@
         }
 
         createHeartBurstAroundElement(linkBtn, 10);
+      });
+    }
+
+    function initPastLinks() {
+      const archiveList = document.getElementById("archiveList");
+      archiveList.innerHTML = "";
+
+      if (!pastLinks.length) {
+        archiveList.innerHTML = '<div style="text-align:center; color:#d88aa4;">这里还没有放上往期链接哦～</div>';
+        return;
+      }
+
+      pastLinks.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "archive-item";
+        div.innerHTML = `
+          <div class="archive-date">📅 ${item[0] || "未填写日期"}</div>
+          <a class="archive-link-title" href="${item[2] || '#'}" target="_blank" rel="noopener noreferrer">🔗 ${item[1] || "未命名链接"}</a>
+          <div class="archive-desc">${item[3] || "这里写这一条往期链接的小简介。"}</div>
+        `;
+        archiveList.appendChild(div);
       });
     }
 
@@ -1189,6 +1300,10 @@
     const historyHelpBtn = document.getElementById("historyHelpBtn");
     const historyInfoPop = document.getElementById("historyInfoPop");
 
+    const archiveLinkBtn = document.getElementById("archiveLinkBtn");
+    const archiveModal = document.getElementById("archiveModal");
+    const archiveCloseBtn = document.getElementById("archiveCloseBtn");
+
     const messageRefreshBtn = document.getElementById("messageRefreshBtn");
 
     const secretEnvelope = document.getElementById("secretEnvelope");
@@ -1203,6 +1318,28 @@
 
       createHeartBurstAroundElement(messageRefreshBtn, 8);
       playTypewriter(getRandomWarmMessage());
+    });
+
+    archiveLinkBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(archiveLinkBtn, 8);
+      initPastLinks();
+      setTimeout(() => {
+        archiveModal.classList.add("active");
+      }, 120);
+    });
+
+    function closeArchiveModal() {
+      archiveModal.classList.remove("active");
+    }
+
+    archiveCloseBtn.addEventListener("click", closeArchiveModal);
+
+    archiveModal.addEventListener("click", function(e) {
+      if (e.target === archiveModal) {
+        closeArchiveModal();
+      }
     });
 
     secretEnvelope.addEventListener("click", function(e) {
@@ -1284,6 +1421,7 @@
     window.onload = function() {
       initDate();
       initDailyLink();
+      initPastLinks();
       createHearts();
       playTypewriter(getTodayMessage());
     };
