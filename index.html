@@ -148,21 +148,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
       width: 100%;
+      flex-wrap: nowrap;
     }
 
     .mood-btn {
       flex: 1;
-      min-height: 34px;
-      padding: 0 6px;
+      min-width: 0;
+      min-height: 38px;
+      padding: 0 5px;
       border-radius: 999px;
       background: linear-gradient(180deg, #fff7fa, #ffe7ef);
       border: 1px solid rgba(248, 187, 208, 0.8);
       color: #ad1457;
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 700;
-      line-height: 1.25;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: clip;
       box-shadow: 0 5px 12px rgba(233, 30, 99, 0.08);
     }
 
@@ -899,7 +904,7 @@
       <div class="mood-label">宝宝此刻的心情:</div>
       <div class="mood-row">
         <button class="mood-btn active" data-mood="happy">开心˶&gt;ᗜ&lt;˶</button>
-        <button class="mood-btn" data-mood="sad">难过૮⸝⸝o̴̶̷᷄ ·̭ o̴̶̷̥᷅⸝⸝ა</button>
+        <button class="mood-btn" data-mood="sad">难过(ಥ﹏ಥ)</button>
         <button class="mood-btn" data-mood="normal">一般(ᗜ ˰ ᗜ)</button>
       </div>
       <div class="message-content">
@@ -938,7 +943,7 @@
       <div class="secret-title">💌 藏在信封里的小秘密</div>
       <div class="secret-info-pop" id="secretInfoPop">
         <div class="secret-info-title">关于这封小信</div>
-        <div class="secret-info-text">恭喜宝贝发现彩蛋噢，这里藏着我说不出的悄悄话噢</div>
+        <div class="secret-info-text">这是一封没有邮票的小信，因为它只是想把一点温柔送到你眼前.有些没说出口的话我会藏在身边的某一处角落噢</div>
       </div>
       <div class="secret-content" id="secretContent"></div>
       <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
