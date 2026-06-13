@@ -156,10 +156,12 @@
     }
 
     .link-actions {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      min-height: 44px;
+      width: 100%;
     }
 
     .daily-link-btn {
@@ -178,8 +180,13 @@
       box-shadow: 0 8px 18px rgba(233, 30, 99, 0.22);
       transition: all 0.2s ease;
       -webkit-tap-highlight-color: transparent;
-      flex: 1;
-      min-width: 0;
+      flex: none;
+      width: fit-content;
+      max-width: calc(100% - 60px);
+      margin: 0 auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .daily-link-btn.empty {
@@ -193,6 +200,8 @@
     }
 
     .archive-link-btn {
+      position: absolute;
+      right: 0;
       width: 44px;
       min-width: 44px;
       height: 44px;
@@ -837,7 +846,7 @@
     <div class="daily-link-area">
       <div class="link-actions">
         <a class="daily-link-btn empty" id="dailyLinkBtn" href="#" target="_blank" rel="noopener noreferrer">🔗 今日小链接</a>
-        <button class="archive-link-btn" id="archiveLinkBtn" title="查看往期链接">📓</button>
+        <button class="archive-link-btn" id="archiveLinkBtn" title="查看往期链接">📖</button>
       </div>
       <div class="daily-link-tip" id="dailyLinkTip"></div>
     </div>
