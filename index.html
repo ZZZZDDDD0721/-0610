@@ -101,11 +101,13 @@
       position: relative;
       font-size: 20px;
       line-height: 1.8;
-      min-height: 160px;
+      min-height: 180px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 28px 10px 0;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: 14px;
+      padding: 40px 0 0;
       margin-bottom: 20px;
     }
 
@@ -129,6 +131,60 @@
     .message-refresh-btn:active {
       transform: scale(0.9) rotate(18deg);
       background: #f48fb1;
+    }
+
+    .mood-label {
+      width: 100%;
+      color: #ad1457;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1.4;
+      text-align: left;
+      padding-left: 4px;
+      margin-bottom: -4px;
+    }
+
+    .mood-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      width: 100%;
+    }
+
+    .mood-btn {
+      flex: 1;
+      min-height: 34px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fff7fa, #ffe7ef);
+      border: 1px solid rgba(248, 187, 208, 0.8);
+      color: #ad1457;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.25;
+      box-shadow: 0 5px 12px rgba(233, 30, 99, 0.08);
+    }
+
+    .mood-btn.active {
+      background: linear-gradient(45deg, #f06292, #ec407a);
+      color: #fff;
+      border-color: rgba(236, 64, 122, 0.75);
+      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.2);
+    }
+
+    .mood-btn:active {
+      transform: scale(0.95) translateY(1px);
+    }
+
+    .message-content {
+      flex: 1;
+      width: 100%;
+      min-height: 96px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 10px;
     }
 
     .cursor {
@@ -839,8 +895,16 @@
     </div>
 
     <div class="message-box">
-      <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句小暖心">↻</button>
-      <span id="messageText"></span><span class="cursor"></span>
+      <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句当前心情语录">↻</button>
+      <div class="mood-label">宝宝此刻的心情:</div>
+      <div class="mood-row">
+        <button class="mood-btn active" data-mood="happy">开心˶&gt;ᗜ&lt;˶</button>
+        <button class="mood-btn" data-mood="sad">难过૮⸝⸝o̴̶̷᷄ ·̭ o̴̶̷̥᷅⸝⸝ა</button>
+        <button class="mood-btn" data-mood="normal">一般(ᗜ ˰ ᗜ)</button>
+      </div>
+      <div class="message-content">
+        <span id="messageText"></span><span class="cursor"></span>
+      </div>
     </div>
 
     <div class="daily-link-area">
@@ -874,7 +938,7 @@
       <div class="secret-title">💌 藏在信封里的小秘密</div>
       <div class="secret-info-pop" id="secretInfoPop">
         <div class="secret-info-title">关于这封小信</div>
-        <div class="secret-info-text">这是一封没有邮票的小信，因为它只是想把一点温柔送到你眼前.有些没说出口的话我会藏在身边的某一处角落噢</div>
+        <div class="secret-info-text">恭喜宝贝发现彩蛋噢，这里藏着我说不出的悄悄话噢</div>
       </div>
       <div class="secret-content" id="secretContent"></div>
       <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
@@ -883,7 +947,7 @@
 
   <div class="modal-overlay" id="archiveModal">
     <div class="modal-card">
-      <div class="modal-title">📓 往期链接</div>
+      <div class="modal-title">📖 往期链接</div>
       <div id="archiveList"></div>
       <button class="close-btn" id="archiveCloseBtn">我收下啦</button>
     </div>
@@ -894,58 +958,14 @@
       ["2026-05-12", "我们在洛克相遇啦"],
       ["2026-05-15", "厚着脸向你要了微信哈哈"],
       ["2026-06-07", "光遇出入新手村，宝求带带😄"],
-      ["往后的每一天", "未完待续...."],
-      ["default", "如果今天有点累，就先慢慢来没事的哦，抱抱(つˆᴗˆ)つ。"],
-      ["default", "今天也不用很厉害，能好好照顾自己就已经很棒啦。"],
-      ["default", "希望你点开这里的时候，刚好能收到一点点轻轻的开心。"],
-      ["default", "今天如果不太顺利，也没关系，坏心情不会一直待在你身边。"],
-      ["default", "你可以慢一点，也可以停一下，生活不是非要一直往前冲。"],
-      ["default", "今天也辛苦啦，愿你的小世界能多一点软软的风。"],
-      ["default", "如果没人夸你，那我先来：你已经做得很好啦。"],
-      ["default", "愿你今天遇到的小事，都能悄悄偏向温柔一点。"],
-      ["default", "有些日子不用很闪亮，平平安安就已经很好。"],
-      ["default", "今天也记得喝水、吃饭、休息，不要把自己弄得太累哦。"],
-      ["default", "如果心情有点低，就先把难过放一边，在这里歇一小会儿。"],
-      ["default", "希望这个小页面能像一盏小夜灯，轻轻陪你一下。"],
-      ["default", "你不用一直开心，不开心的时候也可以被好好接住。"],
-      ["default", "今天的你也值得被认真对待，哪怕只是很普通的一天。"],
-      ["default", "愿你抬头的时候有云，低头的时候有路，心里有一点点甜。"],
-      ["default", "如果今天没有人给你惊喜，那这个小角落就偷偷补上。"],
-      ["default", "别急着否定自己，你身上一直有很多可爱的地方。"],
-      ["default", "今天也请对自己温柔一点，你不是机器，也会累的呀。"],
-      ["default", "愿你醒来有期待，睡前有安心，中间的小事都不太为难你。"],
-      ["default", "如果世界有点吵，那就先躲进这里，安静一下也很好。"],
-      ["default", "你已经很努力啦，剩下的慢慢来，不用一下子全做好。"],
-      ["default", "希望你今天碰到的人和事，都不要消耗你太多力气。"],
-      ["default", "愿你的小烦恼像泡泡一样，轻轻飘走，然后啪地消失。"],
-      ["default", "今天也想把一点点好心情，悄悄塞进你的口袋里。"],
-      ["default", "如果有一瞬间觉得累，就记得这里还有一句话在等你。"],
-      ["default", "你不用变成谁喜欢的样子，你原本的样子就已经很好。"],
-      ["default", "愿今天的风温柔一点，路顺一点，心情也轻一点。"],
-      ["default", "不管今天过得怎么样，都先奖励自己一个小小的休息吧。"],
-      ["default", "如果今天只完成了一点点，也算数，因为你真的在往前走。"],
-      ["default", "希望你看到这句话时，嘴角能偷偷上扬一点点。"],
-      ["default", "今天的好运可能来得慢一点，但我希望它一定会找到你。"],
-      ["default", "别把所有事情都扛在心里，偶尔偷懒一下也没关系。"],
-      ["default", "愿你被生活轻轻抱住，而不是总被生活推着走。"],
-      ["default", "今天也要相信，很多小美好正在路上，只是还没敲门。"],
-      ["default", "如果情绪乱乱的，就先深呼吸一下，慢慢来，我在这儿。"],
-      ["default", "你不是不够好，只是有时候太累了，需要被温柔提醒一下。"],
-      ["default", "愿你今天看到喜欢的颜色，听到舒服的声音，遇到顺心的小事。"],
-      ["default", "这个页面不一定能解决什么，但想先给你一点点陪伴。"],
-      ["default", "如果今天很普通，那也很好，普通日子也可以被认真收藏。"],
-      ["default", "愿你心里的小乌云，早点被一阵暖风吹散。"],
-      ["default", "今天也别忘了，你值得被温柔对待，也值得拥有好心情。"],
-      ["default", "如果没人发现你的努力，那我替这个小页面先发现一下。"],
-      ["default", "愿你今天少一点纠结，多一点轻松，少一点内耗，多一点自在。"],
-      ["default", "你可以不用表现得很坚强，偶尔软乎乎一下也很可爱。"],
-      ["default", "今天的小目标：照顾好自己，然后开心一点点就够啦。"],
-      ["default", "愿你路过的每个瞬间，都有一点不被打扰的小幸福。"],
-      ["default", "如果这一天有点灰，那我就把这句话写成一点粉色送给你。"],
-      ["default", "你已经很棒了，不是因为做了多少，而是因为你一直在好好生活。"],
-      ["default", "愿你今晚睡得踏实，明天醒来又能多一点元气。"],
-      ["default", "以后每次点开这里，都希望它能像一个小树洞，接住你一点点心情。"]
+      ["往后的每一天", "未完待续...."]
     ];
+
+    const moodQuotes = {
+      happy: ["今天的开心不用很大，一点点就够把心照亮啦。", "如果刚好笑了一下，那这一秒就值得被收藏。", "愿你今天像小太阳一样，被可爱的事情围住。", "开心的时候就多开心一会儿，不用急着把快乐藏起来。", "今天适合把烦恼放小一点，把喜欢的事情放大一点。", "希望你遇到的每个小瞬间，都能悄悄对你眨眼睛。", "你一开心，连这个小页面都像偷偷亮了一下。", "今天的小目标：吃点喜欢的，听点舒服的，笑得轻松一点。", "愿你今天的快乐不是勉强来的，而是自己慢慢冒出来的。", "如果今天心情不错，那就让它多停留一会儿吧。", "你笑起来的时候，很多小事都会变得没那么难。", "愿今天的风都偏向你，把好心情吹到你身边。", "开心不是浪费时间，是在给自己充电呢。", "今天值得奖励自己一个小小的开心仪式。", "如果快乐是一颗糖，那我希望今天你有一整口袋。", "愿你今天看到的东西，都比昨天可爱一点。", "现在这个开心的你，也很值得被认真记录下来。", "今天不用太完美，只要有一点开心就已经很棒。", "希望你今天的笑，不是礼貌的，是发自心里的。", "开心的时候就不要想太多，先把这一刻抱紧。", "愿你今天像被柔软的云轻轻托住，轻松又自在。", "如果有好事发生，那一定是生活偷偷偏爱了你一下。", "今天的你，适合被夸，也适合被好好喜欢。", "愿你的小快乐像气泡水一样，咕噜咕噜冒出来。", "开心的时候，连普通的日子都会变得有一点闪光。", "希望今天有一件小事，让你觉得：嗯，还挺好。", "愿你今天点开这里时，刚好收到一颗快乐小星星。", "笑一笑也没关系呀，今天本来就该对你好一点。", "愿你今天的心情像晴天晒过的被子，软软暖暖的。", "如果今天很开心，那就把这份开心悄悄存档。", "你开心的时候，世界好像也跟着变温柔了一点。", "今天适合轻轻哼歌，适合慢慢散步，适合喜欢自己。", "愿你今天的好运不用排队，直接跑到你面前。", "开心是很珍贵的小东西，所以要好好接住它。", "希望你今天的笑容，比手机亮度还要明亮一点。", "如果快乐来敲门，就让它多坐一会儿再走。", "愿你今天遇到的小惊喜，都刚好合你心意。", "开心的时候，记得偷偷夸夸自己：我今天也很好。", "今天的小开心已经抵达，请你签收一下下。", "愿你今天的心像草莓味的云，甜一点，轻一点。", "如果今天顺顺利利，那就让这份顺利延长一点吧。", "希望你被可爱的事情撞个满怀，然后忍不住笑出来。", "今天适合把自己放在第一位，好好享受一点快乐。", "愿你今天所有的小期待，都有一点点回应。", "开心也是一种勇敢，说明你还愿意拥抱生活。", "如果今天心情亮晶晶，那我也替你开心一下。", "愿你把今天的快乐装进口袋，明天还能摸到一点。", "今天可以不用想太远，先把眼前的小开心吃掉。", "希望这个页面今天也有成功让你嘴角上扬一点点。", "愿你每天都有新的理由，觉得生活还蛮可爱的。"],
+      sad: ["如果今天有点难过，那就先不用急着变好，我在这里轻轻陪你一下。", "不开心的时候也没关系，你不用每一天都很坚强。", "难过不是你太脆弱，是心里真的有点累了。", "先抱抱你，今天辛苦了，真的辛苦了。", "如果眼泪快掉下来，就让它休息一下吧，不用忍得太用力。", "坏心情不会一直赢，它只是今天路过你这里。", "你可以慢慢缓过来，不用立刻笑给谁看。", "今天不想说话也没关系，安静一下也是在照顾自己。", "如果世界有点吵，就先躲进这个小角落里吧。", "别怪自己情绪不好，你只是需要一点被理解的时间。", "难过的时候，能撑到现在就已经很棒了。", "今天先不要和自己较劲，好吗？", "有些委屈不用马上解释，先把自己抱住最重要。", "如果心里很乱，就先深呼吸一下，一点一点来。", "你不是麻烦，也不是负担，你只是今天有点累。", "不开心也值得被温柔对待，不需要假装没事。", "今天的云有点重，那就让我帮你分一点重量吧。", "如果什么都做不了，那就先好好坐一会儿，也算照顾自己。", "别急着把难过赶走，它可能只是想让你停下来休息。", "你已经努力很久了，今天可以软一点。", "我希望你知道，就算情绪低低的，你也依然很好。", "这一天不太好也没关系，一天不能定义你。", "如果今天很委屈，那就把委屈先放在这里，我帮你看着。", "你不用把所有事情都消化得很漂亮。", "难过的时候，先吃点东西，喝点水，别忘了照顾身体。", "有些情绪来得突然，但它总会慢慢过去。", "我不催你变开心，我只希望你别一个人硬撑。", "今天允许你不元气，允许你慢吞吞，允许你什么都不想做。", "如果心情像小雨，那就先撑一把小伞，慢慢走。", "你不是不够好，只是今天的能量被消耗太多了。", "别把所有错都往自己身上放，你也需要被保护。", "如果没人懂你，那这个页面先认真听你一下。", "今天先别想太远，能过完这一刻就已经很好。", "难过的时候也要记得，你不是孤零零的。", "你可以不用解释为什么难过，难过本身就值得被接住。", "希望你今晚睡前，心能比现在轻一点点。", "如果今天被生活撞疼了，那就先停下来揉一揉。", "不开心的时候，别急着做决定，先给自己一点时间。", "你已经很努力在生活了，这一点不能被否定。", "如果眼前暂时看不到光，那我就在这里给你放一盏小灯。", "今天难过，那就难过吧，明天再一点点往前走。", "你不用把自己修理好才值得被喜欢。", "我希望这句话能轻轻告诉你：你已经很好了。", "如果今天心里很空，那就先让温柔慢慢填进去一点。", "你可以哭，可以沉默，可以慢慢来，我都觉得没关系。", "坏情绪只是暂住，不会永远住在你心里。", "今天别逼自己太紧，给心情留一点松开的地方。", "如果有些事想不通，那就先不想了，晚一点再说。", "我把一点温柔放在这里，希望你路过时能拿走一点。", "即使今天很难，你也还是值得被好好抱抱。"],
+      normal: ["今天就一般也挺好，平平稳稳也是一种小幸运。", "不需要每天都很精彩，普通日子也可以慢慢过。", "如果今天没什么特别的，那就把它当作轻轻的一页。", "一般般的心情也不用被嫌弃，它也是真实的你。", "今天可以不用很兴奋，也不用很低落，就这样刚刚好。", "愿你在普通的一天里，也能碰到一点点舒服的小事。", "生活有时候就是淡淡的，但淡淡的也能很安心。", "今天不必强行快乐，保持平稳就已经很好。", "如果心情只是一般，那就给自己倒杯水，慢慢坐一会儿。", "普通的一天也值得被认真度过。", "今天可以简单一点，少想一点，轻松一点。", "愿你在没什么波澜的日子里，也能照顾好自己。", "一般的心情像白开水，不甜，但很真实。", "今天不需要证明什么，安安稳稳就很好。", "如果没有惊喜，那就把平静当作礼物吧。", "愿你今天的节奏不快不慢，刚好适合你。", "有些日子不用发光，安静存在也很好。", "今天就让自己舒服一点，不用非要表现得多好。", "一般般也没关系，人生本来就有很多普通片段。", "愿今天的小事都不要太麻烦你。", "如果今天没什么特别开心的，那也不用责怪自己。", "平淡不是无聊，有时候是生活在轻轻保护你。", "今天适合慢慢走，慢慢看，慢慢恢复能量。", "愿你在普通里找到一点点属于自己的安稳。", "一般的一天，也可以有一口好吃的东西，一首好听的歌。", "今天就先顺其自然吧，不用把自己安排得太满。", "如果心情没什么起伏，那就让它安安静静待着。", "愿你今天少一点被打扰，多一点自己的时间。", "普通日子也可以存档，因为以后回看也许会觉得珍贵。", "今天不用有答案，先把自己照顾好。", "一般的心情，也许正好适合休息和整理。", "愿你今天不用太费力，就能把日子过下去。", "如果今天只是平平常常，那就让它平平常常地好。", "你不用每一刻都有意义，偶尔放空也很正常。", "今天适合给自己一点小奖励，不用理由。", "愿你在一般的日子里，也能有一点点被惦记的感觉。", "平稳也是一种温柔，它让你慢慢把自己找回来。", "今天先别急着追赶什么，站稳也很重要。", "如果没什么想说的，那就安静地待一会儿吧。", "普通的一天里，也藏着很多不会吵闹的小美好。", "愿你今天的心情像温水一样，不烫也不冷。", "一般般不是坏事，它只是生活在低声说话。", "今天适合把期待放低一点，把舒服放高一点。", "愿你不用很用力，也能顺顺地过完今天。", "如果今天只是普通，那也值得被温柔记录。", "不热烈也没关系，温温的日子也很好。", "愿今天没有太多烦心事，也没有太多消耗。", "你可以只是正常地过一天，这已经很不容易了。", "今天就像一页淡粉色便签，简单，但也可爱。", "愿这个小页面在普通的一天里，也能陪你几秒钟。"]
+    };
 // 分享链接------------------------------------------------------------------------------------------------------------------------------------------------------------------
     const dailyLinks = [
       // 在这里填每天想分享给她的“今日链接”，格式是：["日期", "按钮上显示的标题", "网址"]
@@ -1005,22 +1025,23 @@
     }
 
     let currentWarmMessage = "";
+    let currentMood = "happy";
     let typewriterTimer = null;
 
-    function getRandomWarmMessage() {
-      const defaults = messages.filter(item => item[0] === "default");
+    function getMoodMessage(mood = currentMood) {
+      const list = moodQuotes[mood] || moodQuotes.happy || [];
 
-      if (defaults.length === 0) {
+      if (list.length === 0) {
         return "今天也想给你留一点小开心，希望你看到的时候，心情能轻一点点。";
       }
 
-      let nextMessage = defaults[Math.floor(Math.random() * defaults.length)][1];
+      let nextMessage = list[Math.floor(Math.random() * list.length)];
 
-      if (defaults.length > 1) {
+      if (list.length > 1) {
         let safeCount = 0;
 
         while (nextMessage === currentWarmMessage && safeCount < 8) {
-          nextMessage = defaults[Math.floor(Math.random() * defaults.length)][1];
+          nextMessage = list[Math.floor(Math.random() * list.length)];
           safeCount++;
         }
       }
@@ -1045,7 +1066,7 @@
         return specificMsg[1];
       }
 
-      return getRandomWarmMessage();
+      return getMoodMessage(currentMood);
     }
 
     function getTodayLink() {
@@ -1314,6 +1335,7 @@
     const archiveCloseBtn = document.getElementById("archiveCloseBtn");
 
     const messageRefreshBtn = document.getElementById("messageRefreshBtn");
+    const moodBtns = document.querySelectorAll(".mood-btn");
 
     const secretEnvelope = document.getElementById("secretEnvelope");
     const secretModal = document.getElementById("secretModal");
@@ -1322,11 +1344,25 @@
     const secretHelpBtn = document.getElementById("secretHelpBtn");
     const secretInfoPop = document.getElementById("secretInfoPop");
 
+    moodBtns.forEach(btn => {
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+
+        currentMood = btn.dataset.mood || "happy";
+
+        moodBtns.forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
+
+        createHeartBurstAroundElement(btn, 8);
+        playTypewriter(getMoodMessage(currentMood));
+      });
+    });
+
     messageRefreshBtn.addEventListener("click", function(e) {
       e.stopPropagation();
 
       createHeartBurstAroundElement(messageRefreshBtn, 8);
-      playTypewriter(getRandomWarmMessage());
+      playTypewriter(getMoodMessage(currentMood));
     });
 
     archiveLinkBtn.addEventListener("click", function(e) {
