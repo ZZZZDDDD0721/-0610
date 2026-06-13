@@ -107,14 +107,12 @@
       align-items: stretch;
       justify-content: flex-start;
       gap: 14px;
-      padding: 40px 0 0;
+      padding: 28px 0 0;
       margin-bottom: 20px;
     }
 
     .message-refresh-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
+      flex: 0 0 auto;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -133,15 +131,22 @@
       background: #f48fb1;
     }
 
-    .mood-label {
+    .mood-title-row {
       width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      padding-left: 4px;
+      margin-bottom: -4px;
+    }
+
+    .mood-label {
       color: #ad1457;
       font-size: 16px;
       font-weight: 800;
       line-height: 1.4;
       text-align: left;
-      padding-left: 4px;
-      margin-bottom: -4px;
     }
 
     .mood-row {
@@ -900,8 +905,10 @@
     </div>
 
     <div class="message-box">
-      <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句当前心情语录">↻</button>
-      <div class="mood-label">宝宝此刻的心情:</div>
+      <div class="mood-title-row">
+        <div class="mood-label">宝宝此刻的心情:</div>
+        <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句当前心情语录">↻</button>
+      </div>
       <div class="mood-row">
         <button class="mood-btn active" data-mood="happy">开心˶&gt;ᗜ&lt;˶</button>
         <button class="mood-btn" data-mood="sad">难过(ಥ﹏ಥ)</button>
