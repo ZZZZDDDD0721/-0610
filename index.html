@@ -897,6 +897,104 @@
         filter: blur(1.35px);
       }
     }
+
+    /* ==================== 弹窗：系统维护弹窗样式 ==================== */
+    .maintenance-card {
+      position: relative;
+      width: 88%;
+      max-width: 360px;
+      max-height: 72vh;
+      overflow-y: auto;
+      padding: 28px 20px 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fffdfd, #fff5f8);
+      border: 1px solid rgba(248, 187, 208, 0.75);
+      box-shadow: 0 22px 52px rgba(194, 24, 91, 0.2);
+      color: #ad1457;
+      transform: scale(0.92) translateY(18px);
+      transition: all 0.55s cubic-bezier(0.2, 1.15, 0.35, 1);
+    }
+
+    .modal-overlay.active .maintenance-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .maintenance-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(248, 187, 208, 0.5);
+      color: #c2185b;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .maintenance-title {
+      margin-bottom: 8px;
+      color: #c2185b;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .maintenance-subtitle {
+      margin-bottom: 16px;
+      color: #d45f8a;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .maintenance-list {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .maintenance-item {
+      margin-bottom: 12px;
+      padding: 12px 13px;
+      border-radius: 16px;
+      background: rgba(255, 248, 251, 0.94);
+      border: 1px solid rgba(248, 187, 208, 0.65);
+      box-shadow: 0 6px 14px rgba(233, 30, 99, 0.07);
+    }
+
+    .maintenance-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .maintenance-item-title {
+      margin-bottom: 4px;
+      color: #c2185b;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .maintenance-item-desc {
+      color: #ad1457;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .maintenance-close-btn {
+      width: 100%;
+      min-height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
+      color: #ad1457;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
+    }
+
+    .maintenance-close-btn:active {
+      transform: scale(0.96) translateY(1px);
+      background: linear-gradient(45deg, #f5a8c3, #f48fb1);
+    }
+
   </style>
 </head>
 
@@ -978,7 +1076,52 @@
     </div>
   </div>
 
+
+  <!-- ==================== 弹窗：系统维护 / 更新内容弹窗 ==================== -->
+  <div class="modal-overlay" id="maintenanceModal">
+    <div class="maintenance-card">
+      <div class="maintenance-badge">SYSTEM UPDATE</div>
+      <div class="maintenance-title" id="maintenanceTitle">系统维护小通知</div>
+      <div class="maintenance-subtitle" id="maintenanceSubtitle">这里会放最近更新的小内容，后续你可以自己在代码里改。</div>
+      <div class="maintenance-list" id="maintenanceList"></div>
+      <button class="maintenance-close-btn" id="maintenanceCloseBtn">知道啦，进入小页面</button>
+    </div>
+  </div>
+
   <script>
+
+    // ==================== 弹窗：系统维护弹窗开关 ====================
+    // true  = 进入网页时自动弹出系统维护弹窗
+    // false = 进入网页时不自动弹出；弹窗代码仍保留，后续想开再改回 true
+    const MAINTENANCE_POPUP_AUTO_OPEN = true;
+
+    // 弹窗：延迟弹出时间，单位毫秒；想一进网页立刻弹出就改成 0
+    const MAINTENANCE_POPUP_DELAY = 650;
+
+    // ==================== 弹窗：更新内容模板 ====================
+    // 后续你主要改这里就行：
+    // title：弹窗标题
+    // subtitle：弹窗副标题
+    // updates：弹窗里每一条更新内容
+    const maintenancePopupContent = {
+      title: "系统维护小通知",
+      subtitle: "小页面刚刚更新了一点点内容，想先告诉你一下噢～",
+      updates: [
+        {
+          title: "① 心情语录区域更新",
+          desc: "现在可以根据开心、一般、难过三种心情，随机收到不同的小语录啦。"
+        },
+        {
+          title: "② 时光札记修复",
+          desc: "回顾里的记录不会再跑到主界面的心情语录里了，时光只留在该出现的地方。"
+        },
+        {
+          title: "③ 今日小链接保留",
+          desc: "这里会继续放我想分享给你的东西，没更新的时候就是我偷懒了哈哈。"
+        }
+      ]
+    };
+
     const messages = [
       ["2026-05-12", "我们在洛克相遇啦"],
       ["2026-05-15", "厚着脸向你要了微信哈哈"],
@@ -1358,6 +1501,74 @@
     const secretHelpBtn = document.getElementById("secretHelpBtn");
     const secretInfoPop = document.getElementById("secretInfoPop");
 
+    // ==================== 弹窗：系统维护弹窗元素 ====================
+    const maintenanceModal = document.getElementById("maintenanceModal");
+    const maintenanceTitle = document.getElementById("maintenanceTitle");
+    const maintenanceSubtitle = document.getElementById("maintenanceSubtitle");
+    const maintenanceList = document.getElementById("maintenanceList");
+    const maintenanceCloseBtn = document.getElementById("maintenanceCloseBtn");
+
+    // ==================== 弹窗：系统维护弹窗函数 ====================
+    function renderMaintenancePopup() {
+      if (!maintenanceModal) return;
+
+      maintenanceTitle.innerText = maintenancePopupContent.title || "系统维护小通知";
+      maintenanceSubtitle.innerText = maintenancePopupContent.subtitle || "这里会放最近更新的小内容。";
+      maintenanceList.innerHTML = "";
+
+      const updates = maintenancePopupContent.updates || [];
+
+      if (updates.length === 0) {
+        maintenanceList.innerHTML = '<div class="maintenance-item"><div class="maintenance-item-title">暂无更新</div><div class="maintenance-item-desc">这里还没有填写更新内容，后续可以在代码模板里补上。</div></div>';
+        return;
+      }
+
+      updates.forEach(item => {
+        const div = document.createElement("div");
+        div.className = "maintenance-item";
+        div.innerHTML = `
+          <div class="maintenance-item-title">${item.title || "更新内容"}</div>
+          <div class="maintenance-item-desc">${item.desc || "这里填写这一条更新说明。"}</div>
+        `;
+        maintenanceList.appendChild(div);
+      });
+    }
+
+    // 弹窗：手动打开弹窗。后续需要按钮触发时，可以直接调用 openMaintenancePopup()
+    function openMaintenancePopup() {
+      renderMaintenancePopup();
+      maintenanceModal.classList.add("active");
+    }
+
+    // 弹窗：手动关闭弹窗。关闭按钮和点击遮罩都会调用这个函数
+    function closeMaintenancePopup() {
+      maintenanceModal.classList.remove("active");
+    }
+
+    // 弹窗：初始化。根据 MAINTENANCE_POPUP_AUTO_OPEN 开关决定是否进网页自动弹出
+    function initMaintenancePopup() {
+      renderMaintenancePopup();
+
+      if (MAINTENANCE_POPUP_AUTO_OPEN) {
+        setTimeout(openMaintenancePopup, MAINTENANCE_POPUP_DELAY);
+      }
+    }
+
+
+
+    // ==================== 弹窗：系统维护弹窗关闭事件 ====================
+    maintenanceCloseBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeMaintenancePopup();
+    });
+
+    maintenanceModal.addEventListener("click", function(e) {
+      if (e.target === maintenanceModal) {
+        closeMaintenancePopup();
+      }
+    });
+
+
     moodBtns.forEach(btn => {
       btn.addEventListener("click", function(e) {
         e.stopPropagation();
@@ -1483,6 +1694,7 @@
       initPastLinks();
       createHearts();
       playTypewriter(getTodayMessage());
+      initMaintenancePopup();
     };
   </script>
 </body>
