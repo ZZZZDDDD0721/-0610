@@ -1232,7 +1232,10 @@
       // 日期可以写完整日期 "2026-06-13"，也可以只写月份日期 "06-13"
       // 例子：["06-13", "点这里是链接噢", "https://example.com"]
 
-      ["06-14", "点这里是链接噢", "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/"]
+      ["06-15", "点这里是链接噢", "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/"]
+      // ["06-16", "点这里是链接噢", "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/"]
+      // ["06-17", "点这里是链接噢", "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/"]
+      // ["06-18", "点这里是链接噢", "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/"]
     ];
 
     const pastLinks = [
@@ -1337,8 +1340,9 @@
       if (todayLink && todayLink[2]) {
         linkBtn.href = todayLink[2];
         linkBtn.innerText = `🔗 ${todayLink[1] || "今日小链接"}`;
-        linkBtn.classList.remove("empty");
-        linkTip.innerText = "粥粥不定时更新噢～(没更新就是懒哈哈˶>ᗜ<˶)";
+        linkBtn.classList.remove("empty");//==================================================================================
+        // linkTip.innerText = "粥粥不定时更新噢～(没更新就是懒哈哈˶>ᗜ<˶)";
+        linkTip.innerText = "可我真的没觉得我是INTP啊hhhh，你的MBTI还没告诉我哦";
       } else {
         linkBtn.href = "#";
         linkBtn.innerText = "🔗 今日小链接";
