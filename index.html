@@ -941,6 +941,15 @@
       line-height: 1.45;
     }
 
+    .maintenance-note {
+      margin: -2px 0 12px;
+      color: #e91e63;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.7;
+      opacity: 0.86;
+    }
+
     .maintenance-subtitle {
       margin-bottom: 16px;
       color: #d45f8a;
@@ -1082,6 +1091,7 @@
     <div class="maintenance-card">
       <div class="maintenance-badge">SYSTEM UPDATE</div>
       <div class="maintenance-title" id="maintenanceTitle">系统维护小通知</div>
+      <div class="maintenance-note" id="maintenanceNote">·只要没跟宝断联，该服务器就会一直维护下去哦·</div>
       <div class="maintenance-subtitle" id="maintenanceSubtitle">这里会放最近更新的小内容，后续你可以自己在代码里改。</div>
       <div class="maintenance-list" id="maintenanceList"></div>
       <button class="maintenance-close-btn" id="maintenanceCloseBtn">知道啦，进入小页面</button>
@@ -1105,8 +1115,8 @@
     // updates：弹窗里每一条更新内容
     const maintenancePopupContent = {
       title: "系统维护小通知",
-      subtitle: "更新了一点点内容，想先告诉你一下噢～",
-      subtitle: "只要没跟宝断联，该服务器就会一直维护下去哦",
+      note: "·只要没跟宝断联，该服务器就会一直维护下去哦·",
+      subtitle: "小页面刚刚更新了一点点内容，想先告诉你一下噢～",
       updates: [
         {
           title: "① 心情语录区域更新",
@@ -1114,11 +1124,11 @@
         },
         {
           title: "② 时光札记修复",
-          desc: "修复时光札记小概率会串台心情区"
+          desc: "回顾里的记录不会再跑到主界面的心情语录里了，时光只留在该出现的地方。"
         },
         {
           title: "③ 今日小链接保留",
-          desc: "还是保留分享链接🔗做个分享叭"
+          desc: "这里会继续放我想分享给你的东西，没更新的时候就是我偷懒了哈哈。"
         }
       ]
     };
@@ -1505,6 +1515,7 @@
     // ==================== 弹窗：系统维护弹窗元素 ====================
     const maintenanceModal = document.getElementById("maintenanceModal");
     const maintenanceTitle = document.getElementById("maintenanceTitle");
+    const maintenanceNote = document.getElementById("maintenanceNote");
     const maintenanceSubtitle = document.getElementById("maintenanceSubtitle");
     const maintenanceList = document.getElementById("maintenanceList");
     const maintenanceCloseBtn = document.getElementById("maintenanceCloseBtn");
@@ -1514,6 +1525,7 @@
       if (!maintenanceModal) return;
 
       maintenanceTitle.innerText = maintenancePopupContent.title || "系统维护小通知";
+      maintenanceNote.innerText = maintenancePopupContent.note || "·只要没跟宝断联，该服务器就会一直维护下去哦·";
       maintenanceSubtitle.innerText = maintenancePopupContent.subtitle || "这里会放最近更新的小内容。";
       maintenanceList.innerHTML = "";
 
