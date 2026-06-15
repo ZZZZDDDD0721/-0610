@@ -957,11 +957,11 @@
       margin: -2px auto 12px;
       padding: 4px 11px;
       border-radius: 999px;
-      background: rgba(255, 248, 251, 0.92);
-      border: 1px solid rgba(248, 187, 208, 0.58);
-      color: #d45f8a;
+      background: rgba(255, 248, 251, 0.62);
+      border: 1px solid rgba(248, 187, 208, 0.35);
+      color: #e7a5bc;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 1.5;
       letter-spacing: 0.4px;
     }
@@ -1632,7 +1632,7 @@
       if (!maintenanceModal) return;
 
       maintenanceTitle.innerText = maintenancePopupContent.title || "系统维护小通知";
-      maintenanceDate.innerText = `📅 维护日期 · ${maintenancePopupContent.date || "未填写日期"}`;
+      maintenanceDate.innerText = `-维护日期 · ${maintenancePopupContent.date || "未填写日期"}-`;
       maintenanceInfoPop.innerText = maintenancePopupContent.helpText || "如果有界面有Bug记得跟我反馈哦，也可以提提修改建议hh";
       maintenanceNote.innerText = maintenancePopupContent.note || "·只要没跟宝断联，服务器就会一直维护下去哦·";
       maintenanceSubtitle.innerText = maintenancePopupContent.subtitle || "这里会放最近更新的小内容。";
