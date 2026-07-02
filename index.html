@@ -312,7 +312,7 @@
 
 
     .archive-month-section {
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .archive-month-section:last-child {
@@ -326,8 +326,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
+      width: 100%;
       margin: 0 0 10px;
-      padding: 8px 12px;
+      padding: 9px 12px;
       border-radius: 999px;
       background: linear-gradient(45deg, rgba(248, 187, 208, 0.92), rgba(255, 231, 239, 0.96));
       border: 1px solid rgba(248, 187, 208, 0.9);
@@ -335,13 +337,66 @@
       font-size: 13px;
       font-weight: 800;
       box-shadow: 0 6px 14px rgba(233, 30, 99, 0.1);
+      cursor: pointer;
+    }
+
+    .archive-month-title:active {
+      transform: scale(0.98) translateY(1px);
+      background: linear-gradient(45deg, rgba(248, 187, 208, 1), rgba(255, 220, 232, 0.98));
+    }
+
+    .archive-month-left {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+
+    .archive-month-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.72);
+      color: #e91e63;
+      font-size: 11px;
+      transform: rotate(90deg);
+      transition: transform 0.22s ease;
+    }
+
+    .archive-month-section.collapsed .archive-month-arrow {
+      transform: rotate(0deg);
     }
 
     .archive-month-count {
+      flex: 0 0 auto;
       color: #d45f8a;
       font-size: 11px;
       font-weight: 700;
       opacity: 0.86;
+    }
+
+    .archive-month-content {
+      overflow: hidden;
+      animation: archiveMonthOpen 0.25s ease both;
+    }
+
+    .archive-month-section.collapsed .archive-month-content {
+      display: none;
+    }
+
+    @keyframes archiveMonthOpen {
+      0% {
+        transform: translateY(-5px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
     .archive-item {
@@ -1258,21 +1313,25 @@
       title: "系统维护小通知",
       date: "2026年7月2日",
       helpText: "如果有界面有Bug记得跟我反馈哦，也可以提提修改建议hh",
-      subtitle: "小页面刚刚更新了点内容，想先告诉你一下噢～",
+      subtitle: "这次把往期链接整理了一下，找以前的小链接会舒服很多噢～",
       note: "·只要没跟宝断联，服务器就会一直维护下去哦·",
       updates: [
         {
           title: "① 链接更新",
-          desc: "久违的更新hhhh"
+          desc: "久违地补了一下今日小链接和往期链接hhhh"
+        },
+        {
+          title: "② 往期链接按月份整理",
+          desc: "查看往期时会自动按月份分组，不会再一堆链接全部挤在一起啦。"
+        },
+        {
+          title: "③ 月份支持折叠",
+          desc: "点月份标题就可以展开或收起，默认先打开最新月份，之前的月份会先乖乖收好。"
         }
-        // 后续要新增第二条、第三条，就复制上面这一组：
+        // 后续要新增第四条、第五条，就复制上面这一组：
         // ,{
-        //   title: "② 修复主页面显示异常bug",
-        //   desc: "修复了偶尔弹不出主界面"
-        // }
-        // ,{
-        //   title: "② 修复主页面显示异常bug",
-        //   desc: "修复了偶尔弹不出主界面"
+        //   title: "④ 这里写更新标题",
+        //   desc: "这里写更新说明"
         // }
       ]
     };
@@ -1528,6 +1587,7 @@
 
         if (!groups[monthKey]) {
           groups[monthKey] = {
+            key: monthKey,
             title: monthTitle,
             items: []
           };
@@ -1537,13 +1597,37 @@
         return groups;
       }, {});
 
-      Object.values(groupedLinks).forEach(group => {
+      Object.values(groupedLinks).forEach((group, index) => {
         const section = document.createElement("section");
         section.className = "archive-month-section";
 
-        const title = document.createElement("div");
+        // 默认只展开最新月份，其它月份先折叠起来，避免列表太长。
+        if (index !== 0) {
+          section.classList.add("collapsed");
+        }
+
+        const monthId = `archive-month-${group.key}`;
+
+        const title = document.createElement("button");
+        title.type = "button";
         title.className = "archive-month-title";
-        title.innerHTML = `<span>🌙 ${group.title}</span><span class="archive-month-count">${group.items.length}条</span>`;
+        title.setAttribute("aria-expanded", index === 0 ? "true" : "false");
+        title.setAttribute("aria-controls", monthId);
+        title.innerHTML = `
+          <span class="archive-month-left"><span class="archive-month-arrow">▶</span><span>🌙 ${group.title}</span></span>
+          <span class="archive-month-count">${group.items.length}条</span>
+        `;
+
+        const content = document.createElement("div");
+        content.className = "archive-month-content";
+        content.id = monthId;
+
+        title.addEventListener("click", () => {
+          const isCollapsed = section.classList.toggle("collapsed");
+          title.setAttribute("aria-expanded", String(!isCollapsed));
+          createHeartBurstAroundElement(title, 5);
+        });
+
         section.appendChild(title);
 
         group.items.forEach(item => {
@@ -1554,9 +1638,10 @@
             <a class="archive-link-title" href="${item[2] || '#'}" target="_blank" rel="noopener noreferrer">🔗 ${item[1] || "未命名链接"}</a>
             <div class="archive-desc">${item[3] || "这里写这一条往期链接的小简介。"}</div>
           `;
-          section.appendChild(div);
+          content.appendChild(div);
         });
 
+        section.appendChild(content);
         archiveList.appendChild(section);
       });
     }
