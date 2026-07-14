@@ -991,6 +991,385 @@
       }
     }
 
+
+    /* ==================== 主界面：心意邮箱入口 ==================== */
+    .mailbox-area {
+      margin: -2px auto 18px;
+      width: 100%;
+    }
+
+    .mailbox-entry-btn {
+      position: relative;
+      width: 100%;
+      min-height: 54px;
+      padding: 9px 14px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fffaf2, #f4ecff);
+      border: 1px solid rgba(194, 169, 139, 0.42);
+      box-shadow: 0 8px 20px rgba(126, 102, 139, 0.12);
+      color: #7a6078;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      overflow: hidden;
+    }
+
+    .mailbox-entry-btn::before {
+      content: "";
+      position: absolute;
+      left: -18%;
+      top: -80%;
+      width: 55%;
+      height: 190%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.76), transparent);
+      transform: rotate(24deg);
+      animation: mailboxSoftLight 4.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .mailbox-icon {
+      position: relative;
+      z-index: 1;
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.72);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: inset 0 0 0 1px rgba(126, 102, 139, 0.08);
+    }
+
+    .mailbox-entry-text {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .mailbox-entry-title {
+      color: #6f5570;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      line-height: 1.2;
+    }
+
+    .mailbox-entry-subtitle {
+      color: #a58a76;
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.25;
+      opacity: 0.92;
+    }
+
+    .mailbox-entry-btn:active {
+      transform: scale(0.97) translateY(1px);
+      background: linear-gradient(135deg, #fff6e8, #eee3ff);
+      box-shadow: 0 5px 12px rgba(126, 102, 139, 0.16);
+    }
+
+    @keyframes mailboxSoftLight {
+      0%, 62%, 100% {
+        transform: translateX(-120%) rotate(24deg);
+        opacity: 0;
+      }
+
+      72% {
+        opacity: 0.85;
+      }
+
+      88% {
+        transform: translateX(310%) rotate(24deg);
+        opacity: 0;
+      }
+    }
+
+    /* ==================== 弹窗：心意邮箱 ==================== */
+    .mailbox-card {
+      position: relative;
+      width: 90%;
+      max-width: 380px;
+      max-height: 74vh;
+      overflow-y: auto;
+      padding: 28px 20px 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fffdf8, #f7f1ff);
+      border: 1px solid rgba(194, 169, 139, 0.45);
+      box-shadow: 0 24px 54px rgba(104, 83, 121, 0.2);
+      color: #6f5570;
+      transform: scale(0.92) translateY(18px);
+      transition: all 0.55s cubic-bezier(0.2, 1.15, 0.35, 1);
+    }
+
+    .modal-overlay.active .mailbox-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .mailbox-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(245, 229, 198, 0.72);
+      color: #8b6a58;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+    }
+
+    .mailbox-help-btn {
+      position: absolute;
+      top: 17px;
+      right: 18px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(234, 222, 250, 0.86);
+      color: #6f5570;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 26px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(104, 83, 121, 0.13);
+      z-index: 2;
+    }
+
+    .mailbox-help-btn:active {
+      transform: scale(0.9);
+      background: #e5d6fa;
+    }
+
+    .mailbox-title {
+      margin-bottom: 6px;
+      color: #6f5570;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .mailbox-date {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: rgba(255, 250, 242, 0.78);
+      border: 1px solid rgba(194, 169, 139, 0.28);
+      color: #a58a76;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 0.4px;
+    }
+
+    .mailbox-info-pop {
+      position: relative;
+      display: none;
+      margin: -2px 0 14px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fffaf2, #f9f4ff);
+      border: 1px solid rgba(194, 169, 139, 0.42);
+      color: #6f5570;
+      font-size: 13px;
+      line-height: 1.75;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(104, 83, 121, 0.09);
+      animation: mailboxInfoIn 0.28s ease both;
+    }
+
+    .mailbox-info-pop.active {
+      display: block;
+    }
+
+    .mailbox-info-pop::before {
+      content: "";
+      position: absolute;
+      top: -7px;
+      right: 22px;
+      width: 12px;
+      height: 12px;
+      background: #fffaf2;
+      border-left: 1px solid rgba(194, 169, 139, 0.42);
+      border-top: 1px solid rgba(194, 169, 139, 0.42);
+      transform: rotate(45deg);
+    }
+
+    @keyframes mailboxInfoIn {
+      0% {
+        transform: translateY(-6px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .mailbox-current-letter {
+      text-align: left;
+      margin: 0 0 18px;
+      padding: 15px 15px 14px;
+      border-radius: 18px;
+      background: rgba(255, 252, 247, 0.88);
+      border: 1px solid rgba(194, 169, 139, 0.38);
+      box-shadow: 0 8px 18px rgba(104, 83, 121, 0.08);
+    }
+
+    .mailbox-letter-tag {
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(234, 222, 250, 0.78);
+      color: #7a6078;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .mailbox-letter-title {
+      margin-bottom: 8px;
+      color: #6f5570;
+      font-size: 16px;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .mailbox-letter-body {
+      color: #765d72;
+      font-size: 14px;
+      line-height: 1.85;
+      letter-spacing: 0.2px;
+    }
+
+    .mailbox-letter-body p {
+      margin-bottom: 9px;
+    }
+
+    .mailbox-letter-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .mailbox-section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 2px 0 10px;
+      color: #8b6a58;
+      font-size: 13px;
+      font-weight: 900;
+      text-align: left;
+    }
+
+    .mailbox-past-item {
+      margin-bottom: 10px;
+      border-radius: 16px;
+      background: rgba(255, 250, 242, 0.72);
+      border: 1px solid rgba(194, 169, 139, 0.32);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .mailbox-past-title {
+      width: 100%;
+      padding: 11px 12px;
+      background: transparent;
+      color: #6f5570;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: left;
+    }
+
+    .mailbox-past-left {
+      min-width: 0;
+    }
+
+    .mailbox-past-name {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .mailbox-past-date {
+      display: block;
+      margin-top: 3px;
+      color: #a58a76;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .mailbox-past-arrow {
+      flex: 0 0 auto;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: rgba(234, 222, 250, 0.82);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a6078;
+      font-size: 11px;
+      transform: rotate(90deg);
+      transition: transform 0.22s ease;
+    }
+
+    .mailbox-past-item.collapsed .mailbox-past-arrow {
+      transform: rotate(0deg);
+    }
+
+    .mailbox-past-body {
+      display: block;
+      padding: 0 12px 12px;
+      color: #765d72;
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .mailbox-past-item.collapsed .mailbox-past-body {
+      display: none;
+    }
+
+    .mailbox-past-body p {
+      margin-bottom: 8px;
+    }
+
+    .mailbox-past-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .mailbox-close-btn {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #ead6b7, #e5d6fa);
+      color: #6f5570;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 8px 16px rgba(104, 83, 121, 0.12);
+    }
+
+    .mailbox-close-btn:active {
+      transform: scale(0.96) translateY(1px);
+      background: linear-gradient(45deg, #e4cda9, #ddc9f7);
+    }
+
+
     /* ==================== 弹窗：系统维护弹窗样式 ==================== */
     .maintenance-card {
       position: relative;
@@ -1230,6 +1609,17 @@
       <div class="daily-link-tip" id="dailyLinkTip"></div>
     </div>
 
+
+    <div class="mailbox-area">
+      <button class="mailbox-entry-btn" id="mailboxBtn" title="打开心意邮箱">
+        <span class="mailbox-icon">📮</span>
+        <span class="mailbox-entry-text">
+          <span class="mailbox-entry-title">心意邮箱</span>
+          <span class="mailbox-entry-subtitle">写给你的长一点的小作文</span>
+        </span>
+      </button>
+    </div>
+
     <div class="footer-note">· 不是非要写情话，只是想让你看到心情好些 ·</div>
   </div>
 
@@ -1268,6 +1658,31 @@
     </div>
   </div>
 
+
+
+  <div class="modal-overlay" id="mailboxModal">
+    <div class="mailbox-card">
+      <button class="mailbox-help-btn" id="mailboxHelpBtn" title="关于心意邮箱">?</button>
+      <div class="mailbox-badge">MOOD MAIL</div>
+      <div class="mailbox-title" id="mailboxMainTitle">📮 心意邮箱</div>
+      <div class="mailbox-date" id="mailboxDate">📬 未填写日期</div>
+      <div class="mailbox-info-pop" id="mailboxInfoPop"></div>
+
+      <div class="mailbox-current-letter">
+        <div class="mailbox-letter-tag" id="mailboxTag">今日小作文</div>
+        <div class="mailbox-letter-title" id="mailboxLetterTitle">这里写信件标题</div>
+        <div class="mailbox-letter-body" id="mailboxLetterBody"></div>
+      </div>
+
+      <div class="mailbox-section-title">
+        <span>✉️ 往期信件</span>
+        <span id="mailboxPastCount">0封</span>
+      </div>
+      <div id="mailboxPastList"></div>
+
+      <button class="mailbox-close-btn" id="mailboxCloseBtn">把信收好</button>
+    </div>
+  </div>
 
   <!-- ==================== 弹窗：系统维护 / 更新内容弹窗 ==================== -->
   <div class="modal-overlay" id="maintenanceModal">
@@ -1450,6 +1865,45 @@
       //   "这里写简介"
       // ]
     ];
+
+
+    // ---------- 4. 心意邮箱 ----------
+    // 以后想写“小作文”，主要就改这里：
+    // current = 当前打开邮箱第一眼看到的信
+    // past    = 往期信件；新信过期后，复制到 past 里面就能保留
+    const mailboxLetters = {
+      mainTitle: "📮 心意邮箱",
+      helpText: "这里不是每天必须更新的地方。只是有些话太长，不适合放在主界面，就先寄存在这个小邮箱里。",
+      current: {
+        date: "2026年7月14日",
+        tag: "今日小作文",
+        title: "今天想把一点心意寄给你",
+        body: [
+          "今天想给你写一封稍微长一点的信，不是为了把话说得多漂亮，只是想把一些很零散、很细小的心情放在这里。",
+          "有时候我会觉得，真正让人心动的可能不是某一句特别厉害的话，而是某个人愿意把普通日子里想到你的那些瞬间，好好收起来，再慢慢递给你。",
+          "所以这个邮箱就先这样放着吧。以后如果我想写很多话，就写在这里；如果你某天刚好点开，也许就能收到一封只属于你的、慢慢写出来的小信。"
+        ]
+      },
+      past: [
+        {
+          date: "2026年7月13日",
+          title: "第一封试运行的小信",
+          body: [
+            "这是往期信件的示范内容。以后你把旧的小作文复制到这里，它就会出现在下面的“往期信件”里。",
+            "每一封信可以写很多段，直接在 body 里面继续加引号就行。"
+          ]
+        },
+        {
+          date: "2026年7月10日",
+          title: "藏在邮箱里的普通话",
+          body: [
+            "我好像越来越喜欢把一些生活里的小东西写进代码里。",
+            "因为代码本来应该是冷冰冰的，但如果里面放了心意，它就会变成一个很私人、很难被复制的小地方。"
+          ]
+        }
+      ]
+    };
+
 
     // ============================================================
     // 【稳定功能区】
@@ -1664,6 +2118,86 @@
       });
     }
 
+
+    function renderMailbox() {
+      const current = mailboxLetters.current || {};
+      const past = mailboxLetters.past || [];
+
+      mailboxMainTitle.innerText = mailboxLetters.mainTitle || "📮 心意邮箱";
+      mailboxInfoPop.innerText = mailboxLetters.helpText || "这里可以放长一点的小作文，也可以保留往期信件。";
+      mailboxDate.innerText = `📬 ${current.date || "未填写日期"}`;
+      mailboxTag.innerText = current.tag || "今日小作文";
+      mailboxLetterTitle.innerText = current.title || "这里写信件标题";
+
+      const currentBody = current.body || [];
+      mailboxLetterBody.innerHTML = currentBody.length
+        ? currentBody.map(paragraph => `<p>${paragraph}</p>`).join("")
+        : "<p>这里还没有写内容噢。</p>";
+
+      mailboxPastCount.innerText = `${past.length}封`;
+      mailboxPastList.innerHTML = "";
+
+      if (past.length === 0) {
+        mailboxPastList.innerHTML = '<div style="text-align:center; color:#a58a76; font-size:13px; padding:10px 0;">这里还没有往期信件哦～</div>';
+        return;
+      }
+
+      const sortedPast = [...past].sort((a, b) => {
+        const dateA = new Date((a.date || "").replace(/[年月]/g, "-").replace("日", ""));
+        const dateB = new Date((b.date || "").replace(/[年月]/g, "-").replace("日", ""));
+        return dateB - dateA;
+      });
+
+      sortedPast.forEach((letter, index) => {
+        const item = document.createElement("div");
+        item.className = "mailbox-past-item";
+
+        if (index !== 0) {
+          item.classList.add("collapsed");
+        }
+
+        const titleBtn = document.createElement("button");
+        titleBtn.type = "button";
+        titleBtn.className = "mailbox-past-title";
+        titleBtn.innerHTML = `
+          <span class="mailbox-past-left">
+            <span class="mailbox-past-name">${letter.title || "未命名信件"}</span>
+            <span class="mailbox-past-date">${letter.date || "未填写日期"}</span>
+          </span>
+          <span class="mailbox-past-arrow">▶</span>
+        `;
+
+        const body = document.createElement("div");
+        body.className = "mailbox-past-body";
+
+        const paragraphs = letter.body || [];
+        body.innerHTML = paragraphs.length
+          ? paragraphs.map(paragraph => `<p>${paragraph}</p>`).join("")
+          : "<p>这封信还没有写内容。</p>";
+
+        titleBtn.addEventListener("click", () => {
+          item.classList.toggle("collapsed");
+          createHeartBurstAroundElement(titleBtn, 5);
+        });
+
+        item.appendChild(titleBtn);
+        item.appendChild(body);
+        mailboxPastList.appendChild(item);
+      });
+    }
+
+    function openMailbox() {
+      renderMailbox();
+      mailboxInfoPop.classList.remove("active");
+      mailboxModal.classList.add("active");
+    }
+
+    function closeMailbox() {
+      mailboxModal.classList.remove("active");
+      mailboxInfoPop.classList.remove("active");
+    }
+
+
     function playTypewriter(text) {
       const el = document.getElementById("messageText");
       el.innerText = "";
@@ -1869,6 +2403,19 @@
     const archiveModal = document.getElementById("archiveModal");
     const archiveCloseBtn = document.getElementById("archiveCloseBtn");
 
+    const mailboxBtn = document.getElementById("mailboxBtn");
+    const mailboxModal = document.getElementById("mailboxModal");
+    const mailboxCloseBtn = document.getElementById("mailboxCloseBtn");
+    const mailboxHelpBtn = document.getElementById("mailboxHelpBtn");
+    const mailboxInfoPop = document.getElementById("mailboxInfoPop");
+    const mailboxMainTitle = document.getElementById("mailboxMainTitle");
+    const mailboxDate = document.getElementById("mailboxDate");
+    const mailboxTag = document.getElementById("mailboxTag");
+    const mailboxLetterTitle = document.getElementById("mailboxLetterTitle");
+    const mailboxLetterBody = document.getElementById("mailboxLetterBody");
+    const mailboxPastCount = document.getElementById("mailboxPastCount");
+    const mailboxPastList = document.getElementById("mailboxPastList");
+
     const messageRefreshBtn = document.getElementById("messageRefreshBtn");
     const moodBtns = document.querySelectorAll(".mood-btn");
 
@@ -2006,6 +2553,28 @@
       }
     });
 
+    mailboxBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(mailboxBtn, 12);
+      setTimeout(openMailbox, 120);
+    });
+
+    mailboxHelpBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(mailboxHelpBtn, 8);
+      mailboxInfoPop.classList.toggle("active");
+    });
+
+    mailboxCloseBtn.addEventListener("click", closeMailbox);
+
+    mailboxModal.addEventListener("click", function(e) {
+      if (e.target === mailboxModal) {
+        closeMailbox();
+      }
+    });
+
     secretEnvelope.addEventListener("click", function(e) {
       e.stopPropagation();
 
@@ -2086,6 +2655,7 @@
       initDate();
       initDailyLink();
       initPastLinks();
+      renderMailbox();
       createHearts();
       playTypewriter(getTodayMessage());
       initMaintenancePopup();
