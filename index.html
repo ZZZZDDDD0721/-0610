@@ -672,12 +672,39 @@
       box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
     }
 
+    /* ==================== 小信封入口：不新增主界面模块，只把原来的 💌 做得更像一枚藏信入口 ==================== */
     .envelope-egg {
-      display: inline-block;
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      margin-right: 4px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #fff8e8, #f4dfb9);
+      border: 1px solid rgba(156, 112, 61, 0.34);
+      color: #8a5a2b;
+      font-size: 20px;
+      vertical-align: middle;
       cursor: pointer;
       transform-origin: center;
-      filter: drop-shadow(0 4px 8px rgba(233, 30, 99, 0.18));
-      animation: envelopeBreath 2.6s ease-in-out infinite;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.76), 0 6px 14px rgba(105, 73, 36, 0.15);
+      filter: drop-shadow(0 4px 8px rgba(105, 73, 36, 0.12));
+      animation: envelopeBreath 2.8s ease-in-out infinite;
+    }
+
+    .envelope-egg::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #b98743;
+      box-shadow: 0 0 0 2px rgba(255, 250, 240, 0.82);
+      opacity: 0.86;
     }
 
     .envelope-egg:hover {
@@ -686,6 +713,7 @@
 
     .envelope-egg:active {
       transform: scale(0.88) rotate(-8deg);
+      background: linear-gradient(135deg, #f8edcf, #ecd0a0);
     }
 
     @keyframes envelopeBreath {
@@ -716,8 +744,9 @@
       }
     }
 
+    /* ==================== 小信封弹窗：奶油信纸色系，仅影响小信封弹窗，不动主页面粉色基调 ==================== */
     .secret-overlay {
-      background: rgba(255, 192, 203, 0.22);
+      background: rgba(58, 45, 28, 0.18);
       backdrop-filter: blur(8px);
       transition: opacity 0.45s ease;
     }
@@ -726,12 +755,12 @@
       position: relative;
       width: 86%;
       max-width: 350px;
-      background: linear-gradient(180deg, #fffdfd, #fff5f8);
-      border: 1px solid rgba(244, 143, 177, 0.45);
+      background: linear-gradient(180deg, #fffaf0, #f7ecd8);
+      border: 1px solid rgba(179, 137, 83, 0.34);
       border-radius: 22px;
       padding: 34px 24px 24px;
-      color: #ad1457;
-      box-shadow: 0 22px 50px rgba(194, 24, 91, 0.18);
+      color: #6d4a2c;
+      box-shadow: 0 22px 50px rgba(83, 56, 29, 0.2);
       transform: translateY(28px) scale(0.88) rotate(-2deg);
       opacity: 0;
       transition: transform 0.55s cubic-bezier(0.2, 1.25, 0.35, 1), opacity 0.35s ease;
@@ -750,7 +779,7 @@
       top: -70px;
       width: 140%;
       height: 110px;
-      background: linear-gradient(135deg, rgba(248, 187, 208, 0.55), rgba(255, 255, 255, 0.1));
+      background: linear-gradient(135deg, rgba(236, 204, 154, 0.55), rgba(255, 255, 255, 0.16));
       transform: rotate(-4deg);
     }
 
@@ -759,9 +788,9 @@
       top: 14px;
       right: 54px;
       padding: 5px 8px;
-      border: 1px dashed #ec407a;
+      border: 1px dashed #9b6a35;
       border-radius: 10px;
-      color: #ec407a;
+      color: #9b6a35;
       font-size: 10px;
       letter-spacing: 1px;
       transform: rotate(8deg);
@@ -775,23 +804,24 @@
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      background: rgba(248, 187, 208, 0.72);
-      color: #c2185b;
+      background: rgba(241, 220, 183, 0.86);
+      color: #7a4f25;
       font-size: 16px;
       font-weight: 800;
       line-height: 26px;
       text-align: center;
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
+      box-shadow: 0 4px 10px rgba(105, 73, 36, 0.14);
       z-index: 3;
     }
 
     .secret-help-btn:active {
       transform: scale(0.9);
-      background: #f48fb1;
+      background: #e8c993;
     }
 
     .secret-title {
       position: relative;
+      color: #7a4f25;
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 14px;
@@ -801,7 +831,7 @@
       position: relative;
       font-size: 16px;
       line-height: 1.8;
-      color: #c2185b;
+      color: #6d4a2c;
     }
 
     .secret-info-pop {
@@ -810,13 +840,13 @@
       margin: -2px 0 14px;
       padding: 14px 15px;
       border-radius: 16px;
-      background: linear-gradient(180deg, #fff5f8, #fffafd);
-      border: 1px solid rgba(248, 187, 208, 0.78);
-      color: #ad1457;
+      background: linear-gradient(180deg, #fff8e8, #fffdf6);
+      border: 1px solid rgba(179, 137, 83, 0.28);
+      color: #6d4a2c;
       font-size: 14px;
       line-height: 1.8;
       text-align: left;
-      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
+      box-shadow: 0 8px 20px rgba(105, 73, 36, 0.1);
       animation: secretInfoIn 0.28s ease both;
       z-index: 1;
     }
@@ -832,15 +862,15 @@
       right: 22px;
       width: 12px;
       height: 12px;
-      background: #fff5f8;
-      border-left: 1px solid rgba(248, 187, 208, 0.78);
-      border-top: 1px solid rgba(248, 187, 208, 0.78);
+      background: #fff8e8;
+      border-left: 1px solid rgba(179, 137, 83, 0.28);
+      border-top: 1px solid rgba(179, 137, 83, 0.28);
       transform: rotate(45deg);
     }
 
     .secret-info-title {
       margin-bottom: 6px;
-      color: #c2185b;
+      color: #7a4f25;
       font-size: 14px;
       font-weight: 700;
     }
@@ -868,111 +898,14 @@
       width: 100%;
       padding: 13px 0;
       border-radius: 999px;
-      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
-      color: #ad1457;
+      background: linear-gradient(45deg, #f1d9aa, #e7c17d);
+      color: #6d4a2c;
       font-weight: bold;
-      box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
+      box-shadow: 0 8px 16px rgba(105, 73, 36, 0.13);
     }
 
     .secret-close-btn:active {
       transform: scale(0.96);
-    }
-
-
-    /* ==================== 标题小信封：心意邮箱内容样式 ==================== */
-    .mailbox-letter {
-      max-height: 74vh;
-      overflow-y: auto;
-    }
-
-    .mailbox-subtitle {
-      position: relative;
-      z-index: 1;
-      margin: -4px 0 14px;
-      color: #d45f8a;
-      font-size: 13px;
-      line-height: 1.7;
-      text-align: center;
-    }
-
-    .mailbox-list {
-      position: relative;
-      z-index: 1;
-      text-align: left;
-    }
-
-    .mailbox-item {
-      position: relative;
-      margin-bottom: 13px;
-      padding: 13px 13px 12px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff8fb, #fffdfd);
-      border: 1px solid rgba(248, 187, 208, 0.68);
-      box-shadow: 0 7px 16px rgba(233, 30, 99, 0.08);
-      overflow: hidden;
-    }
-
-    .mailbox-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .mailbox-item::before {
-      content: "";
-      position: absolute;
-      left: -12px;
-      top: -28px;
-      width: 130%;
-      height: 44px;
-      background: linear-gradient(135deg, rgba(248, 187, 208, 0.35), rgba(255, 255, 255, 0.08));
-      transform: rotate(-3deg);
-    }
-
-    .mailbox-date {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 5px;
-      color: #e91e63;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .mailbox-subject {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 8px;
-      color: #c2185b;
-      font-size: 15px;
-      font-weight: 800;
-      line-height: 1.5;
-    }
-
-    .mailbox-content {
-      position: relative;
-      z-index: 1;
-      color: #ad1457;
-      font-size: 13px;
-      line-height: 1.8;
-      white-space: pre-line;
-    }
-
-    .mailbox-sign {
-      position: relative;
-      z-index: 1;
-      margin-top: 9px;
-      color: #d45f8a;
-      font-size: 12px;
-      text-align: right;
-    }
-
-    .mailbox-empty {
-      padding: 18px 12px;
-      border-radius: 16px;
-      background: rgba(255, 248, 251, 0.9);
-      border: 1px solid rgba(248, 187, 208, 0.6);
-      color: #d88aa4;
-      font-size: 13px;
-      line-height: 1.7;
-      text-align: center;
     }
 
     .click-heart {
@@ -1294,7 +1227,7 @@
     <button class="history-btn" id="historyBtn" title="查看时光札记">📖 回顾</button>
 
     <h1>
-      <span class="envelope-egg" id="secretEnvelope" title="打开心意邮箱">💌</span>
+      <span class="envelope-egg" id="secretEnvelope" title="点一下小信封，收一封藏起来的小信">💌</span>
       属于你的树洞
     </h1>
 
@@ -1343,19 +1276,17 @@
     </div>
   </div>
 
-  <!-- ==================== 标题小信封：心意邮箱弹窗 ==================== -->
   <div class="modal-overlay secret-overlay" id="secretModal">
-    <div class="secret-letter mailbox-letter">
-      <button class="secret-help-btn" id="secretHelpBtn" title="关于心意邮箱">?</button>
-      <div class="secret-stamp">FOR YOU</div>
-      <div class="secret-title">📮 心意邮箱</div>
+    <div class="secret-letter">
+      <button class="secret-help-btn" id="secretHelpBtn" title="关于这封小信">?</button>
+      <div class="secret-stamp">ONLY YOU</div>
+      <div class="secret-title">💌 藏在信封里的小秘密</div>
       <div class="secret-info-pop" id="secretInfoPop">
-        <div class="secret-info-title">关于心意邮箱</div>
-        <div class="secret-info-text">这个邮箱不是收真实邮件，而是把我想留给你的话一封封存在代码里。以后想新增内容，只要复制 intentionMails 里的示例格式再改文字就行。</div>
+        <div class="secret-info-title">关于这封小信</div>
+        <div class="secret-info-text">有些没说出口的话我会藏在身边的某一处角落噢</div>
       </div>
-      <div class="mailbox-subtitle" id="mailboxSubtitle">这些小信会一封封放在这里，想看的时候就来拆开。</div>
-      <div class="secret-content mailbox-list" id="secretContent"></div>
-      <button class="secret-close-btn" id="secretCloseBtn">把信收好</button>
+      <div class="secret-content" id="secretContent"></div>
+      <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
     </div>
   </div>
 
@@ -1397,7 +1328,6 @@
     // 1. 维护公告：maintenancePopupContent
     // 2. 今日链接：dailyLinks
     // 3. 往期链接：pastLinks
-    // 4. 心意邮箱：intentionMails
     // 其它代码尽量不要动，避免影响已经稳定的页面效果。
     // ============================================================
 
@@ -1421,8 +1351,8 @@
           desc: "久违地补了一下今日小链接和往期链接hhhh"
         },
         {
-          title: "② 小信封升级📮",
-          desc: "把标题旁边的小信封升级成心意邮箱，不额外占主界面位置，点开就能看到一封封小信。"
+          title: "② 新增心意邮箱📮",
+          desc: "藏太深担心宝贝找不到哈哈，这也算是写给你的线上情书叭"
         },
         // {
         //   title: "③ 月份支持折叠",
@@ -1551,31 +1481,6 @@
       // ]
     ];
 
-
-    // ---------- 4. 心意邮箱 ----------
-    // 标题旁边的 💌 小信封会打开这里，不再额外占主界面空间。
-    // 以后你主要只改 intentionMails 这一块；下面每一组 { } 就是一封信。
-    const intentionMailboxContent = {
-      subtitle: "这些小信会一封封放在这里，想看的时候就来拆开。",
-      emptyText: "今天邮箱还没有新来信哦，等我慢慢补上。"
-    };
-
-    const intentionMails = [
-      {
-        date: "2026-07-14",
-        title: "第一封小信",
-        content: "测试-0714",
-        sign: "—— 粥粥"
-      }
-      // 后续新增第二封、第三封时，复制下面模板：
-      // ,{
-      //   date: "2026-07-15",
-      //   title: "这里写这封信的标题",
-      //   content: "这里写正文。\n想换行就写两个字符：\\n",
-      //   sign: "—— 这里写署名"
-      // }
-    ];
-
     // ============================================================
     // 【稳定功能区】
     // 下面是页面原本的功能代码，一般不用改。
@@ -1595,6 +1500,21 @@
       sad: ["如果今天有点难过，那就先不用急着变好，我在这里轻轻陪你一下。", "不开心的时候也没关系，你不用每一天都很坚强。", "难过不是你太脆弱，是心里真的有点累了。", "先抱抱你，今天辛苦了，真的辛苦了。", "如果眼泪快掉下来，就让它休息一下吧，不用忍得太用力。", "坏心情不会一直赢，它只是今天路过你这里。", "你可以慢慢缓过来，不用立刻笑给谁看。", "今天不想说话也没关系，安静一下也是在照顾自己。", "如果世界有点吵，就先躲进这个小角落里吧。", "别怪自己情绪不好，你只是需要一点被理解的时间。", "难过的时候，能撑到现在就已经很棒了。", "今天先不要和自己较劲，好吗？", "有些委屈不用马上解释，先把自己抱住最重要。", "如果心里很乱，就先深呼吸一下，一点一点来。", "你不是麻烦，也不是负担，你只是今天有点累。", "不开心也值得被温柔对待，不需要假装没事。", "今天的云有点重，那就让我帮你分一点重量吧。", "如果什么都做不了，那就先好好坐一会儿，也算照顾自己。", "别急着把难过赶走，它可能只是想让你停下来休息。", "你已经努力很久了，今天可以软一点。", "我希望你知道，就算情绪低低的，你也依然很好。", "这一天不太好也没关系，一天不能定义你。", "如果今天很委屈，那就把委屈先放在这里，我帮你看着。", "你不用把所有事情都消化得很漂亮。", "难过的时候，先吃点东西，喝点水，别忘了照顾身体。", "有些情绪来得突然，但它总会慢慢过去。", "我不催你变开心，我只希望你别一个人硬撑。", "今天允许你不元气，允许你慢吞吞，允许你什么都不想做。", "如果心情像小雨，那就先撑一把小伞，慢慢走。", "你不是不够好，只是今天的能量被消耗太多了。", "别把所有错都往自己身上放，你也需要被保护。", "如果没人懂你，那这个页面先认真听你一下。", "今天先别想太远，能过完这一刻就已经很好。", "难过的时候也要记得，你不是孤零零的。", "你可以不用解释为什么难过，难过本身就值得被接住。", "希望你今晚睡前，心能比现在轻一点点。", "如果今天被生活撞疼了，那就先停下来揉一揉。", "不开心的时候，别急着做决定，先给自己一点时间。", "你已经很努力在生活了，这一点不能被否定。", "如果眼前暂时看不到光，那我就在这里给你放一盏小灯。", "今天难过，那就难过吧，明天再一点点往前走。", "你不用把自己修理好才值得被喜欢。", "我希望这句话能轻轻告诉你：你已经很好了。", "如果今天心里很空，那就先让温柔慢慢填进去一点。", "你可以哭，可以沉默，可以慢慢来，我都觉得没关系。", "坏情绪只是暂住，不会永远住在你心里。", "今天别逼自己太紧，给心情留一点松开的地方。", "如果有些事想不通，那就先不想了，晚一点再说。", "我把一点温柔放在这里，希望你路过时能拿走一点。", "即使今天很难，你也还是值得被好好抱抱。"],
       normal: ["今天就一般也挺好，平平稳稳也是一种小幸运。", "不需要每天都很精彩，普通日子也可以慢慢过。", "如果今天没什么特别的，那就把它当作轻轻的一页。", "一般般的心情也不用被嫌弃，它也是真实的你。", "今天可以不用很兴奋，也不用很低落，就这样刚刚好。", "愿你在普通的一天里，也能碰到一点点舒服的小事。", "生活有时候就是淡淡的，但淡淡的也能很安心。", "今天不必强行快乐，保持平稳就已经很好。", "如果心情只是一般，那就给自己倒杯水，慢慢坐一会儿。", "普通的一天也值得被认真度过。", "今天可以简单一点，少想一点，轻松一点。", "愿你在没什么波澜的日子里，也能照顾好自己。", "一般的心情像白开水，不甜，但很真实。", "今天不需要证明什么，安安稳稳就很好。", "如果没有惊喜，那就把平静当作礼物吧。", "愿你今天的节奏不快不慢，刚好适合你。", "有些日子不用发光，安静存在也很好。", "今天就让自己舒服一点，不用非要表现得多好。", "一般般也没关系，人生本来就有很多普通片段。", "愿今天的小事都不要太麻烦你。", "如果今天没什么特别开心的，那也不用责怪自己。", "平淡不是无聊，有时候是生活在轻轻保护你。", "今天适合慢慢走，慢慢看，慢慢恢复能量。", "愿你在普通里找到一点点属于自己的安稳。", "一般的一天，也可以有一口好吃的东西，一首好听的歌。", "今天就先顺其自然吧，不用把自己安排得太满。", "如果心情没什么起伏，那就让它安安静静待着。", "愿你今天少一点被打扰，多一点自己的时间。", "普通日子也可以存档，因为以后回看也许会觉得珍贵。", "今天不用有答案，先把自己照顾好。", "一般的心情，也许正好适合休息和整理。", "愿你今天不用太费力，就能把日子过下去。", "如果今天只是平平常常，那就让它平平常常地好。", "你不用每一刻都有意义，偶尔放空也很正常。", "今天适合给自己一点小奖励，不用理由。", "愿你在一般的日子里，也能有一点点被惦记的感觉。", "平稳也是一种温柔，它让你慢慢把自己找回来。", "今天先别急着追赶什么，站稳也很重要。", "如果没什么想说的，那就安静地待一会儿吧。", "普通的一天里，也藏着很多不会吵闹的小美好。", "愿你今天的心情像温水一样，不烫也不冷。", "一般般不是坏事，它只是生活在低声说话。", "今天适合把期待放低一点，把舒服放高一点。", "愿你不用很用力，也能顺顺地过完今天。", "如果今天只是普通，那也值得被温柔记录。", "不热烈也没关系，温温的日子也很好。", "愿今天没有太多烦心事，也没有太多消耗。", "你可以只是正常地过一天，这已经很不容易了。", "今天就像一页淡粉色便签，简单，但也可爱。", "愿这个小页面在普通的一天里，也能陪你几秒钟。"]
     };
+    // ---------- 小信封入口内容 ----------
+    // 保留原来的“小秘密”机制：点标题旁边的 💌，会随机出现下面其中一句。
+    // 以后想新增一句小信，就直接在 secretMessages 里加一行字符串即可。
+    const secretMessages = [
+     // "行里行距都花了点小心思，你会懂叭哈哈。",
+        "可是我又怕自己耽误你",
+        "也不知道什么时候动了娶你的念头",
+      // "距离也许是阻碍，如果你愿意跟我一起克服，那它就不是一个问题",
+      // "想和你并肩走完以后所有的路.",
+      // "我也不知道呢，还没见面就喜欢上你了",
+      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
+      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
+      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
+      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
+    ];
 
     function initDate() {
       const now = new Date();
@@ -1989,7 +1909,6 @@
     const secretModal = document.getElementById("secretModal");
     const secretCloseBtn = document.getElementById("secretCloseBtn");
     const secretContent = document.getElementById("secretContent");
-    const mailboxSubtitle = document.getElementById("mailboxSubtitle");
     const secretHelpBtn = document.getElementById("secretHelpBtn");
     const secretInfoPop = document.getElementById("secretInfoPop");
 
@@ -2003,57 +1922,6 @@
     const maintenanceSubtitle = document.getElementById("maintenanceSubtitle");
     const maintenanceList = document.getElementById("maintenanceList");
     const maintenanceCloseBtn = document.getElementById("maintenanceCloseBtn");
-
-    // ==================== 标题小信封：心意邮箱渲染函数 ====================
-    // 作用：把上面 intentionMails 里的每一封信，渲染到小信封弹窗里。
-    // 后续你只要改 intentionMails 数组，这里不用动。
-    function renderIntentionMailbox() {
-      if (!secretContent) return;
-
-      if (mailboxSubtitle) {
-        mailboxSubtitle.innerText = intentionMailboxContent.subtitle || "这些小信会一封封放在这里。";
-      }
-
-      secretContent.innerHTML = "";
-
-      if (!intentionMails.length) {
-        const empty = document.createElement("div");
-        empty.className = "mailbox-empty";
-        empty.innerText = intentionMailboxContent.emptyText || "今天邮箱还没有新来信哦。";
-        secretContent.appendChild(empty);
-        return;
-      }
-
-      intentionMails.forEach((mail, index) => {
-        const item = document.createElement("div");
-        item.className = "mailbox-item";
-
-        const date = document.createElement("div");
-        date.className = "mailbox-date";
-        date.innerText = `📅 ${mail.date || "未填写日期"}`;
-
-        const subject = document.createElement("div");
-        subject.className = "mailbox-subject";
-        subject.innerText = `${index + 1}. ${mail.title || "未命名小信"}`;
-
-        const content = document.createElement("div");
-        content.className = "mailbox-content";
-        content.innerText = mail.content || "这里写这封信的正文。";
-
-        item.appendChild(date);
-        item.appendChild(subject);
-        item.appendChild(content);
-
-        if (mail.sign) {
-          const sign = document.createElement("div");
-          sign.className = "mailbox-sign";
-          sign.innerText = mail.sign;
-          item.appendChild(sign);
-        }
-
-        secretContent.appendChild(item);
-      });
-    }
 
     // ==================== 弹窗：系统维护弹窗函数 ====================
     function renderMaintenancePopup() {
@@ -2177,7 +2045,7 @@
       createHeartBurstAroundElement(secretEnvelope, 18);
 
       secretInfoPop.classList.remove("active");
-      renderIntentionMailbox();
+      secretContent.innerText = secretMessages[Math.floor(Math.random() * secretMessages.length)];
       secretModal.classList.add("active");
     });
 
