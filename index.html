@@ -440,6 +440,283 @@
       line-height: 1.7;
     }
 
+
+
+    /* ==================== 主界面：心意邮箱功能区样式 ==================== */
+    .intention-mail-area {
+      margin: 0 auto 18px;
+      padding: 12px 13px 13px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255, 247, 250, 0.96), rgba(255, 253, 254, 0.96));
+      border: 1px solid rgba(248, 187, 208, 0.62);
+      box-shadow: 0 7px 16px rgba(233, 30, 99, 0.08);
+    }
+
+    .intention-mail-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .intention-mail-title {
+      color: #ad1457;
+      font-size: 14px;
+      font-weight: 800;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .intention-mail-badge {
+      flex: 0 0 auto;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(248, 187, 208, 0.5);
+      color: #d45f8a;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+    }
+
+    .intention-mail-btn {
+      width: 100%;
+      min-height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #f06292, #ec407a);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.2);
+    }
+
+    .intention-mail-btn:active {
+      transform: scale(0.96) translateY(1px);
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.22);
+    }
+
+    .intention-mail-tip {
+      margin-top: 8px;
+      color: #f48fb1;
+      font-size: 12px;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    /* ==================== 弹窗：心意邮箱样式 ==================== */
+    .mailbox-overlay {
+      background: rgba(255, 192, 203, 0.2);
+      backdrop-filter: blur(8px);
+      transition: opacity 0.45s ease;
+    }
+
+    .mailbox-card {
+      position: relative;
+      width: 90%;
+      max-width: 380px;
+      max-height: 74vh;
+      overflow-y: auto;
+      padding: 28px 20px 22px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fffdfd, #fff5f8);
+      border: 1px solid rgba(248, 187, 208, 0.75);
+      box-shadow: 0 22px 52px rgba(194, 24, 91, 0.2);
+      color: #ad1457;
+      transform: translateY(24px) scale(0.9) rotate(-1deg);
+      opacity: 0;
+      transition: transform 0.55s cubic-bezier(0.2, 1.15, 0.35, 1), opacity 0.35s ease;
+    }
+
+    .mailbox-overlay.active .mailbox-card {
+      transform: translateY(0) scale(1) rotate(0deg);
+      opacity: 1;
+    }
+
+    .mailbox-stamp {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      padding: 5px 12px;
+      border: 1px dashed rgba(236, 64, 122, 0.78);
+      border-radius: 999px;
+      color: #ec407a;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      transform: rotate(-2deg);
+      opacity: 0.78;
+    }
+
+    .mailbox-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .mailbox-title {
+      color: #c2185b;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
+    .mailbox-help-btn {
+      flex: 0 0 auto;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(248, 187, 208, 0.72);
+      color: #c2185b;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 26px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
+      z-index: 2;
+    }
+
+    .mailbox-help-btn:active {
+      transform: scale(0.9);
+      background: #f48fb1;
+    }
+
+    .mailbox-info-pop {
+      position: relative;
+      display: none;
+      margin: -2px 0 14px;
+      padding: 13px 14px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff5f8, #fffafd);
+      border: 1px solid rgba(248, 187, 208, 0.78);
+      color: #ad1457;
+      font-size: 13px;
+      line-height: 1.75;
+      text-align: left;
+      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
+      animation: mailboxInfoIn 0.28s ease both;
+    }
+
+    .mailbox-info-pop.active {
+      display: block;
+    }
+
+    @keyframes mailboxInfoIn {
+      0% {
+        transform: translateY(-6px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .mailbox-subtitle {
+      margin-bottom: 14px;
+      color: #d45f8a;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .mailbox-list {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    .mailbox-item {
+      position: relative;
+      margin-bottom: 13px;
+      padding: 13px 13px 12px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #fff8fb, #fffdfd);
+      border: 1px solid rgba(248, 187, 208, 0.68);
+      box-shadow: 0 7px 16px rgba(233, 30, 99, 0.08);
+      overflow: hidden;
+    }
+
+    .mailbox-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .mailbox-item::before {
+      content: "";
+      position: absolute;
+      left: -12px;
+      top: -28px;
+      width: 130%;
+      height: 44px;
+      background: linear-gradient(135deg, rgba(248, 187, 208, 0.35), rgba(255, 255, 255, 0.08));
+      transform: rotate(-3deg);
+    }
+
+    .mailbox-date {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 5px;
+      color: #e91e63;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .mailbox-subject {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+      color: #c2185b;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .mailbox-content {
+      position: relative;
+      z-index: 1;
+      color: #ad1457;
+      font-size: 13px;
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .mailbox-sign {
+      position: relative;
+      z-index: 1;
+      margin-top: 9px;
+      color: #d45f8a;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .mailbox-empty {
+      padding: 18px 12px;
+      border-radius: 16px;
+      background: rgba(255, 248, 251, 0.9);
+      border: 1px solid rgba(248, 187, 208, 0.6);
+      color: #d88aa4;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .mailbox-close-btn {
+      width: 100%;
+      min-height: 42px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
+      color: #ad1457;
+      font-size: 14px;
+      font-weight: 800;
+      box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
+    }
+
+    .mailbox-close-btn:active {
+      transform: scale(0.96) translateY(1px);
+      background: linear-gradient(45deg, #f5a8c3, #f48fb1);
+    }
+
     .footer-note {
       font-size: clamp(10px, 2.8vw, 11px);
       color: #f48fb1;
@@ -1230,6 +1507,18 @@
       <div class="daily-link-tip" id="dailyLinkTip"></div>
     </div>
 
+
+
+    <!-- ==================== 主界面：心意邮箱功能区 ==================== -->
+    <div class="intention-mail-area">
+      <div class="intention-mail-title-row">
+        <div class="intention-mail-title">📮 心意邮箱</div>
+        <div class="intention-mail-badge" id="intentionMailBadge">LETTER</div>
+      </div>
+      <button class="intention-mail-btn" id="intentionMailBtn" title="打开心意邮箱">打开今日心意</button>
+      <div class="intention-mail-tip" id="intentionMailTip">这里会放一些想认真留给你的话。</div>
+    </div>
+
     <div class="footer-note">· 不是非要写情话，只是想让你看到心情好些 ·</div>
   </div>
 
@@ -1269,6 +1558,22 @@
   </div>
 
 
+
+  <!-- ==================== 弹窗：心意邮箱 ==================== -->
+  <div class="modal-overlay mailbox-overlay" id="intentionMailModal">
+    <div class="mailbox-card">
+      <div class="mailbox-stamp">FOR YOU</div>
+      <div class="mailbox-title-row">
+        <div class="mailbox-title" id="intentionMailTitle">📮 心意邮箱</div>
+        <button class="mailbox-help-btn" id="intentionMailHelpBtn" title="关于心意邮箱">?</button>
+      </div>
+      <div class="mailbox-info-pop" id="intentionMailInfoPop"></div>
+      <div class="mailbox-subtitle" id="intentionMailSubtitle">这些小信会一封封放在这里，想看的时候就来拆开。</div>
+      <div class="mailbox-list" id="intentionMailList"></div>
+      <button class="mailbox-close-btn" id="intentionMailCloseBtn">把信收好</button>
+    </div>
+  </div>
+
   <!-- ==================== 弹窗：系统维护 / 更新内容弹窗 ==================== -->
   <div class="modal-overlay" id="maintenanceModal">
     <div class="maintenance-card">
@@ -1298,6 +1603,7 @@
     // 1. 维护公告：maintenancePopupContent
     // 2. 今日链接：dailyLinks
     // 3. 往期链接：pastLinks
+    // 4. 心意邮箱：intentionMails
     // 其它代码尽量不要动，避免影响已经稳定的页面效果。
     // ============================================================
 
@@ -1449,6 +1755,41 @@
       //   "https://example.com",
       //   "这里写简介"
       // ]
+    ];
+
+
+
+    // ---------- 4. 心意邮箱 ----------
+    // 这个功能会在主界面显示一个“心意邮箱”区域，点击后弹出一封封小信。
+    // 以后你想加内容，主要只改下面两个地方：
+    // 1. intentionMailboxContent：改弹窗标题、提示语、空邮箱文案。
+    // 2. intentionMails：新增/修改具体信件。
+    const intentionMailboxContent = {
+      title: "📮 心意邮箱",
+      badge: "LETTER",
+      mainButtonText: "打开今日心意",
+      mainTip: "这里会放一些想认真留给你的话，点开就能慢慢看。",
+      helpText: "这个邮箱不是收真实邮件，而是把我想留给你的话一封封存在代码里。以后想新增内容，只要复制 intentionMails 里的示例格式再改文字就行。",
+      subtitle: "这些小信会一封封放在这里，想看的时候就来拆开。",
+      emptyText: "今天邮箱还没有新来信哦，等我慢慢补上。"
+    };
+
+    // 心意邮箱内容：每一组 { } 就是一封信。
+    // 新增一封信的方法：复制下面这个示例，然后改 date / title / content / sign。
+    const intentionMails = [
+      {
+        date: "2026-07-14",
+        title: "第一封小信",
+        content: "这是一个示例，你后面可以直接改这里。\n比如今天想写：看到这个页面的时候，希望你能感觉自己被认真惦记着。",
+        sign: "—— 粥粥"
+      }
+      // 后续新增第二封、第三封时，复制下面模板：
+      // ,{
+      //   date: "2026-07-15",
+      //   title: "这里写这封信的标题",
+      //   content: "这里写正文。\n想换行就写两个字符：\\n",
+      //   sign: "—— 这里写署名"
+      // }
     ];
 
     // ============================================================
@@ -1664,6 +2005,80 @@
       });
     }
 
+
+
+    // ==================== 主界面 + 弹窗：心意邮箱函数 ====================
+    // 作用：把 intentionMails 里的每一封信渲染到弹窗里。
+    // 后续你只要改上面的 intentionMails 数组，这里不用动。
+    function renderIntentionMailbox() {
+      if (!intentionMailList) return;
+
+      intentionMailTitle.innerText = intentionMailboxContent.title || "📮 心意邮箱";
+      intentionMailBadge.innerText = intentionMailboxContent.badge || "LETTER";
+      intentionMailBtn.innerText = intentionMailboxContent.mainButtonText || "打开今日心意";
+      intentionMailTip.innerText = intentionMailboxContent.mainTip || "这里会放一些想认真留给你的话。";
+      intentionMailInfoPop.innerText = intentionMailboxContent.helpText || "以后想新增内容，只要复制 intentionMails 里的示例格式再改文字就行。";
+      intentionMailSubtitle.innerText = intentionMailboxContent.subtitle || "这些小信会一封封放在这里。";
+      intentionMailList.innerHTML = "";
+
+      if (!intentionMails.length) {
+        const empty = document.createElement("div");
+        empty.className = "mailbox-empty";
+        empty.innerText = intentionMailboxContent.emptyText || "今天邮箱还没有新来信哦。";
+        intentionMailList.appendChild(empty);
+        return;
+      }
+
+      intentionMails.forEach((mail, index) => {
+        const item = document.createElement("div");
+        item.className = "mailbox-item";
+
+        const date = document.createElement("div");
+        date.className = "mailbox-date";
+        date.innerText = `📅 ${mail.date || "未填写日期"}`;
+
+        const subject = document.createElement("div");
+        subject.className = "mailbox-subject";
+        subject.innerText = `${index + 1}. ${mail.title || "未命名小信"}`;
+
+        const content = document.createElement("div");
+        content.className = "mailbox-content";
+        content.innerText = mail.content || "这里写这封信的正文。";
+
+        const sign = document.createElement("div");
+        sign.className = "mailbox-sign";
+        sign.innerText = mail.sign || "";
+
+        item.appendChild(date);
+        item.appendChild(subject);
+        item.appendChild(content);
+
+        if (mail.sign) {
+          item.appendChild(sign);
+        }
+
+        intentionMailList.appendChild(item);
+      });
+    }
+
+    // 打开心意邮箱弹窗
+    function openIntentionMailbox() {
+      renderIntentionMailbox();
+      intentionMailInfoPop.classList.remove("active");
+      intentionMailModal.classList.add("active");
+    }
+
+    // 关闭心意邮箱弹窗
+    function closeIntentionMailbox() {
+      intentionMailModal.classList.remove("active");
+      intentionMailInfoPop.classList.remove("active");
+    }
+
+    // 初始化心意邮箱主界面文案
+    function initIntentionMailbox() {
+      renderIntentionMailbox();
+    }
+
     function playTypewriter(text) {
       const el = document.getElementById("messageText");
       el.innerText = "";
@@ -1869,6 +2284,19 @@
     const archiveModal = document.getElementById("archiveModal");
     const archiveCloseBtn = document.getElementById("archiveCloseBtn");
 
+
+    // ==================== 主界面 + 弹窗：心意邮箱元素 ====================
+    const intentionMailBtn = document.getElementById("intentionMailBtn");
+    const intentionMailTip = document.getElementById("intentionMailTip");
+    const intentionMailBadge = document.getElementById("intentionMailBadge");
+    const intentionMailModal = document.getElementById("intentionMailModal");
+    const intentionMailTitle = document.getElementById("intentionMailTitle");
+    const intentionMailHelpBtn = document.getElementById("intentionMailHelpBtn");
+    const intentionMailInfoPop = document.getElementById("intentionMailInfoPop");
+    const intentionMailSubtitle = document.getElementById("intentionMailSubtitle");
+    const intentionMailList = document.getElementById("intentionMailList");
+    const intentionMailCloseBtn = document.getElementById("intentionMailCloseBtn");
+
     const messageRefreshBtn = document.getElementById("messageRefreshBtn");
     const moodBtns = document.querySelectorAll(".mood-btn");
 
@@ -1962,6 +2390,33 @@
       }
     });
 
+
+
+    // ==================== 主界面 + 弹窗：心意邮箱事件 ====================
+    intentionMailBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(intentionMailBtn, 12);
+      setTimeout(openIntentionMailbox, 120);
+    });
+
+    intentionMailHelpBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+
+      createHeartBurstAroundElement(intentionMailHelpBtn, 8);
+      intentionMailInfoPop.classList.toggle("active");
+    });
+
+    intentionMailCloseBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeIntentionMailbox();
+    });
+
+    intentionMailModal.addEventListener("click", function(e) {
+      if (e.target === intentionMailModal) {
+        closeIntentionMailbox();
+      }
+    });
 
     moodBtns.forEach(btn => {
       btn.addEventListener("click", function(e) {
@@ -2086,6 +2541,7 @@
       initDate();
       initDailyLink();
       initPastLinks();
+      initIntentionMailbox();
       createHearts();
       playTypewriter(getTodayMessage());
       initMaintenancePopup();
