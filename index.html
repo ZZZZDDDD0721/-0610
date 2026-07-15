@@ -1869,36 +1869,48 @@
 
     // ---------- 4. 心意邮箱 ----------
     // 以后想写“小作文”，主要就改这里：
-    // current = 当前打开邮箱第一眼看到的信
-    // past    = 往期信件；新信过期后，复制到 past 里面就能保留
+    // 只需要往 letters 里面继续加信件，不用再手动分 current / past。
+    // 规则：
+    // 1. date 是今天的信，会显示在上面的“今日小作文”。
+    // 2. date 早于今天的信，会自动进入“往期信件”。
+    // 3. date 晚于今天的信，会先藏起来，等到那天才显示。
+    // 4. date 推荐写成 "2026-07-15"，也兼容 "2026年7月15日"。
     const mailboxLetters = {
       mainTitle: "📮 心意邮箱",
-      helpText: "以后都在这给宝贝写小作文噢",
-      current: {
-        date: "2026年7月14日",
-        tag: "今日小作文",
-        title: "今天想把一点心意寄给你",
-        body: [
-          // "今天想给你写一封稍微长一点的信，不是为了把话说得多漂亮，只是想把一些很零散、很细小的心情放在这里。",
-          "有时候我觉得，把普通日子里想到你的那些瞬间，好好收起来，再慢慢递给你,这样会不会更有心意昂hh",
-          "所以这个邮箱就先这样放着吧。以后如果我想写很多话，就写在这里；如果你某天刚好点开，也许就能收到一封只属于你的、慢慢写出来的小信。"
-        ]
-      },
-      past: [
+      helpText: "以后都在这给宝贝写小作文噢。只要信件日期过了今天，它就会自动收进往期信件里。",
+      emptyTodayTitle: "今天还没有新信噢",
+      emptyTodayBody: [
+        "今天的小作文还没投递进来，如果我晚点想写很多话，就会把它放在这里。",
+        "之前写过的信不会丢，它们会自动收进下面的往期信件里。"
+      ],
+      letters: [
         {
-          date: "2026年7月13日",
+          date: "2026-07-14",
+          tag: "今日小作文",
+          title: "今天想把一点心意寄给你",
+          body: [
+            // "今天想给你写一封稍微长一点的信，不是为了把话说得多漂亮，只是想把一些很零散、很细小的心情放在这里。",
+            "有时候我觉得，把普通日子里想到你的那些瞬间，好好收起来，再慢慢递给你,这样会不会更有心意昂hh",
+            "所以这个邮箱就先这样放着吧。以后如果我想写很多话，就写在这里；如果你某天刚好点开，也许就能收到一封只属于你的、慢慢写出来的小信。"
+          ]
+        },
+        {
+          date: "2026-07-13",
+          tag: "往期信件",
           title: "第一封试运行的小信",
           body: [
             "第一封信可能就要吐槽一下我当初的想法hh，最大的败笔就是没有做成服务器啦，没办法跟宝贝互动呢(截至目前已经2500行代码啦，我又不舍得重构代码，一是懒，二是要花好多时间哈哈)。",
-             "好叭也是有经验不足hh，毕竟这是我第一次为女生做这个诶"
+            "好叭也是有经验不足hh，毕竟这是我第一次为女生做这个诶"
           ]
-        },
-        // {
-        //   date: "2026年7月10日",
-        //   title: "藏在邮箱里的普通话",
+        }
+        // 后续新增信件时，复制下面模板：
+        // ,{
+        //   date: "2026-07-15",
+        //   tag: "今日小作文",
+        //   title: "这里写信件标题",
         //   body: [
-        //     // "我好像越来越喜欢把一些生活里的小东西写进代码里。",
-        //     // "因为代码本来应该是冷冰冰的，但如果里面放了心意，它就会变成一个很私人、很难被复制的小地方。"
+        //     "这里写第一段小作文。",
+        //     "这里写第二段小作文。"
         //   ]
         // }
       ]
@@ -2119,9 +2131,90 @@
     }
 
 
+    function escapeMailboxHTML(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function getTodayDateKey() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const day = String(now.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
+    }
+
+    function normalizeMailboxDateKey(dateText) {
+      const raw = String(dateText || "").trim();
+      const currentYear = new Date().getFullYear();
+
+      if (!raw) {
+        return "";
+      }
+
+      // 兼容：2026-07-15 / 2026/7/15 / 2026.7.15 / 2026年7月15日
+      let match = raw.match(/^(\d{4})[-\/.年]\s*(\d{1,2})[-\/.月]\s*(\d{1,2})日?$/);
+      if (match) {
+        const year = match[1];
+        const month = String(Number(match[2])).padStart(2, "0");
+        const day = String(Number(match[3])).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
+      // 兼容：07-15 / 7/15 / 7月15日；不写年份时，默认按今年处理。
+      match = raw.match(/^(\d{1,2})[-\/.月]\s*(\d{1,2})日?$/);
+      if (match) {
+        const month = String(Number(match[1])).padStart(2, "0");
+        const day = String(Number(match[2])).padStart(2, "0");
+        return `${currentYear}-${month}-${day}`;
+      }
+
+      return "";
+    }
+
+    function getMailboxAllLetters() {
+      // 新版：推荐只使用 mailboxLetters.letters。
+      // 兼容旧版：如果你之前还留着 current / past，也会自动合并进来。
+      const letters = Array.isArray(mailboxLetters.letters) ? [...mailboxLetters.letters] : [];
+
+      if (mailboxLetters.current) {
+        letters.push(mailboxLetters.current);
+      }
+
+      if (Array.isArray(mailboxLetters.past)) {
+        letters.push(...mailboxLetters.past);
+      }
+
+      return letters
+        .filter(Boolean)
+        .map(letter => ({
+          ...letter,
+          _dateKey: normalizeMailboxDateKey(letter.date)
+        }));
+    }
+
     function renderMailbox() {
-      const current = mailboxLetters.current || {};
-      const past = mailboxLetters.past || [];
+      const todayKey = getTodayDateKey();
+      const allLetters = getMailboxAllLetters();
+
+      const todayLetters = allLetters
+        .filter(letter => letter._dateKey === todayKey)
+        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+      const past = allLetters
+        .filter(letter => letter._dateKey && letter._dateKey < todayKey)
+        .sort((a, b) => b._dateKey.localeCompare(a._dateKey));
+
+      const current = todayLetters[0] || {
+        date: "今天",
+        tag: "今日小作文",
+        title: mailboxLetters.emptyTodayTitle || "今天还没有新信噢",
+        body: mailboxLetters.emptyTodayBody || ["今天的小作文还没投递进来。"]
+      };
 
       mailboxMainTitle.innerText = mailboxLetters.mainTitle || "📮 心意邮箱";
       mailboxInfoPop.innerText = mailboxLetters.helpText || "这里可以放长一点的小作文，也可以保留往期信件。";
@@ -2131,7 +2224,7 @@
 
       const currentBody = current.body || [];
       mailboxLetterBody.innerHTML = currentBody.length
-        ? currentBody.map(paragraph => `<p>${paragraph}</p>`).join("")
+        ? currentBody.map(paragraph => `<p>${escapeMailboxHTML(paragraph)}</p>`).join("")
         : "<p>这里还没有写内容噢。</p>";
 
       mailboxPastCount.innerText = `${past.length}封`;
@@ -2142,13 +2235,7 @@
         return;
       }
 
-      const sortedPast = [...past].sort((a, b) => {
-        const dateA = new Date((a.date || "").replace(/[年月]/g, "-").replace("日", ""));
-        const dateB = new Date((b.date || "").replace(/[年月]/g, "-").replace("日", ""));
-        return dateB - dateA;
-      });
-
-      sortedPast.forEach((letter, index) => {
+      past.forEach((letter, index) => {
         const item = document.createElement("div");
         item.className = "mailbox-past-item";
 
@@ -2161,8 +2248,8 @@
         titleBtn.className = "mailbox-past-title";
         titleBtn.innerHTML = `
           <span class="mailbox-past-left">
-            <span class="mailbox-past-name">${letter.title || "未命名信件"}</span>
-            <span class="mailbox-past-date">${letter.date || "未填写日期"}</span>
+            <span class="mailbox-past-name">${escapeMailboxHTML(letter.title || "未命名信件")}</span>
+            <span class="mailbox-past-date">${escapeMailboxHTML(letter.date || "未填写日期")}</span>
           </span>
           <span class="mailbox-past-arrow">▶</span>
         `;
@@ -2172,7 +2259,7 @@
 
         const paragraphs = letter.body || [];
         body.innerHTML = paragraphs.length
-          ? paragraphs.map(paragraph => `<p>${paragraph}</p>`).join("")
+          ? paragraphs.map(paragraph => `<p>${escapeMailboxHTML(paragraph)}</p>`).join("")
           : "<p>这封信还没有写内容。</p>";
 
         titleBtn.addEventListener("click", () => {
