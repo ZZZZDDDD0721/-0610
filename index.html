@@ -2,2751 +2,307 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>粥粥&amp;汀汀的空间</title>
-  <meta name="application-name" content="粥粥&amp;汀汀的空间">
-  <meta property="og:title" content="粥粥&amp;汀汀的空间">
-  <meta name="twitter:title" content="粥粥&amp;汀汀的空间">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+  <title>404 - 页面走丢了</title>
 
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: linear-gradient(135deg, #ffebee, #f8bbd0);
       min-height: 100vh;
+      overflow: hidden;
+      font-family:
+        "Microsoft YaHei",
+        "PingFang SC",
+        Arial,
+        sans-serif;
+      color: #45404a;
+      background:
+        radial-gradient(
+          circle at 20% 20%,
+          rgba(255, 255, 255, 0.95),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #f7f3f5 0%,
+          #eee7ec 50%,
+          #e8edf2 100%
+        );
+    }
+
+    .page {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #c2185b;
-      text-align: center;
-      padding: 20px;
-      padding-bottom: calc(20px + env(safe-area-inset-bottom));
-      overflow-x: hidden;
-      -webkit-tap-highlight-color: transparent;
+      min-height: 100vh;
+      padding: 30px;
     }
 
-    .floating-hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
+    /* 背景装饰 */
 
-    .heart {
+    .blur-circle {
       position: absolute;
-      bottom: -50px;
-      background-color: rgba(233, 30, 99, 0.15);
       border-radius: 50%;
-      animation: floatUp linear infinite;
+      filter: blur(8px);
+      opacity: 0.55;
+      pointer-events: none;
+      animation: float 7s ease-in-out infinite;
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0.6;
-      }
-
-      100% {
-        transform: translateY(-110vh) rotate(360deg);
-        opacity: 0;
-      }
+    .circle-one {
+      top: 8%;
+      left: 8%;
+      width: 180px;
+      height: 180px;
+      background: rgba(211, 188, 204, 0.6);
     }
 
-    .card {
+    .circle-two {
+      right: 7%;
+      bottom: 8%;
+      width: 240px;
+      height: 240px;
+      background: rgba(184, 202, 215, 0.65);
+      animation-delay: -3s;
+    }
+
+    .container {
       position: relative;
-      z-index: 1;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px 30px;
-      border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(233, 30, 99, 0.1);
-      max-width: 400px;
-      width: 100%;
-      backdrop-filter: blur(10px);
+      z-index: 2;
+      width: min(680px, 100%);
+      padding: 60px 45px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.66);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 28px;
+      box-shadow:
+        0 25px 70px rgba(72, 60, 70, 0.13),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .error-code {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 8px;
+      font-size: clamp(90px, 18vw, 150px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -8px;
+      color: transparent;
+      background: linear-gradient(
+        135deg,
+        #56505b,
+        #a78e9e,
+        #708392
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      user-select: none;
+    }
+
+    .error-code::after {
+      content: "";
+      position: absolute;
+      left: 15%;
+      right: 10%;
+      bottom: 4px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(69, 60, 67, 0.14);
+      filter: blur(8px);
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 10px;
-      font-weight: 600;
-      letter-spacing: 1px;
+      margin-bottom: 15px;
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 650;
+      letter-spacing: 2px;
+      color: #47414a;
     }
 
-    .date {
-      font-size: 14px;
-      color: #e91e63;
-      margin-bottom: 12px;
-      opacity: 0.8;
+    .description {
+      max-width: 500px;
+      margin: 0 auto;
+      font-size: 15px;
+      line-height: 2;
+      color: #79717a;
     }
 
-    .main-intention {
-      margin: 0 auto 18px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, rgba(255, 245, 248, 0.96), rgba(255, 250, 253, 0.96));
-      border: 1px solid rgba(248, 187, 208, 0.55);
-      color: #ad1457;
-      font-size: 13px;
-      line-height: 1.7;
-      text-align: left;
-      box-shadow: 0 6px 16px rgba(233, 30, 99, 0.07);
-    }
-
-    .message-box {
-      position: relative;
-      font-size: 20px;
-      line-height: 1.8;
-      min-height: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      justify-content: flex-start;
-      gap: 14px;
-      padding: 28px 0 0;
-      margin-bottom: 20px;
-    }
-
-    .message-refresh-btn {
-      flex: 0 0 auto;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: rgba(248, 187, 208, 0.78);
-      color: #c2185b;
-      font-size: 17px;
-      font-weight: 800;
-      line-height: 32px;
-      text-align: center;
-      box-shadow: 0 5px 12px rgba(233, 30, 99, 0.16);
-      z-index: 2;
-    }
-
-    .message-refresh-btn:active {
-      transform: scale(0.9) rotate(18deg);
-      background: #f48fb1;
-    }
-
-    .mood-title-row {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
-      padding-left: 4px;
-      margin-bottom: -4px;
-    }
-
-    .mood-label {
-      color: #ad1457;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1.4;
-      text-align: left;
-    }
-
-    .mood-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      width: 100%;
-      flex-wrap: nowrap;
-    }
-
-    .mood-btn {
-      flex: 1;
-      min-width: 0;
-      min-height: 38px;
-      padding: 0 5px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #fff7fa, #ffe7ef);
-      border: 1px solid rgba(248, 187, 208, 0.8);
-      color: #ad1457;
+    .small-tip {
+      margin-top: 9px;
       font-size: 12px;
-      font-weight: 700;
-      line-height: 1.15;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: clip;
-      box-shadow: 0 5px 12px rgba(233, 30, 99, 0.08);
+      color: #aaa2aa;
     }
 
-    .mood-btn.active {
-      background: linear-gradient(45deg, #f06292, #ec407a);
-      color: #fff;
-      border-color: rgba(236, 64, 122, 0.75);
-      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.2);
-    }
-
-    .mood-btn:active {
-      transform: scale(0.95) translateY(1px);
-    }
-
-    .message-content {
-      flex: 1;
-      width: 100%;
-      min-height: 96px;
+    .buttons {
       display: flex;
-      align-items: center;
       justify-content: center;
-      padding: 0 10px;
-      font-family: "Ma Shan Zheng", "华文行楷", "STXingkai", "KaiTi", "楷体", cursive;
-      font-size: 24px;
-      font-weight: 400;
-      letter-spacing: 0.8px;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
     }
 
-
-    #messageText {
-      font-family: "Ma Shan Zheng", "华文行楷", "STXingkai", "KaiTi", "楷体", cursive;
+    .button {
+      min-width: 145px;
+      padding: 13px 23px;
+      border: 1px solid transparent;
+      border-radius: 100px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
     }
 
-    .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 20px;
-      background: #e91e63;
-      margin-left: 4px;
-      animation: blink 1s infinite;
-      vertical-align: middle;
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .primary-button {
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        #766773,
+        #7f919d
+      );
+      box-shadow: 0 10px 24px rgba(100, 89, 99, 0.22);
+    }
+
+    .primary-button:hover {
+      box-shadow: 0 14px 30px rgba(100, 89, 99, 0.3);
+    }
+
+    .secondary-button {
+      color: #68616a;
+      background: rgba(255, 255, 255, 0.55);
+      border-color: rgba(109, 97, 107, 0.2);
+    }
+
+    .secondary-button:hover {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .status {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 36px;
+      font-size: 12px;
+      color: #aaa1a9;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #8ea697;
+      box-shadow: 0 0 0 5px rgba(142, 166, 151, 0.12);
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
     }
 
     @keyframes blink {
-      0%, 100% {
-        opacity: 1;
+      0%,
+      100% {
+        opacity: 0.45;
       }
 
       50% {
-        opacity: 0;
-      }
-    }
-
-    .daily-link-area {
-      margin: 0 auto 18px;
-    }
-
-    .link-actions {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      width: 100%;
-    }
-
-    .daily-link-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      min-height: 42px;
-      padding: 0 18px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, #f06292, #ec407a);
-      color: white;
-      font-size: 14px;
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.22);
-      transition: all 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-      flex: none;
-      width: fit-content;
-      max-width: calc(100% - 60px);
-      margin: 0 auto;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .daily-link-btn.empty {
-      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
-      color: #ad1457;
-    }
-
-    .daily-link-btn:active {
-      transform: scale(0.95) translateY(1px);
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.22);
-    }
-
-    .archive-link-btn {
-      position: absolute;
-      right: 0;
-      width: 44px;
-      min-width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(180deg, #fff7fa, #ffe7ef);
-      border: 1px solid rgba(248, 187, 208, 0.9);
-      box-shadow: 0 8px 18px rgba(233, 30, 99, 0.12);
-      color: #c2185b;
-      font-size: 22px;
-    }
-
-    .archive-link-btn:active {
-      transform: scale(0.94) translateY(1px);
-      background: linear-gradient(180deg, #ffeef4, #ffdce8);
-    }
-
-    .daily-link-tip {
-      margin-top: 8px;
-      color: #f48fb1;
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-
-    .archive-month-section {
-      margin-bottom: 14px;
-    }
-
-    .archive-month-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .archive-month-title {
-      position: sticky;
-      top: -30px;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      width: 100%;
-      margin: 0 0 10px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, rgba(248, 187, 208, 0.92), rgba(255, 231, 239, 0.96));
-      border: 1px solid rgba(248, 187, 208, 0.9);
-      color: #c2185b;
-      font-size: 13px;
-      font-weight: 800;
-      box-shadow: 0 6px 14px rgba(233, 30, 99, 0.1);
-      cursor: pointer;
-    }
-
-    .archive-month-title:active {
-      transform: scale(0.98) translateY(1px);
-      background: linear-gradient(45deg, rgba(248, 187, 208, 1), rgba(255, 220, 232, 0.98));
-    }
-
-    .archive-month-left {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-width: 0;
-    }
-
-    .archive-month-arrow {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.72);
-      color: #e91e63;
-      font-size: 11px;
-      transform: rotate(90deg);
-      transition: transform 0.22s ease;
-    }
-
-    .archive-month-section.collapsed .archive-month-arrow {
-      transform: rotate(0deg);
-    }
-
-    .archive-month-count {
-      flex: 0 0 auto;
-      color: #d45f8a;
-      font-size: 11px;
-      font-weight: 700;
-      opacity: 0.86;
-    }
-
-    .archive-month-content {
-      overflow: hidden;
-      animation: archiveMonthOpen 0.25s ease both;
-    }
-
-    .archive-month-section.collapsed .archive-month-content {
-      display: none;
-    }
-
-    @keyframes archiveMonthOpen {
-      0% {
-        transform: translateY(-5px);
-        opacity: 0;
-      }
-
-      100% {
-        transform: translateY(0);
         opacity: 1;
       }
     }
 
-    .archive-item {
-      text-align: left;
-      margin-bottom: 16px;
-      padding: 14px 14px 12px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fff8fb, #fffdfd);
-      border: 1px solid rgba(248, 187, 208, 0.7);
-      box-shadow: 0 6px 16px rgba(233, 30, 99, 0.08);
-    }
-
-    .archive-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .archive-date {
-      font-size: 12px;
-      color: #e91e63;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
-
-    .archive-link-title {
-      display: inline-block;
-      color: #c2185b;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      margin-bottom: 6px;
-      word-break: break-word;
-    }
-
-    .archive-link-title:active {
-      opacity: 0.8;
-    }
-
-    .archive-desc {
-      color: #ad1457;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .footer-note {
-      font-size: clamp(10px, 2.8vw, 11px);
-      color: #f48fb1;
-      letter-spacing: 0.2px;
-      opacity: 0.8;
-      white-space: nowrap;
-    }
-
-    button {
-      transition: all 0.2s ease;
-      outline: none;
-      border: none;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .history-btn {
-      position: absolute;
-      top: 6px;
-      right: 15px;
-      height: 38px;
-      padding: 0 13px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, #ec407a, #e91e63);
-      color: white;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
-      animation: historyBtnHint 2.8s ease-in-out infinite;
-    }
-
-    .history-btn::after {
-      content: "点我";
-      position: absolute;
-      right: 4px;
-      top: -13px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.95);
-      color: #e91e63;
-      font-size: 10px;
-      font-weight: 700;
-      box-shadow: 0 3px 8px rgba(233, 30, 99, 0.16);
-      transform: scale(0.92);
-      opacity: 0.88;
-    }
-
-    .history-btn:active {
-      transform: scale(0.94) translateY(1px);
-      box-shadow: 0 2px 7px rgba(233, 30, 99, 0.32), inset 0 -2px 4px rgba(0, 0, 0, 0.08);
-    }
-
-    @keyframes historyBtnHint {
-      0%, 100% {
-        transform: translateY(0);
-        box-shadow: 0 5px 13px rgba(233, 30, 99, 0.28);
+    @media (max-width: 600px) {
+      .container {
+        padding: 45px 24px;
+        border-radius: 22px;
       }
 
-      50% {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(233, 30, 99, 0.36);
-      }
-    }
-
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(5px);
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.8s ease;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-card {
-      position: relative;
-      background: white;
-      width: 90%;
-      max-width: 380px;
-      max-height: 70vh;
-      border-radius: 20px;
-      padding: 30px 20px;
-      overflow-y: auto;
-      box-shadow: 0 10px 30px rgba(233, 30, 99, 0.15);
-      transform: scale(0.95) translateY(20px);
-      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    .modal-overlay.active .modal-card {
-      transform: scale(1) translateY(0);
-    }
-
-    .modal-title {
-      font-size: 18px;
-      margin-bottom: 20px;
-      color: #c2185b;
-    }
-
-    .history-help-btn {
-      position: absolute;
-      top: 17px;
-      right: 18px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(248, 187, 208, 0.7);
-      color: #c2185b;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 26px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
-      z-index: 2;
-    }
-
-    .history-help-btn:active {
-      transform: scale(0.9);
-      background: #f48fb1;
-    }
-
-    .history-info-pop {
-      position: relative;
-      display: none;
-      margin: -4px 0 18px;
-      padding: 15px 15px 14px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fff5f8, #fffafd);
-      border: 1px solid rgba(248, 187, 208, 0.78);
-      color: #ad1457;
-      font-size: 14px;
-      line-height: 1.8;
-      text-align: left;
-      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
-      animation: historyInfoIn 0.28s ease both;
-    }
-
-    .history-info-pop.active {
-      display: block;
-    }
-
-    .history-info-pop::before {
-      content: "";
-      position: absolute;
-      top: -7px;
-      right: 22px;
-      width: 12px;
-      height: 12px;
-      background: #fff5f8;
-      border-left: 1px solid rgba(248, 187, 208, 0.78);
-      border-top: 1px solid rgba(248, 187, 208, 0.78);
-      transform: rotate(45deg);
-    }
-
-    .history-info-title {
-      margin-bottom: 6px;
-      color: #c2185b;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .history-info-text {
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes historyInfoIn {
-      0% {
-        transform: translateY(-6px);
-        opacity: 0;
+      .error-code {
+        letter-spacing: -5px;
       }
 
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .history-item {
-      text-align: left;
-      margin-bottom: 15px;
-      padding-bottom: 15px;
-      border-bottom: 1px dashed #f8bbd0;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .history-item:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .history-date {
-      font-size: 12px;
-      color: #e91e63;
-      margin-bottom: 5px;
-      font-weight: bold;
-    }
-
-    .close-btn {
-      margin-top: 20px;
-      background: #f8bbd0;
-      color: #c2185b;
-      padding: 14px 0;
-      width: 100%;
-      font-weight: bold;
-      border-radius: 50px;
-    }
-
-    .close-btn:active {
-      background: #f48fb1;
-      transform: scale(0.95) translateY(1px);
-      box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .envelope-egg {
-      display: inline-block;
-      cursor: pointer;
-      transform-origin: center;
-      filter: drop-shadow(0 4px 8px rgba(233, 30, 99, 0.18));
-      animation: envelopeBreath 2.6s ease-in-out infinite;
-    }
-
-    .envelope-egg:hover {
-      animation: envelopeShake 0.55s ease both;
-    }
-
-    .envelope-egg:active {
-      transform: scale(0.88) rotate(-8deg);
-    }
-
-    @keyframes envelopeBreath {
-      0%, 100% {
-        transform: translateY(0) scale(1);
+      .buttons {
+        flex-direction: column;
       }
 
-      50% {
-        transform: translateY(-2px) scale(1.06);
+      .button {
+        width: 100%;
       }
     }
-
-    @keyframes envelopeShake {
-      0%, 100% {
-        transform: rotate(0deg) scale(1.06);
-      }
-
-      25% {
-        transform: rotate(-10deg) scale(1.12);
-      }
-
-      55% {
-        transform: rotate(8deg) scale(1.1);
-      }
-
-      75% {
-        transform: rotate(-4deg) scale(1.08);
-      }
-    }
-
-    .secret-overlay {
-      background: rgba(255, 192, 203, 0.22);
-      backdrop-filter: blur(8px);
-      transition: opacity 0.45s ease;
-    }
-
-    .secret-letter {
-      position: relative;
-      width: 86%;
-      max-width: 350px;
-      background: linear-gradient(180deg, #fffdfd, #fff5f8);
-      border: 1px solid rgba(244, 143, 177, 0.45);
-      border-radius: 22px;
-      padding: 34px 24px 24px;
-      color: #ad1457;
-      box-shadow: 0 22px 50px rgba(194, 24, 91, 0.18);
-      transform: translateY(28px) scale(0.88) rotate(-2deg);
-      opacity: 0;
-      transition: transform 0.55s cubic-bezier(0.2, 1.25, 0.35, 1), opacity 0.35s ease;
-      overflow: hidden;
-    }
-
-    .secret-overlay.active .secret-letter {
-      transform: translateY(0) scale(1) rotate(0deg);
-      opacity: 1;
-    }
-
-    .secret-letter::before {
-      content: "";
-      position: absolute;
-      left: -20%;
-      top: -70px;
-      width: 140%;
-      height: 110px;
-      background: linear-gradient(135deg, rgba(248, 187, 208, 0.55), rgba(255, 255, 255, 0.1));
-      transform: rotate(-4deg);
-    }
-
-    .secret-stamp {
-      position: absolute;
-      top: 14px;
-      right: 54px;
-      padding: 5px 8px;
-      border: 1px dashed #ec407a;
-      border-radius: 10px;
-      color: #ec407a;
-      font-size: 10px;
-      letter-spacing: 1px;
-      transform: rotate(8deg);
-      opacity: 0.72;
-    }
-
-    .secret-help-btn {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(248, 187, 208, 0.72);
-      color: #c2185b;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 26px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
-      z-index: 3;
-    }
-
-    .secret-help-btn:active {
-      transform: scale(0.9);
-      background: #f48fb1;
-    }
-
-    .secret-title {
-      position: relative;
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 14px;
-    }
-
-    .secret-content {
-      position: relative;
-      font-size: 16px;
-      line-height: 1.8;
-      color: #c2185b;
-    }
-
-    .secret-info-pop {
-      position: relative;
-      display: none;
-      margin: -2px 0 14px;
-      padding: 14px 15px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fff5f8, #fffafd);
-      border: 1px solid rgba(248, 187, 208, 0.78);
-      color: #ad1457;
-      font-size: 14px;
-      line-height: 1.8;
-      text-align: left;
-      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
-      animation: secretInfoIn 0.28s ease both;
-      z-index: 1;
-    }
-
-    .secret-info-pop.active {
-      display: block;
-    }
-
-    .secret-info-pop::before {
-      content: "";
-      position: absolute;
-      top: -7px;
-      right: 22px;
-      width: 12px;
-      height: 12px;
-      background: #fff5f8;
-      border-left: 1px solid rgba(248, 187, 208, 0.78);
-      border-top: 1px solid rgba(248, 187, 208, 0.78);
-      transform: rotate(45deg);
-    }
-
-    .secret-info-title {
-      margin-bottom: 6px;
-      color: #c2185b;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .secret-info-text {
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes secretInfoIn {
-      0% {
-        transform: translateY(-6px);
-        opacity: 0;
-      }
-
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .secret-close-btn {
-      position: relative;
-      margin-top: 22px;
-      width: 100%;
-      padding: 13px 0;
-      border-radius: 999px;
-      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
-      color: #ad1457;
-      font-weight: bold;
-      box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
-    }
-
-    .secret-close-btn:active {
-      transform: scale(0.96);
-    }
-
-    .click-heart {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      color: var(--heart-color, #ff4081);
-      text-shadow: 0 0 10px rgba(233, 30, 99, 0.38), 0 4px 12px rgba(244, 143, 177, 0.35);
-      font-style: normal;
-      transform-origin: center;
-      will-change: transform, opacity, filter;
-      animation: heartBurst var(--duration, 1.18s) cubic-bezier(0.18, 0.85, 0.28, 1) forwards;
-    }
-
-    .click-heart.sparkle {
-      color: #ffb3c7;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 14px rgba(233, 30, 99, 0.25);
-      animation-name: sparkleFade;
-    }
-
-    @keyframes heartBurst {
-      0% {
-        transform: translate(-50%, -50%) scale(0.15) rotate(0deg);
-        opacity: 0;
-        filter: blur(0);
-      }
-
-      12% {
-        transform: translate(-50%, -50%) scale(1.45) rotate(var(--rot-start));
-        opacity: 1;
-      }
-
-      32% {
-        transform: translate(calc(-50% + var(--tx-mid)), calc(-50% + var(--ty-mid))) scale(1) rotate(var(--rot));
-        opacity: 1;
-      }
-
-      72% {
-        transform: translate(calc(-50% + var(--tx-end)), calc(-50% + var(--ty-end))) scale(0.78) rotate(calc(var(--rot) + var(--spin)));
-        opacity: 0.88;
-        filter: blur(0);
-      }
-
-      100% {
-        transform: translate(calc(-50% + var(--tx-final)), calc(-50% + var(--ty-final))) scale(0.25) rotate(calc(var(--rot) + var(--spin) + 30deg));
-        opacity: 0;
-        filter: blur(2px);
-      }
-    }
-
-    @keyframes sparkleFade {
-      0% {
-        transform: translate(-50%, -50%) scale(0.2);
-        opacity: 0;
-      }
-
-      18% {
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translate(calc(-50% + var(--tx-final)), calc(-50% + var(--ty-final))) scale(0.15) rotate(var(--spin));
-        opacity: 0;
-        filter: blur(2px);
-      }
-    }
-
-    .history-balloon-heart {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      color: var(--heart-color, #ff4081);
-      font-style: normal;
-      transform-origin: center;
-      text-shadow: 0 0 8px rgba(233, 30, 99, 0.32), 0 5px 12px rgba(244, 143, 177, 0.28);
-      will-change: transform, opacity, filter;
-      animation: historyBalloonFloat var(--duration, 1.85s) cubic-bezier(0.22, 0.72, 0.28, 1) forwards;
-    }
-
-    .history-balloon-heart.sparkle {
-      color: #ffc1d4;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.9), 0 0 14px rgba(233, 30, 99, 0.24);
-    }
-
-    @keyframes historyBalloonFloat {
-      0% {
-        transform: translate(-50%, -50%) scale(0.32) rotate(var(--rot-start));
-        opacity: 0;
-        filter: blur(0);
-      }
-
-      16% {
-        transform: translate(calc(-50% + var(--sway1)), calc(-50% - 10px)) scale(1.02) rotate(var(--rot-start));
-        opacity: 1;
-      }
-
-      42% {
-        transform: translate(calc(-50% + var(--sway2)), calc(-50% + var(--rise-mid))) scale(0.98) rotate(var(--rot-mid));
-        opacity: 0.97;
-      }
-
-      72% {
-        transform: translate(calc(-50% + var(--sway3)), calc(-50% + var(--rise-end))) scale(0.84) rotate(var(--rot-end));
-        opacity: 0.76;
-        filter: blur(0.15px);
-      }
-
-      100% {
-        transform: translate(calc(-50% + var(--sway4)), calc(-50% + var(--rise-final))) scale(0.5) rotate(var(--rot-final));
-        opacity: 0;
-        filter: blur(1.35px);
-      }
-    }
-
-
-    /* ==================== 主界面：心意邮箱入口 ==================== */
-    .mailbox-area {
-      margin: -2px auto 18px;
-      width: 100%;
-    }
-
-    .mailbox-entry-btn {
-      position: relative;
-      width: 100%;
-      min-height: 54px;
-      padding: 9px 14px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #fffaf2, #f4ecff);
-      border: 1px solid rgba(194, 169, 139, 0.42);
-      box-shadow: 0 8px 20px rgba(126, 102, 139, 0.12);
-      color: #7a6078;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      overflow: hidden;
-    }
-
-    .mailbox-entry-btn::before {
-      content: "";
-      position: absolute;
-      left: -18%;
-      top: -80%;
-      width: 55%;
-      height: 190%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.76), transparent);
-      transform: rotate(24deg);
-      animation: mailboxSoftLight 4.8s ease-in-out infinite;
-      pointer-events: none;
-    }
-
-    .mailbox-icon {
-      position: relative;
-      z-index: 1;
-      width: 34px;
-      height: 34px;
-      border-radius: 13px;
-      background: rgba(255, 255, 255, 0.72);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      box-shadow: inset 0 0 0 1px rgba(126, 102, 139, 0.08);
-    }
-
-    .mailbox-entry-text {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 2px;
-      min-width: 0;
-    }
-
-    .mailbox-entry-title {
-      color: #6f5570;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.6px;
-      line-height: 1.2;
-    }
-
-    .mailbox-entry-subtitle {
-      color: #a58a76;
-      font-size: 11px;
-      font-weight: 600;
-      line-height: 1.25;
-      opacity: 0.92;
-    }
-
-    .mailbox-entry-btn:active {
-      transform: scale(0.97) translateY(1px);
-      background: linear-gradient(135deg, #fff6e8, #eee3ff);
-      box-shadow: 0 5px 12px rgba(126, 102, 139, 0.16);
-    }
-
-    @keyframes mailboxSoftLight {
-      0%, 62%, 100% {
-        transform: translateX(-120%) rotate(24deg);
-        opacity: 0;
-      }
-
-      72% {
-        opacity: 0.85;
-      }
-
-      88% {
-        transform: translateX(310%) rotate(24deg);
-        opacity: 0;
-      }
-    }
-
-    /* ==================== 弹窗：心意邮箱 ==================== */
-    .mailbox-card {
-      position: relative;
-      width: 90%;
-      max-width: 380px;
-      max-height: 74vh;
-      overflow-y: auto;
-      padding: 28px 20px 22px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, #fffdf8, #f7f1ff);
-      border: 1px solid rgba(194, 169, 139, 0.45);
-      box-shadow: 0 24px 54px rgba(104, 83, 121, 0.2);
-      color: #6f5570;
-      transform: scale(0.92) translateY(18px);
-      transition: all 0.55s cubic-bezier(0.2, 1.15, 0.35, 1);
-    }
-
-    .modal-overlay.active .mailbox-card {
-      transform: scale(1) translateY(0);
-    }
-
-    .mailbox-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(245, 229, 198, 0.72);
-      color: #8b6a58;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.8px;
-    }
-
-    .mailbox-help-btn {
-      position: absolute;
-      top: 17px;
-      right: 18px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(234, 222, 250, 0.86);
-      color: #6f5570;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 26px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(104, 83, 121, 0.13);
-      z-index: 2;
-    }
-
-    .mailbox-help-btn:active {
-      transform: scale(0.9);
-      background: #e5d6fa;
-    }
-
-    .mailbox-title {
-      margin-bottom: 6px;
-      color: #6f5570;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 1.45;
-    }
-
-    .mailbox-date {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background: rgba(255, 250, 242, 0.78);
-      border: 1px solid rgba(194, 169, 139, 0.28);
-      color: #a58a76;
-      font-size: 12px;
-      font-weight: 700;
-      line-height: 1.5;
-      letter-spacing: 0.4px;
-    }
-
-    .mailbox-info-pop {
-      position: relative;
-      display: none;
-      margin: -2px 0 14px;
-      padding: 13px 14px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fffaf2, #f9f4ff);
-      border: 1px solid rgba(194, 169, 139, 0.42);
-      color: #6f5570;
-      font-size: 13px;
-      line-height: 1.75;
-      text-align: left;
-      box-shadow: 0 8px 20px rgba(104, 83, 121, 0.09);
-      animation: mailboxInfoIn 0.28s ease both;
-    }
-
-    .mailbox-info-pop.active {
-      display: block;
-    }
-
-    .mailbox-info-pop::before {
-      content: "";
-      position: absolute;
-      top: -7px;
-      right: 22px;
-      width: 12px;
-      height: 12px;
-      background: #fffaf2;
-      border-left: 1px solid rgba(194, 169, 139, 0.42);
-      border-top: 1px solid rgba(194, 169, 139, 0.42);
-      transform: rotate(45deg);
-    }
-
-    @keyframes mailboxInfoIn {
-      0% {
-        transform: translateY(-6px);
-        opacity: 0;
-      }
-
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .mailbox-current-letter {
-      text-align: left;
-      margin: 0 0 18px;
-      padding: 15px 15px 14px;
-      border-radius: 18px;
-      background: rgba(255, 252, 247, 0.88);
-      border: 1px solid rgba(194, 169, 139, 0.38);
-      box-shadow: 0 8px 18px rgba(104, 83, 121, 0.08);
-    }
-
-    .mailbox-letter-tag {
-      display: inline-flex;
-      margin-bottom: 8px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(234, 222, 250, 0.78);
-      color: #7a6078;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .mailbox-letter-title {
-      margin-bottom: 8px;
-      color: #6f5570;
-      font-size: 16px;
-      font-weight: 900;
-      line-height: 1.5;
-    }
-
-    .mailbox-letter-body {
-      color: #765d72;
-      font-size: 14px;
-      line-height: 1.85;
-      letter-spacing: 0.2px;
-    }
-
-    .mailbox-letter-body p {
-      margin-bottom: 9px;
-    }
-
-    .mailbox-letter-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .mailbox-section-title {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 2px 0 10px;
-      color: #8b6a58;
-      font-size: 13px;
-      font-weight: 900;
-      text-align: left;
-    }
-
-    .mailbox-past-item {
-      margin-bottom: 10px;
-      border-radius: 16px;
-      background: rgba(255, 250, 242, 0.72);
-      border: 1px solid rgba(194, 169, 139, 0.32);
-      overflow: hidden;
-      text-align: left;
-    }
-
-    .mailbox-past-title {
-      width: 100%;
-      padding: 11px 12px;
-      background: transparent;
-      color: #6f5570;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      text-align: left;
-    }
-
-    .mailbox-past-left {
-      min-width: 0;
-    }
-
-    .mailbox-past-name {
-      display: block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .mailbox-past-date {
-      display: block;
-      margin-top: 3px;
-      color: #a58a76;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .mailbox-past-arrow {
-      flex: 0 0 auto;
-      width: 19px;
-      height: 19px;
-      border-radius: 50%;
-      background: rgba(234, 222, 250, 0.82);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #7a6078;
-      font-size: 11px;
-      transform: rotate(90deg);
-      transition: transform 0.22s ease;
-    }
-
-    .mailbox-past-item.collapsed .mailbox-past-arrow {
-      transform: rotate(0deg);
-    }
-
-    .mailbox-past-body {
-      display: block;
-      padding: 0 12px 12px;
-      color: #765d72;
-      font-size: 13px;
-      line-height: 1.75;
-    }
-
-    .mailbox-past-item.collapsed .mailbox-past-body {
-      display: none;
-    }
-
-    .mailbox-past-body p {
-      margin-bottom: 8px;
-    }
-
-    .mailbox-past-body p:last-child {
-      margin-bottom: 0;
-    }
-
-    .mailbox-close-btn {
-      width: 100%;
-      min-height: 42px;
-      margin-top: 10px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, #ead6b7, #e5d6fa);
-      color: #6f5570;
-      font-size: 14px;
-      font-weight: 900;
-      box-shadow: 0 8px 16px rgba(104, 83, 121, 0.12);
-    }
-
-    .mailbox-close-btn:active {
-      transform: scale(0.96) translateY(1px);
-      background: linear-gradient(45deg, #e4cda9, #ddc9f7);
-    }
-
-
-    /* ==================== 弹窗：系统维护弹窗样式 ==================== */
-    .maintenance-card {
-      position: relative;
-      width: 88%;
-      max-width: 360px;
-      max-height: 72vh;
-      overflow-y: auto;
-      padding: 28px 20px 22px;
-      border-radius: 24px;
-      background: linear-gradient(180deg, #fffdfd, #fff5f8);
-      border: 1px solid rgba(248, 187, 208, 0.75);
-      box-shadow: 0 22px 52px rgba(194, 24, 91, 0.2);
-      color: #ad1457;
-      transform: scale(0.92) translateY(18px);
-      transition: all 0.55s cubic-bezier(0.2, 1.15, 0.35, 1);
-    }
-
-    .modal-overlay.active .maintenance-card {
-      transform: scale(1) translateY(0);
-    }
-
-    .maintenance-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(248, 187, 208, 0.5);
-      color: #c2185b;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-    }
-
-    .maintenance-title-row {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .maintenance-title {
-      color: #c2185b;
-      font-size: 20px;
-      font-weight: 800;
-      line-height: 1.45;
-    }
-
-    .maintenance-date {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin: -2px auto 12px;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background: rgba(255, 248, 251, 0.62);
-      border: 1px solid rgba(248, 187, 208, 0.35);
-      color: #e7a5bc;
-      font-size: 12px;
-      font-weight: 600;
-      line-height: 1.5;
-      letter-spacing: 0.4px;
-    }
-
-    .maintenance-help-btn {
-      flex: 0 0 auto;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: rgba(248, 187, 208, 0.72);
-      color: #c2185b;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 26px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(233, 30, 99, 0.16);
-      z-index: 2;
-    }
-
-    .maintenance-help-btn:active {
-      transform: scale(0.9);
-      background: #f48fb1;
-    }
-
-    .maintenance-info-pop {
-      position: relative;
-      display: none;
-      margin: -2px 0 14px;
-      padding: 13px 14px;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #fff5f8, #fffafd);
-      border: 1px solid rgba(248, 187, 208, 0.78);
-      color: #ad1457;
-      font-size: 13px;
-      line-height: 1.75;
-      text-align: left;
-      box-shadow: 0 8px 20px rgba(233, 30, 99, 0.1);
-      animation: maintenanceInfoIn 0.28s ease both;
-    }
-
-    .maintenance-info-pop.active {
-      display: block;
-    }
-
-    .maintenance-info-pop::before {
-      content: "";
-      position: absolute;
-      top: -7px;
-      right: 78px;
-      width: 12px;
-      height: 12px;
-      background: #fff5f8;
-      border-left: 1px solid rgba(248, 187, 208, 0.78);
-      border-top: 1px solid rgba(248, 187, 208, 0.78);
-      transform: rotate(45deg);
-    }
-
-    @keyframes maintenanceInfoIn {
-      0% {
-        transform: translateY(-6px);
-        opacity: 0;
-      }
-
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .maintenance-note {
-      margin-top: 12px;
-      color: #f48fb1;
-      font-size: 12px;
-      font-weight: 400;
-      line-height: 1.6;
-      letter-spacing: 1px;
-      opacity: 0.8;
-    }
-
-    .maintenance-subtitle {
-      margin-bottom: 16px;
-      color: #d45f8a;
-      font-size: 13px;
-      line-height: 1.7;
-    }
-
-    .maintenance-list {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-
-    .maintenance-item {
-      margin-bottom: 12px;
-      padding: 12px 13px;
-      border-radius: 16px;
-      background: rgba(255, 248, 251, 0.94);
-      border: 1px solid rgba(248, 187, 208, 0.65);
-      box-shadow: 0 6px 14px rgba(233, 30, 99, 0.07);
-    }
-
-    .maintenance-item:last-child {
-      margin-bottom: 0;
-    }
-
-    .maintenance-item-title {
-      margin-bottom: 4px;
-      color: #c2185b;
-      font-size: 14px;
-      font-weight: 800;
-    }
-
-    .maintenance-item-desc {
-      color: #ad1457;
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    .maintenance-close-btn {
-      width: 100%;
-      min-height: 42px;
-      border-radius: 999px;
-      background: linear-gradient(45deg, #f8bbd0, #f48fb1);
-      color: #ad1457;
-      font-size: 14px;
-      font-weight: 800;
-      box-shadow: 0 8px 16px rgba(233, 30, 99, 0.12);
-    }
-
-    .maintenance-close-btn:active {
-      transform: scale(0.96) translateY(1px);
-      background: linear-gradient(45deg, #f5a8c3, #f48fb1);
-    }
-
   </style>
 </head>
 
 <body>
-  <div class="floating-hearts" id="heartsContainer"></div>
 
-  <div class="card">
-    <button class="history-btn" id="historyBtn" title="查看时光札记">📖 回顾</button>
+  <main class="page">
 
-    <h1>
-      <span class="envelope-egg" id="secretEnvelope" title="点一下小信封，有一点小心情哦">💌</span>
-      属于你的树洞
-    </h1>
+    <div class="blur-circle circle-one"></div>
+    <div class="blur-circle circle-two"></div>
 
-    <div class="date" id="date"></div>
+    <section class="container">
 
-    <div class="main-intention">
-      这里更像是我和你的生活碎片，这里的每一颗爱心❤️都会替我拥抱你
-    </div>
+      <div class="error-code">404</div>
 
-    <div class="message-box">
-      <div class="mood-title-row">
-        <div class="mood-label">宝宝此刻的心情:</div>
-        <button class="message-refresh-btn" id="messageRefreshBtn" title="换一句当前心情语录">↻</button>
-      </div>
-      <div class="mood-row">
-        <button class="mood-btn active" data-mood="happy">开心˶&gt;ᗜ&lt;˶</button>
-        <button class="mood-btn" data-mood="normal">一般(ᗜ ˰ ᗜ)</button>
-        <button class="mood-btn" data-mood="sad">难过(ಥ﹏ಥ)</button>
-      </div>
-      <div class="message-content">
-        <span id="messageText"></span><span class="cursor"></span>
-      </div>
-    </div>
+      <h1>这里好像什么都没有</h1>
 
-    <div class="daily-link-area">
-      <div class="link-actions">
-        <a class="daily-link-btn empty" id="dailyLinkBtn" href="#" target="_blank" rel="noopener noreferrer">🔗 今日小链接</a>
-        <button class="archive-link-btn" id="archiveLinkBtn" title="查看往期链接">📖</button>
-      </div>
-      <div class="daily-link-tip" id="dailyLinkTip"></div>
-    </div>
+      <p class="description">
+        你访问的页面可能已经离开，也可能从未存在过。
+        <br>
+        不过别担心，网站本身仍然运行正常。
+      </p>
 
+      <p class="small-tip">
+        Error: The requested page could not be found.
+      </p>
 
-    <div class="mailbox-area">
-      <button class="mailbox-entry-btn" id="mailboxBtn" title="打开心意邮箱">
-        <span class="mailbox-icon">📮</span>
-        <span class="mailbox-entry-text">
-          <span class="mailbox-entry-title">心意邮箱</span>
-          <span class="mailbox-entry-subtitle">宝宝记得查收噢</span>
-        </span>
-      </button>
-    </div>
+      <div class="buttons">
 
-    <div class="footer-note">· 不是非要写情话，只是想让你看到心情好些 ·</div>
-  </div>
+        <!-- 把 index.html 修改成你的主页地址 -->
+        <a class="button primary-button" href="index.html">
+          返回首页
+        </a>
 
-  <div class="modal-overlay" id="historyModal">
-    <div class="modal-card">
-      <button class="history-help-btn" id="historyHelpBtn" title="为什么写时光札记">?</button>
-      <div class="modal-title">🕰️ 时光札记</div>
-      <div class="history-info-pop" id="historyInfoPop">
-        <div class="history-info-title">关于时光札记</div>
-        <div class="history-info-text">记录这个的本意，是因为我觉得把生活的点滴写进代码里会是很浪漫的事呢，如果十年后二十年后...再看到这段代码，也许会有不一样的感受叭hh</div>
-      </div>
-      <div id="historyList"></div>
-      <button class="close-btn" id="closeBtn">知道了哦</button>
-    </div>
-  </div>
+        <button
+          class="button secondary-button"
+          type="button"
+          onclick="history.back()"
+        >
+          返回上一页
+        </button>
 
-  <div class="modal-overlay secret-overlay" id="secretModal">
-    <div class="secret-letter">
-      <button class="secret-help-btn" id="secretHelpBtn" title="关于这封小信">?</button>
-      <div class="secret-stamp">ONLY YOU</div>
-      <div class="secret-title">💌 藏在信封里的小秘密</div>
-      <div class="secret-info-pop" id="secretInfoPop">
-        <div class="secret-info-title">关于这封小信</div>
-        <div class="secret-info-text">有些没说出口的话我会藏在身边的某一处角落噢</div>
-      </div>
-      <div class="secret-content" id="secretContent"></div>
-      <button class="secret-close-btn" id="secretCloseBtn">把小秘密收好</button>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="archiveModal">
-    <div class="modal-card">
-      <div class="modal-title">📖 往期链接</div>
-      <div id="archiveList"></div>
-      <button class="close-btn" id="archiveCloseBtn">我收下啦</button>
-    </div>
-  </div>
-
-
-
-  <div class="modal-overlay" id="mailboxModal">
-    <div class="mailbox-card">
-      <button class="mailbox-help-btn" id="mailboxHelpBtn" title="关于心意邮箱">?</button>
-      <div class="mailbox-badge">MOOD MAIL</div>
-      <div class="mailbox-title" id="mailboxMainTitle">📮 心意邮箱</div>
-      <div class="mailbox-date" id="mailboxDate">📬 未填写日期</div>
-      <div class="mailbox-info-pop" id="mailboxInfoPop"></div>
-
-      <div class="mailbox-current-letter">
-        <div class="mailbox-letter-tag" id="mailboxTag">今日小作文</div>
-        <div class="mailbox-letter-title" id="mailboxLetterTitle">这里写信件标题</div>
-        <div class="mailbox-letter-body" id="mailboxLetterBody"></div>
       </div>
 
-      <div class="mailbox-section-title">
-        <span>✉️ 往期信件</span>
-        <span id="mailboxPastCount">0封</span>
+      <div class="status">
+        <span class="status-dot"></span>
+        <span>服务器连接正常 · 只是页面走丢了</span>
       </div>
-      <div id="mailboxPastList"></div>
 
-      <button class="mailbox-close-btn" id="mailboxCloseBtn">把信收好</button>
-    </div>
-  </div>
+    </section>
 
-  <!-- ==================== 弹窗：系统维护 / 更新内容弹窗 ==================== -->
-  <div class="modal-overlay" id="maintenanceModal">
-    <div class="maintenance-card">
-      <div class="maintenance-badge">SYSTEM UPDATE</div>
-      <div class="maintenance-title-row">
-        <div class="maintenance-title" id="maintenanceTitle">系统维护小通知</div>
-        <button class="maintenance-help-btn" id="maintenanceHelpBtn" title="关于系统维护">?</button>
-      </div>
-      <div class="maintenance-date" id="maintenanceDate">-维护日期 · 2026年6月15日-</div>
-      <div class="maintenance-info-pop" id="maintenanceInfoPop"></div>
-      <div class="maintenance-subtitle" id="maintenanceSubtitle">这里会放最近更新的小内容，后续你可以自己在代码里改。</div>
-      <div class="maintenance-list" id="maintenanceList"></div>
-      <button class="maintenance-close-btn" id="maintenanceCloseBtn">知道啦，进入小页面</button>
-      <div class="maintenance-note" id="maintenanceNote">·只要没跟宝断联，服务器就会一直维护下去哦·</div>
-    </div>
-  </div>
+  </main>
 
-  <script>
-
-    // 页面标题：<title> 里使用 &amp; 防止部分环境解析异常，JS 里直接写 & 即可。
-    const PAGE_TITLE = "粥粥&汀汀的空间";
-    document.title = PAGE_TITLE;
-
-    // ============================================================
-    // 【每日更新区】
-    // 以后日常更新时，优先只改这一整块：
-    // 1. 维护公告：maintenancePopupContent
-    // 2. 今日链接：dailyLinks
-    // 3. 往期链接：pastLinks
-    // 其它代码尽量不要动，避免影响已经稳定的页面效果。
-    // ============================================================
-
-    // ---------- 1. 每日维护----------
-    // true  = 进入网页时自动弹出系统维护弹窗
-    // false = 进入网页时不自动弹出；弹窗代码仍保留，后续想开再改回 true
-    const MAINTENANCE_POPUP_AUTO_OPEN = true;
-
-    // 弹窗延迟时间，单位：毫秒；想一进网页立刻弹出就改成 0
-    const MAINTENANCE_POPUP_DELAY = 650;
-
-    const maintenancePopupContent = {
-      title: "系统维护小通知",
-      date: "2026年7月14日",
-      helpText: "如果有界面有Bug记得跟我反馈哦，也可以提提修改建议hh",
-      subtitle: "有bug的话，宝宝记得跟我说呢",
-      note: "·只要没跟宝断联，服务器就会一直维护下去哦·",
-      updates: [
-        {
-          title: "① 链接更新",
-          desc: "久违地补了一下今日小链接和往期链接hhhh"
-        },
-        {
-          title: "② 新增心意邮箱📮",
-          desc: "藏太深担心宝贝找不到哈哈，这也算是写给你的线上情书叭"
-        },
-        // {
-        //   title: "③ 月份支持折叠",
-        //   desc: "点月份标题就可以展开或收起，默认先打开最新月份，之前的月份会先乖乖收好。"
-        // }
-        // 后续要新增第四条、第五条，就复制上面这一组：
-        // ,{
-        //   title: "④ 这里写更新标题",
-        //   desc: "这里写更新说明"
-        // }
-      ]
-    };
-
-    // ---------- 2. 今日链接 ----------
-    // 格式：[
-    //   "日期",
-    //   "按钮上显示的标题",
-    //   "网址",
-    //   "按钮下面的小提示"
-    // ]
-    // 日期可以写完整日期 "2026-06-17"，也可以只写月份日期 "06-17"。
-    const dailyLinks = [
-      [
-        "07-14",
-        "点这里是链接噢",
-        "    https://qishui.douyin.com/s/iCAcr6Kq/   ",
-        "《下雨天》-en"
-      ]
-
-      // 明天更新时，复制下面模板，改日期、标题、网址、小提示就行：
-      // ,[
-      //   "06-18",
-      //   "点这里是链接噢",
-      //   "https://example.com",
-      //   "这里写按钮下面的小提示"
-      // ]
-    ];
-
-    // ---------- 3. 往期链接 ----------
-    // 格式：[
-    //   "年月日",
-    //   "标题",
-    //   "网址",
-    //   "简介"
-    // ]
-    // 每天把已经过期的“今日链接”复制到这里，就会出现在“往期链接”弹窗里。
-    const pastLinks = [
-      [
-        "2026-06-13",
-        "你分享给我的第一首歌《海屿你-马也》",
-        "https://y.music.163.com/m/song?id=1973665667",
-        "听完会emo哈哈。"
-      ],
-      [
-        "2026-06-14",
-        "《罗密欧与朱丽叶》",
-        "https://v.douyin.com/BRxtbkI-plA/ S@y.gb 05/24 vsR:/ :3pm",
-        "殉情真的只是古老的传说嘛"
-      ],
-      [
-        "2026-06-15",
-        "INTP",
-        "https://v.douyin.com/Tel2rto8KEI/ 09/25 k@C.UL :8pm III:/",
-        "我的MBTI有点抽象哈哈哈"
-      ],
-      [
-        "2026-06-16",
-        "《咒》",
-        "https://v.douyin.com/bYDByVmCvLM/ UYz:/ 05/10 :8pm s@r.re ",
-        "恐怖片噢慎入hhh"
-      ],
-      [
-        "2026-06-17",
-        "《吻》",
-        "      https://v.douyin.com/ITeCINZO13k/              ",
-        "好嗑这对啊hh"
-      ],
-      [
-        "2026-06-23",
-        "《茉莉》",
-        "      https://v.douyin.com/pVskWqpOKQg/ 07/08 :1pm V@Y.zG mda:/             ",
-        "hh，昨晚跟你讲的花语"
-      ],
-      [
-        "2026-06-25",
-        "书籍📚《被讨厌的勇气》",
-        "      https://weread.qq.com/book-detail?type=1&senderVid=345030142&v=8b9329607186dc198b9bdab&wtheme=white&wfrom=app&wvid=345030142&scene=bottomSheetShare           ",
-        "哈哈这本书我已经三刷了，可能一开始确实觉得会有些幼稚叭，但是确实对我帮助很大呢，推荐给你哦"
-      ],
-      [
-        "2026-06-29",
-        "《爱卡餐小姐&总超时先生》",
-        "      https://v.douyin.com/UpFXdWgoS-8/ :3pm QXZ:/ s@r.eB 10/27         ",
-        "我相信爱情，只是不相信它会降临到我身上"
-      ],
-      [
-        "2026-07-02",
-        "《镯子》",
-        "      https://v.douyin.com/bf46mIf8oFo/ P@x.Fh 07/24 Bte:/ :8pm         ",
-        "相互猜忌是不信任，是疑心病...我始终相信对的人始终会站在你的前途里"
-      ],
-      [
-        "2026-07-04",
-        "《白首不分离才是我羡慕的爱情》",
-        "     https://v.douyin.com/vX8dD_v99No/ 03/17 :1pm v@s.rR iCh:/         ",
-        "日子怎么可能跟谁过都一样呢"
-      ],
-      [
-        "2026-07-08",
-        "把小日子过好就很幸福了叭",
-        "     https://v.douyin.com/UVSjlp1WpxA/ ban:/ 12/31 v@F.Hi :0pm    ",
-        "我幻想中的生活缩影哈哈"
-      ],
-      [
-        "2026-07-14",
-        "浅浅emo一下哈哈",
-        "    https://qishui.douyin.com/s/iCAcr6Kq/   ",
-        "《下雨天》-en"
-      ]
-      // 后续新增往期链接时，复制下面模板：
-      // ,[
-      //   "2026-06-18",
-      //   "这里写标题",
-      //   "https://example.com",
-      //   "这里写简介"
-      // ]
-    ];
-
-
-    // ---------- 4. 心意邮箱 ----------
-    // 以后想写“小作文”，主要就改这里：
-    // 只需要往 letters 里面继续加信件，不用再手动分 current / past。
-    // 规则：
-    // 1. date 是今天的信，会显示在上面的“今日小作文”。
-    // 2. date 早于今天的信，会自动进入“往期信件”。
-    // 3. date 晚于今天的信，会先藏起来，等到那天才显示。
-    // 4. date 推荐写成 "2026-07-15"，也兼容 "2026年7月15日"。
-    const mailboxLetters = {
-      mainTitle: "📮 心意邮箱",
-      helpText: "以后都在这给宝贝写小作文噢。只要信件日期过了今天，它就会自动收进往期信件里。",
-      emptyTodayTitle: "今天还没有新信噢",
-      emptyTodayBody: [
-        "今天的小作文还没投递进来，如果我晚点想写很多话，就会把它放在这里。",
-        "之前写过的信不会丢，它们会自动收进下面的往期信件里。"
-      ],
-      letters: [
-        {
-          date: "2026-07-14",
-          tag: "今日小作文",
-          title: "今天想把一点心意寄给你",
-          body: [
-            // "今天想给你写一封稍微长一点的信，不是为了把话说得多漂亮，只是想把一些很零散、很细小的心情放在这里。",
-            "有时候我觉得，把普通日子里想到你的那些瞬间，好好收起来，再慢慢递给你,这样会不会更有心意昂hh",
-            "所以这个邮箱就先这样放着吧。以后如果我想写很多话，就写在这里；如果你某天刚好点开，也许就能收到一封只属于你的、慢慢写出来的小信。"
-          ]
-        },
-        {
-          date: "2026-07-13",
-          tag: "往期信件",
-          title: "第一封试运行的小信",
-          body: [
-            "第一封信可能就要吐槽一下我当初的想法hh，最大的败笔就是没有做成服务器啦，没办法跟宝贝互动呢(截至目前已经2500行代码啦，我又不舍得重构代码，一是懒，二是要花好多时间哈哈)。",
-            "好叭也是有经验不足hh，毕竟这是我第一次为女生做这个诶"
-          ]
-        }
-        // 后续新增信件时，复制下面模板：
-        // ,{
-        //   date: "2026-07-15",
-        //   tag: "今日小作文",
-        //   title: "这里写信件标题",
-        //   body: [
-        //     "这里写第一段小作文。",
-        //     "这里写第二段小作文。"
-        //   ]
-        // }
-      ]
-    };
-
-
-    // ============================================================
-    // 【稳定功能区】
-    // 下面是页面原本的功能代码，一般不用改。
-    // ============================================================
-
-    const messages = [
-      ["2026-05-12", "我们在洛克相遇啦"],
-      ["2026-05-15", "厚着脸向你要了微信哈哈"],
-      ["2026-05-27", "那天你给我发了很多语音，鬼知道我听了多少遍哈哈"],
-      ["2026-06-07", "光遇出入新手村，宝求带带😄"],
-      ["2026-06-14", "跟你表白碰壁了呢...."],
-      ["往后的每一天", "未完待续...."]
-    ];
-
-    const moodQuotes = {
-      happy: ["今天的开心不用很大，一点点就够把心照亮啦。", "如果刚好笑了一下，那这一秒就值得被收藏。", "愿你今天像小太阳一样，被可爱的事情围住。", "开心的时候就多开心一会儿，不用急着把快乐藏起来。", "今天适合把烦恼放小一点，把喜欢的事情放大一点。", "希望你遇到的每个小瞬间，都能悄悄对你眨眼睛。", "你一开心，连这个小页面都像偷偷亮了一下。", "今天的小目标：吃点喜欢的，听点舒服的，笑得轻松一点。", "愿你今天的快乐不是勉强来的，而是自己慢慢冒出来的。", "如果今天心情不错，那就让它多停留一会儿吧。", "你笑起来的时候，很多小事都会变得没那么难。", "愿今天的风都偏向你，把好心情吹到你身边。", "开心不是浪费时间，是在给自己充电呢。", "今天值得奖励自己一个小小的开心仪式。", "如果快乐是一颗糖，那我希望今天你有一整口袋。", "愿你今天看到的东西，都比昨天可爱一点。", "现在这个开心的你，也很值得被认真记录下来。", "今天不用太完美，只要有一点开心就已经很棒。", "希望你今天的笑，不是礼貌的，是发自心里的。", "开心的时候就不要想太多，先把这一刻抱紧。", "愿你今天像被柔软的云轻轻托住，轻松又自在。", "如果有好事发生，那一定是生活偷偷偏爱了你一下。", "今天的你，适合被夸，也适合被好好喜欢。", "愿你的小快乐像气泡水一样，咕噜咕噜冒出来。", "开心的时候，连普通的日子都会变得有一点闪光。", "希望今天有一件小事，让你觉得：嗯，还挺好。", "愿你今天点开这里时，刚好收到一颗快乐小星星。", "笑一笑也没关系呀，今天本来就该对你好一点。", "愿你今天的心情像晴天晒过的被子，软软暖暖的。", "如果今天很开心，那就把这份开心悄悄存档。", "你开心的时候，世界好像也跟着变温柔了一点。", "今天适合轻轻哼歌，适合慢慢散步，适合喜欢自己。", "愿你今天的好运不用排队，直接跑到你面前。", "开心是很珍贵的小东西，所以要好好接住它。", "希望你今天的笑容，比手机亮度还要明亮一点。", "如果快乐来敲门，就让它多坐一会儿再走。", "愿你今天遇到的小惊喜，都刚好合你心意。", "开心的时候，记得偷偷夸夸自己：我今天也很好。", "今天的小开心已经抵达，请你签收一下下。", "愿你今天的心像草莓味的云，甜一点，轻一点。", "如果今天顺顺利利，那就让这份顺利延长一点吧。", "希望你被可爱的事情撞个满怀，然后忍不住笑出来。", "今天适合把自己放在第一位，好好享受一点快乐。", "愿你今天所有的小期待，都有一点点回应。", "开心也是一种勇敢，说明你还愿意拥抱生活。", "如果今天心情亮晶晶，那我也替你开心一下。", "愿你把今天的快乐装进口袋，明天还能摸到一点。", "今天可以不用想太远，先把眼前的小开心吃掉。", "希望这个页面今天也有成功让你嘴角上扬一点点。", "愿你每天都有新的理由，觉得生活还蛮可爱的。"],
-      sad: ["如果今天有点难过，那就先不用急着变好，我在这里轻轻陪你一下。", "不开心的时候也没关系，你不用每一天都很坚强。", "难过不是你太脆弱，是心里真的有点累了。", "先抱抱你，今天辛苦了，真的辛苦了。", "如果眼泪快掉下来，就让它休息一下吧，不用忍得太用力。", "坏心情不会一直赢，它只是今天路过你这里。", "你可以慢慢缓过来，不用立刻笑给谁看。", "今天不想说话也没关系，安静一下也是在照顾自己。", "如果世界有点吵，就先躲进这个小角落里吧。", "别怪自己情绪不好，你只是需要一点被理解的时间。", "难过的时候，能撑到现在就已经很棒了。", "今天先不要和自己较劲，好吗？", "有些委屈不用马上解释，先把自己抱住最重要。", "如果心里很乱，就先深呼吸一下，一点一点来。", "你不是麻烦，也不是负担，你只是今天有点累。", "不开心也值得被温柔对待，不需要假装没事。", "今天的云有点重，那就让我帮你分一点重量吧。", "如果什么都做不了，那就先好好坐一会儿，也算照顾自己。", "别急着把难过赶走，它可能只是想让你停下来休息。", "你已经努力很久了，今天可以软一点。", "我希望你知道，就算情绪低低的，你也依然很好。", "这一天不太好也没关系，一天不能定义你。", "如果今天很委屈，那就把委屈先放在这里，我帮你看着。", "你不用把所有事情都消化得很漂亮。", "难过的时候，先吃点东西，喝点水，别忘了照顾身体。", "有些情绪来得突然，但它总会慢慢过去。", "我不催你变开心，我只希望你别一个人硬撑。", "今天允许你不元气，允许你慢吞吞，允许你什么都不想做。", "如果心情像小雨，那就先撑一把小伞，慢慢走。", "你不是不够好，只是今天的能量被消耗太多了。", "别把所有错都往自己身上放，你也需要被保护。", "如果没人懂你，那这个页面先认真听你一下。", "今天先别想太远，能过完这一刻就已经很好。", "难过的时候也要记得，你不是孤零零的。", "你可以不用解释为什么难过，难过本身就值得被接住。", "希望你今晚睡前，心能比现在轻一点点。", "如果今天被生活撞疼了，那就先停下来揉一揉。", "不开心的时候，别急着做决定，先给自己一点时间。", "你已经很努力在生活了，这一点不能被否定。", "如果眼前暂时看不到光，那我就在这里给你放一盏小灯。", "今天难过，那就难过吧，明天再一点点往前走。", "你不用把自己修理好才值得被喜欢。", "我希望这句话能轻轻告诉你：你已经很好了。", "如果今天心里很空，那就先让温柔慢慢填进去一点。", "你可以哭，可以沉默，可以慢慢来，我都觉得没关系。", "坏情绪只是暂住，不会永远住在你心里。", "今天别逼自己太紧，给心情留一点松开的地方。", "如果有些事想不通，那就先不想了，晚一点再说。", "我把一点温柔放在这里，希望你路过时能拿走一点。", "即使今天很难，你也还是值得被好好抱抱。"],
-      normal: ["今天就一般也挺好，平平稳稳也是一种小幸运。", "不需要每天都很精彩，普通日子也可以慢慢过。", "如果今天没什么特别的，那就把它当作轻轻的一页。", "一般般的心情也不用被嫌弃，它也是真实的你。", "今天可以不用很兴奋，也不用很低落，就这样刚刚好。", "愿你在普通的一天里，也能碰到一点点舒服的小事。", "生活有时候就是淡淡的，但淡淡的也能很安心。", "今天不必强行快乐，保持平稳就已经很好。", "如果心情只是一般，那就给自己倒杯水，慢慢坐一会儿。", "普通的一天也值得被认真度过。", "今天可以简单一点，少想一点，轻松一点。", "愿你在没什么波澜的日子里，也能照顾好自己。", "一般的心情像白开水，不甜，但很真实。", "今天不需要证明什么，安安稳稳就很好。", "如果没有惊喜，那就把平静当作礼物吧。", "愿你今天的节奏不快不慢，刚好适合你。", "有些日子不用发光，安静存在也很好。", "今天就让自己舒服一点，不用非要表现得多好。", "一般般也没关系，人生本来就有很多普通片段。", "愿今天的小事都不要太麻烦你。", "如果今天没什么特别开心的，那也不用责怪自己。", "平淡不是无聊，有时候是生活在轻轻保护你。", "今天适合慢慢走，慢慢看，慢慢恢复能量。", "愿你在普通里找到一点点属于自己的安稳。", "一般的一天，也可以有一口好吃的东西，一首好听的歌。", "今天就先顺其自然吧，不用把自己安排得太满。", "如果心情没什么起伏，那就让它安安静静待着。", "愿你今天少一点被打扰，多一点自己的时间。", "普通日子也可以存档，因为以后回看也许会觉得珍贵。", "今天不用有答案，先把自己照顾好。", "一般的心情，也许正好适合休息和整理。", "愿你今天不用太费力，就能把日子过下去。", "如果今天只是平平常常，那就让它平平常常地好。", "你不用每一刻都有意义，偶尔放空也很正常。", "今天适合给自己一点小奖励，不用理由。", "愿你在一般的日子里，也能有一点点被惦记的感觉。", "平稳也是一种温柔，它让你慢慢把自己找回来。", "今天先别急着追赶什么，站稳也很重要。", "如果没什么想说的，那就安静地待一会儿吧。", "普通的一天里，也藏着很多不会吵闹的小美好。", "愿你今天的心情像温水一样，不烫也不冷。", "一般般不是坏事，它只是生活在低声说话。", "今天适合把期待放低一点，把舒服放高一点。", "愿你不用很用力，也能顺顺地过完今天。", "如果今天只是普通，那也值得被温柔记录。", "不热烈也没关系，温温的日子也很好。", "愿今天没有太多烦心事，也没有太多消耗。", "你可以只是正常地过一天，这已经很不容易了。", "今天就像一页淡粉色便签，简单，但也可爱。", "愿这个小页面在普通的一天里，也能陪你几秒钟。"]
-    };
-    const secretMessages = [
-     // "行里行距都花了点小心思，你会懂叭哈哈。",
-        "可是我又怕自己耽误你",
-        "也不知道什么时候动了娶你的念头",
-      // "距离也许是阻碍，如果你愿意跟我一起克服，那它就不是一个问题",
-      // "想和你并肩走完以后所有的路.",
-      // "我也不知道呢，还没见面就喜欢上你了",
-      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
-      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
-      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
-      // "小秘密：如果今天不太开心，就先在这里歇一小会儿吧。",
-    ];
-
-    function initDate() {
-      const now = new Date();
-      const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long"
-      };
-
-      const dateStr = now.toLocaleDateString("zh-CN", options);
-      const hour = now.getHours();
-
-      let greeting = "夜深啦";
-
-      if (hour >= 5 && hour < 11) {
-        greeting = "早安呀";
-      } else if (hour >= 11 && hour < 14) {
-        greeting = "午安哦";
-      } else if (hour >= 14 && hour < 18) {
-        greeting = "下午好呀";
-      } else if (hour >= 18 && hour < 24) {
-        greeting = "晚上好噢";
-      }
-
-      document.getElementById("date").innerText = `${greeting} · ${dateStr}`;
-    }
-
-    let currentWarmMessage = "";
-    let currentMood = "happy";
-    let typewriterTimer = null;
-
-    function getMoodMessage(mood = currentMood) {
-      const list = moodQuotes[mood] || moodQuotes.happy || [];
-
-      if (list.length === 0) {
-        return "今天也想给你留一点小开心，希望你看到的时候，心情能轻一点点。";
-      }
-
-      let nextMessage = list[Math.floor(Math.random() * list.length)];
-
-      if (list.length > 1) {
-        let safeCount = 0;
-
-        while (nextMessage === currentWarmMessage && safeCount < 8) {
-          nextMessage = list[Math.floor(Math.random() * list.length)];
-          safeCount++;
-        }
-      }
-
-      currentWarmMessage = nextMessage;
-      return nextMessage;
-    }
-
-    function getTodayMessage() {
-      // 主界面只显示“开心 / 一般 / 难过”的心情语录
-      // 时光札记里的日期记录只放在“回顾”弹窗里，不再出现在开心一栏
-      return getMoodMessage(currentMood);
-    }
-
-    function getTodayLink() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-      const day = String(now.getDate()).padStart(2, "0");
-
-      const mmdd = `${month}-${day}`;
-      const fullDate = `${year}-${month}-${day}`;
-
-      return dailyLinks.find(item => item[0] === fullDate || item[0] === mmdd);
-    }
-
-    function initDailyLink() {
-      const linkBtn = document.getElementById("dailyLinkBtn");
-      const linkTip = document.getElementById("dailyLinkTip");
-      const todayLink = getTodayLink();
-
-      if (todayLink && todayLink[2]) {
-        linkBtn.href = todayLink[2];
-        linkBtn.innerText = `🔗 ${todayLink[1] || "今日小链接"}`;
-        linkBtn.classList.remove("empty");
-        linkTip.innerText = todayLink[3] || "粥粥不定时更新噢～(没更新就是懒哈哈˶>ᗜ<˶)";
-      } else {
-        linkBtn.href = "#";
-        linkBtn.innerText = "🔗 今日小链接";
-        linkBtn.classList.add("empty");
-        linkTip.innerText = "这里预留给每天想分享给你的有意思链接～";
-      }
-
-      linkBtn.addEventListener("click", function(e) {
-        if (!todayLink || !todayLink[2]) {
-          e.preventDefault();
-          linkTip.innerText = "今天的小链接还没放上去，等我补给你～";
-        }
-
-        createHeartBurstAroundElement(linkBtn, 10);
-      });
-    }
-
-    function initPastLinks() {
-      const archiveList = document.getElementById("archiveList");
-      archiveList.innerHTML = "";
-
-      if (!pastLinks.length) {
-        archiveList.innerHTML = '<div style="text-align:center; color:#d88aa4;">这里还没有放上往期链接哦～</div>';
-        return;
-      }
-
-      // 按月份自动分组：以后只要继续往 pastLinks 里加日期，就会自动归到对应月份。
-      const sortedLinks = [...pastLinks].sort((a, b) => {
-        const dateA = new Date(a[0] || "1970-01-01");
-        const dateB = new Date(b[0] || "1970-01-01");
-        return dateB - dateA;
-      });
-
-      const groupedLinks = sortedLinks.reduce((groups, item) => {
-        const date = item[0] || "未填写日期";
-        const match = date.match(/^(\d{4})-(\d{2})/);
-        const monthKey = match ? `${match[1]}-${match[2]}` : "未分类";
-        const monthTitle = match ? `${match[1]}年${Number(match[2])}月` : "未分类";
-
-        if (!groups[monthKey]) {
-          groups[monthKey] = {
-            key: monthKey,
-            title: monthTitle,
-            items: []
-          };
-        }
-
-        groups[monthKey].items.push(item);
-        return groups;
-      }, {});
-
-      Object.values(groupedLinks).forEach((group, index) => {
-        const section = document.createElement("section");
-        section.className = "archive-month-section";
-
-        // 默认只展开最新月份，其它月份先折叠起来，避免列表太长。
-        if (index !== 0) {
-          section.classList.add("collapsed");
-        }
-
-        const monthId = `archive-month-${group.key}`;
-
-        const title = document.createElement("button");
-        title.type = "button";
-        title.className = "archive-month-title";
-        title.setAttribute("aria-expanded", index === 0 ? "true" : "false");
-        title.setAttribute("aria-controls", monthId);
-        title.innerHTML = `
-          <span class="archive-month-left"><span class="archive-month-arrow">▶</span><span>🌙 ${group.title}</span></span>
-          <span class="archive-month-count">${group.items.length}条</span>
-        `;
-
-        const content = document.createElement("div");
-        content.className = "archive-month-content";
-        content.id = monthId;
-
-        title.addEventListener("click", () => {
-          const isCollapsed = section.classList.toggle("collapsed");
-          title.setAttribute("aria-expanded", String(!isCollapsed));
-          createHeartBurstAroundElement(title, 5);
-        });
-
-        section.appendChild(title);
-
-        group.items.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "archive-item";
-          div.innerHTML = `
-            <div class="archive-date">📅 ${item[0] || "未填写日期"}</div>
-            <a class="archive-link-title" href="${item[2] || '#'}" target="_blank" rel="noopener noreferrer">🔗 ${item[1] || "未命名链接"}</a>
-            <div class="archive-desc">${item[3] || "这里写这一条往期链接的小简介。"}</div>
-          `;
-          content.appendChild(div);
-        });
-
-        section.appendChild(content);
-        archiveList.appendChild(section);
-      });
-    }
-
-
-    function escapeMailboxHTML(value) {
-      return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function getTodayDateKey() {
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, "0");
-      const day = String(now.getDate()).padStart(2, "0");
-      return `${year}-${month}-${day}`;
-    }
-
-    function normalizeMailboxDateKey(dateText) {
-      const raw = String(dateText || "").trim();
-      const currentYear = new Date().getFullYear();
-
-      if (!raw) {
-        return "";
-      }
-
-      // 兼容：2026-07-15 / 2026/7/15 / 2026.7.15 / 2026年7月15日
-      let match = raw.match(/^(\d{4})[-\/.年]\s*(\d{1,2})[-\/.月]\s*(\d{1,2})日?$/);
-      if (match) {
-        const year = match[1];
-        const month = String(Number(match[2])).padStart(2, "0");
-        const day = String(Number(match[3])).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-      }
-
-      // 兼容：07-15 / 7/15 / 7月15日；不写年份时，默认按今年处理。
-      match = raw.match(/^(\d{1,2})[-\/.月]\s*(\d{1,2})日?$/);
-      if (match) {
-        const month = String(Number(match[1])).padStart(2, "0");
-        const day = String(Number(match[2])).padStart(2, "0");
-        return `${currentYear}-${month}-${day}`;
-      }
-
-      return "";
-    }
-
-    function getMailboxAllLetters() {
-      // 新版：推荐只使用 mailboxLetters.letters。
-      // 兼容旧版：如果你之前还留着 current / past，也会自动合并进来。
-      const letters = Array.isArray(mailboxLetters.letters) ? [...mailboxLetters.letters] : [];
-
-      if (mailboxLetters.current) {
-        letters.push(mailboxLetters.current);
-      }
-
-      if (Array.isArray(mailboxLetters.past)) {
-        letters.push(...mailboxLetters.past);
-      }
-
-      return letters
-        .filter(Boolean)
-        .map(letter => ({
-          ...letter,
-          _dateKey: normalizeMailboxDateKey(letter.date)
-        }));
-    }
-
-    function renderMailbox() {
-      const todayKey = getTodayDateKey();
-      const allLetters = getMailboxAllLetters();
-
-      const todayLetters = allLetters
-        .filter(letter => letter._dateKey === todayKey)
-        .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-
-      const past = allLetters
-        .filter(letter => letter._dateKey && letter._dateKey < todayKey)
-        .sort((a, b) => b._dateKey.localeCompare(a._dateKey));
-
-      const current = todayLetters[0] || {
-        date: "今天",
-        tag: "今日小作文",
-        title: mailboxLetters.emptyTodayTitle || "今天还没有新信噢",
-        body: mailboxLetters.emptyTodayBody || ["今天的小作文还没投递进来。"]
-      };
-
-      mailboxMainTitle.innerText = mailboxLetters.mainTitle || "📮 心意邮箱";
-      mailboxInfoPop.innerText = mailboxLetters.helpText || "这里可以放长一点的小作文，也可以保留往期信件。";
-      mailboxDate.innerText = `📬 ${current.date || "未填写日期"}`;
-      mailboxTag.innerText = current.tag || "今日小作文";
-      mailboxLetterTitle.innerText = current.title || "这里写信件标题";
-
-      const currentBody = current.body || [];
-      mailboxLetterBody.innerHTML = currentBody.length
-        ? currentBody.map(paragraph => `<p>${escapeMailboxHTML(paragraph)}</p>`).join("")
-        : "<p>这里还没有写内容噢。</p>";
-
-      mailboxPastCount.innerText = `${past.length}封`;
-      mailboxPastList.innerHTML = "";
-
-      if (past.length === 0) {
-        mailboxPastList.innerHTML = '<div style="text-align:center; color:#a58a76; font-size:13px; padding:10px 0;">这里还没有往期信件哦～</div>';
-        return;
-      }
-
-      past.forEach((letter, index) => {
-        const item = document.createElement("div");
-        item.className = "mailbox-past-item";
-
-        if (index !== 0) {
-          item.classList.add("collapsed");
-        }
-
-        const titleBtn = document.createElement("button");
-        titleBtn.type = "button";
-        titleBtn.className = "mailbox-past-title";
-        titleBtn.innerHTML = `
-          <span class="mailbox-past-left">
-            <span class="mailbox-past-name">${escapeMailboxHTML(letter.title || "未命名信件")}</span>
-            <span class="mailbox-past-date">${escapeMailboxHTML(letter.date || "未填写日期")}</span>
-          </span>
-          <span class="mailbox-past-arrow">▶</span>
-        `;
-
-        const body = document.createElement("div");
-        body.className = "mailbox-past-body";
-
-        const paragraphs = letter.body || [];
-        body.innerHTML = paragraphs.length
-          ? paragraphs.map(paragraph => `<p>${escapeMailboxHTML(paragraph)}</p>`).join("")
-          : "<p>这封信还没有写内容。</p>";
-
-        titleBtn.addEventListener("click", () => {
-          item.classList.toggle("collapsed");
-          createHeartBurstAroundElement(titleBtn, 5);
-        });
-
-        item.appendChild(titleBtn);
-        item.appendChild(body);
-        mailboxPastList.appendChild(item);
-      });
-    }
-
-    function openMailbox() {
-      renderMailbox();
-      mailboxInfoPop.classList.remove("active");
-      mailboxModal.classList.add("active");
-    }
-
-    function closeMailbox() {
-      mailboxModal.classList.remove("active");
-      mailboxInfoPop.classList.remove("active");
-    }
-
-
-    function playTypewriter(text) {
-      const el = document.getElementById("messageText");
-      el.innerText = "";
-
-      if (typewriterTimer) {
-        clearInterval(typewriterTimer);
-      }
-
-      let i = 0;
-
-      typewriterTimer = setInterval(() => {
-        if (i < text.length) {
-          el.innerText += text.charAt(i);
-          i++;
-        } else {
-          clearInterval(typewriterTimer);
-          typewriterTimer = null;
-        }
-      }, 60);
-    }
-
-    function createHearts() {
-      const container = document.getElementById("heartsContainer");
-
-      for (let i = 0; i < 8; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("heart");
-
-        const size = Math.random() * 20 + 10;
-
-        heart.style.width = `${size}px`;
-        heart.style.height = `${size}px`;
-        heart.style.left = Math.random() * 100 + "%";
-        heart.style.animationDuration = Math.random() * 10 + 10 + "s";
-        heart.style.animationDelay = Math.random() * 10 + "s";
-
-        container.appendChild(heart);
-      }
-    }
-
-    function getPointerPoint(e) {
-      const point = e.changedTouches ? e.changedTouches[0] : e.touches ? e.touches[0] : e;
-      return {
-        x: point.clientX,
-        y: point.clientY
-      };
-    }
-
-    function createHeartBurst(x, y, options = {}) {
-      const count = options.count || 6;
-      const symbols = options.symbols || ["❤", "💕", "♡", "💗"];
-      const colors = ["#ff2f6d", "#ff4081", "#e91e63", "#ff6f91"];
-
-      for (let i = 0; i < count; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("click-heart");
-
-        const isSparkle = Math.random() < 0.22;
-
-        if (isSparkle) heart.classList.add("sparkle");
-
-        heart.innerText = isSparkle
-          ? "✦"
-          : symbols[Math.floor(Math.random() * symbols.length)];
-
-        const size = isSparkle
-          ? Math.floor(Math.random() * 7) + 10
-          : Math.floor(Math.random() * 14) + 17;
-
-        const txEnd = (Math.random() - 0.5) * (options.spread || 130);
-        const tyEnd = -(Math.random() * 70 + 55);
-        const txMid = txEnd * 0.38;
-        const tyMid = tyEnd * 0.35;
-        const txFinal = txEnd * 1.08;
-        const tyFinal = tyEnd - (Math.random() * 28 + 18);
-        const rot = (Math.random() - 0.5) * 70;
-        const rotStart = (Math.random() - 0.5) * 24;
-        const spin = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 90 + 45);
-        const duration = Math.floor(Math.random() * 260) + (options.duration || 1120);
-        const delay = i * 32 + Math.random() * 45;
-
-        heart.style.left = `${x}px`;
-        heart.style.top = `${y}px`;
-        heart.style.fontSize = `${size}px`;
-        heart.style.animationDelay = `${delay}ms`;
-
-        heart.style.setProperty("--duration", `${duration}ms`);
-        heart.style.setProperty("--heart-color", colors[Math.floor(Math.random() * colors.length)]);
-        heart.style.setProperty("--tx-mid", `${txMid}px`);
-        heart.style.setProperty("--ty-mid", `${tyMid}px`);
-        heart.style.setProperty("--tx-end", `${txEnd}px`);
-        heart.style.setProperty("--ty-end", `${tyEnd}px`);
-        heart.style.setProperty("--tx-final", `${txFinal}px`);
-        heart.style.setProperty("--ty-final", `${tyFinal}px`);
-        heart.style.setProperty("--rot", `${rot}deg`);
-        heart.style.setProperty("--rot-start", `${rotStart}deg`);
-        heart.style.setProperty("--spin", `${spin}deg`);
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        }, duration + delay + 120);
-      }
-    }
-
-    function createHeartBurstAroundElement(el, count = 14) {
-      const rect = el.getBoundingClientRect();
-
-      createHeartBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, {
-        count,
-        spread: 190,
-        duration: 1260,
-        symbols: ["❤", "💌", "💕", "♡"]
-      });
-    }
-
-    function createHistoryButtonHeartBurst(el) {
-      const rect = el.getBoundingClientRect();
-      const baseX = rect.left + rect.width / 2;
-      const baseY = rect.top + rect.height / 2;
-
-      const symbols = ["❤", "💕", "♡", "💗"];
-      const colors = ["#ff2f6d", "#ff4081", "#e91e63", "#ff6f91", "#f06292"];
-
-      const count = 8;
-
-      for (let i = 0; i < count; i++) {
-        const heart = document.createElement("div");
-        heart.classList.add("history-balloon-heart");
-
-        const isSparkle = Math.random() < 0.1;
-
-        if (isSparkle) heart.classList.add("sparkle");
-
-        heart.innerText = isSparkle
-          ? "✦"
-          : symbols[Math.floor(Math.random() * symbols.length)];
-
-        const size = isSparkle
-          ? Math.floor(Math.random() * 5) + 8
-          : Math.floor(Math.random() * 9) + 14;
-
-        const startX = baseX + (Math.random() - 0.5) * 10;
-        const startY = baseY + (Math.random() - 0.5) * 8;
-
-        const order = i - (count - 1) / 2;
-        const fan = order * 7 + (Math.random() - 0.5) * 8;
-        const baseLeft = -(Math.random() * 14 + 8);
-
-        const sway1 = baseLeft + fan * 0.12;
-        const sway2 = baseLeft + fan * 0.42 + (Math.random() - 0.5) * 8;
-        const sway3 = baseLeft + fan * 0.75 + (Math.random() - 0.5) * 14;
-        const sway4 = baseLeft + fan * 1.15 + (Math.random() - 0.5) * 18;
-
-        const riseMid = -(Math.random() * 26 + 42);
-        const riseEnd = riseMid - (Math.random() * 34 + 42);
-        const riseFinal = riseEnd - (Math.random() * 42 + 48);
-
-        const rotStart = (Math.random() - 0.5) * 10;
-        const rotMid = rotStart + (Math.random() - 0.5) * 12;
-        const rotEnd = rotMid + (Math.random() - 0.5) * 16;
-        const rotFinal = rotEnd + (Math.random() - 0.5) * 20;
-
-        const duration = Math.floor(Math.random() * 600) + 2050;
-        const delay = i * 75 + Math.random() * 45;
-
-        heart.style.left = `${startX}px`;
-        heart.style.top = `${startY}px`;
-        heart.style.fontSize = `${size}px`;
-        heart.style.animationDelay = `${delay}ms`;
-
-        heart.style.setProperty("--duration", `${duration}ms`);
-        heart.style.setProperty("--heart-color", colors[Math.floor(Math.random() * colors.length)]);
-        heart.style.setProperty("--sway1", `${sway1}px`);
-        heart.style.setProperty("--sway2", `${sway2}px`);
-        heart.style.setProperty("--sway3", `${sway3}px`);
-        heart.style.setProperty("--sway4", `${sway4}px`);
-        heart.style.setProperty("--rise-mid", `${riseMid}px`);
-        heart.style.setProperty("--rise-end", `${riseEnd}px`);
-        heart.style.setProperty("--rise-final", `${riseFinal}px`);
-        heart.style.setProperty("--rot-start", `${rotStart}deg`);
-        heart.style.setProperty("--rot-mid", `${rotMid}deg`);
-        heart.style.setProperty("--rot-end", `${rotEnd}deg`);
-        heart.style.setProperty("--rot-final", `${rotFinal}deg`);
-
-        document.body.appendChild(heart);
-
-        setTimeout(() => {
-          heart.remove();
-        }, duration + delay + 200);
-      }
-    }
-
-    const historyBtn = document.getElementById("historyBtn");
-    const historyModal = document.getElementById("historyModal");
-    const closeBtn = document.getElementById("closeBtn");
-    const listEl = document.getElementById("historyList");
-    const historyHelpBtn = document.getElementById("historyHelpBtn");
-    const historyInfoPop = document.getElementById("historyInfoPop");
-
-    const archiveLinkBtn = document.getElementById("archiveLinkBtn");
-    const archiveModal = document.getElementById("archiveModal");
-    const archiveCloseBtn = document.getElementById("archiveCloseBtn");
-
-    const mailboxBtn = document.getElementById("mailboxBtn");
-    const mailboxModal = document.getElementById("mailboxModal");
-    const mailboxCloseBtn = document.getElementById("mailboxCloseBtn");
-    const mailboxHelpBtn = document.getElementById("mailboxHelpBtn");
-    const mailboxInfoPop = document.getElementById("mailboxInfoPop");
-    const mailboxMainTitle = document.getElementById("mailboxMainTitle");
-    const mailboxDate = document.getElementById("mailboxDate");
-    const mailboxTag = document.getElementById("mailboxTag");
-    const mailboxLetterTitle = document.getElementById("mailboxLetterTitle");
-    const mailboxLetterBody = document.getElementById("mailboxLetterBody");
-    const mailboxPastCount = document.getElementById("mailboxPastCount");
-    const mailboxPastList = document.getElementById("mailboxPastList");
-
-    const messageRefreshBtn = document.getElementById("messageRefreshBtn");
-    const moodBtns = document.querySelectorAll(".mood-btn");
-
-    const secretEnvelope = document.getElementById("secretEnvelope");
-    const secretModal = document.getElementById("secretModal");
-    const secretCloseBtn = document.getElementById("secretCloseBtn");
-    const secretContent = document.getElementById("secretContent");
-    const secretHelpBtn = document.getElementById("secretHelpBtn");
-    const secretInfoPop = document.getElementById("secretInfoPop");
-
-    // ==================== 弹窗：系统维护弹窗元素 ====================
-    const maintenanceModal = document.getElementById("maintenanceModal");
-    const maintenanceTitle = document.getElementById("maintenanceTitle");
-    const maintenanceDate = document.getElementById("maintenanceDate");
-    const maintenanceHelpBtn = document.getElementById("maintenanceHelpBtn");
-    const maintenanceInfoPop = document.getElementById("maintenanceInfoPop");
-    const maintenanceNote = document.getElementById("maintenanceNote");
-    const maintenanceSubtitle = document.getElementById("maintenanceSubtitle");
-    const maintenanceList = document.getElementById("maintenanceList");
-    const maintenanceCloseBtn = document.getElementById("maintenanceCloseBtn");
-
-    // ==================== 弹窗：系统维护弹窗函数 ====================
-    function renderMaintenancePopup() {
-      if (!maintenanceModal) return;
-
-      maintenanceTitle.innerText = maintenancePopupContent.title || "系统维护小通知";
-      maintenanceDate.innerText = `-维护日期 · ${maintenancePopupContent.date || "未填写日期"}-`;
-      maintenanceInfoPop.innerText = maintenancePopupContent.helpText || "如果有界面有Bug记得跟我反馈哦，也可以提提修改建议hh";
-      maintenanceNote.innerText = maintenancePopupContent.note || "·只要没跟宝断联，服务器就会一直维护下去哦·";
-      maintenanceSubtitle.innerText = maintenancePopupContent.subtitle || "这里会放最近更新的小内容。";
-      maintenanceList.innerHTML = "";
-
-      const updates = maintenancePopupContent.updates || [];
-
-      if (updates.length === 0) {
-        maintenanceList.innerHTML = '<div class="maintenance-item"><div class="maintenance-item-title">暂无更新</div><div class="maintenance-item-desc">这里还没有填写更新内容，后续可以在代码模板里补上。</div></div>';
-        return;
-      }
-
-      updates.forEach(item => {
-        const div = document.createElement("div");
-        div.className = "maintenance-item";
-        div.innerHTML = `
-          <div class="maintenance-item-title">${item.title || "更新内容"}</div>
-          <div class="maintenance-item-desc">${item.desc || "这里填写这一条更新说明。"}</div>
-        `;
-        maintenanceList.appendChild(div);
-      });
-    }
-
-    // 弹窗：手动打开弹窗。后续需要按钮触发时，可以直接调用 openMaintenancePopup()
-    function openMaintenancePopup() {
-      renderMaintenancePopup();
-      maintenanceModal.classList.add("active");
-    }
-
-    // 弹窗：手动关闭弹窗。关闭按钮和点击遮罩都会调用这个函数
-    function closeMaintenancePopup() {
-      maintenanceModal.classList.remove("active");
-      maintenanceInfoPop.classList.remove("active");
-    }
-
-    // 弹窗：初始化。根据 MAINTENANCE_POPUP_AUTO_OPEN 开关决定是否进网页自动弹出
-    function initMaintenancePopup() {
-      renderMaintenancePopup();
-
-      if (MAINTENANCE_POPUP_AUTO_OPEN) {
-        setTimeout(openMaintenancePopup, MAINTENANCE_POPUP_DELAY);
-      }
-    }
-
-
-
-    // ==================== 弹窗：系统维护弹窗问号说明事件 ====================
-    maintenanceHelpBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(maintenanceHelpBtn, 8);
-      maintenanceInfoPop.classList.toggle("active");
-    });
-
-    // ==================== 弹窗：系统维护弹窗关闭事件 ====================
-    maintenanceCloseBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-      closeMaintenancePopup();
-    });
-
-    maintenanceModal.addEventListener("click", function(e) {
-      if (e.target === maintenanceModal) {
-        closeMaintenancePopup();
-      }
-    });
-
-
-    moodBtns.forEach(btn => {
-      btn.addEventListener("click", function(e) {
-        e.stopPropagation();
-
-        currentMood = btn.dataset.mood || "happy";
-
-        moodBtns.forEach(item => item.classList.remove("active"));
-        btn.classList.add("active");
-
-        createHeartBurstAroundElement(btn, 8);
-        playTypewriter(getMoodMessage(currentMood));
-      });
-    });
-
-    messageRefreshBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(messageRefreshBtn, 8);
-      playTypewriter(getMoodMessage(currentMood));
-    });
-
-    archiveLinkBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(archiveLinkBtn, 8);
-      initPastLinks();
-      setTimeout(() => {
-        archiveModal.classList.add("active");
-      }, 120);
-    });
-
-    function closeArchiveModal() {
-      archiveModal.classList.remove("active");
-    }
-
-    archiveCloseBtn.addEventListener("click", closeArchiveModal);
-
-    archiveModal.addEventListener("click", function(e) {
-      if (e.target === archiveModal) {
-        closeArchiveModal();
-      }
-    });
-
-    mailboxBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(mailboxBtn, 12);
-      setTimeout(openMailbox, 120);
-    });
-
-    mailboxHelpBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(mailboxHelpBtn, 8);
-      mailboxInfoPop.classList.toggle("active");
-    });
-
-    mailboxCloseBtn.addEventListener("click", closeMailbox);
-
-    mailboxModal.addEventListener("click", function(e) {
-      if (e.target === mailboxModal) {
-        closeMailbox();
-      }
-    });
-
-    secretEnvelope.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(secretEnvelope, 18);
-
-      secretInfoPop.classList.remove("active");
-      secretContent.innerText = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-      secretModal.classList.add("active");
-    });
-
-    secretHelpBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(secretHelpBtn, 8);
-      secretInfoPop.classList.toggle("active");
-    });
-
-    function closeSecretModal() {
-      secretModal.classList.remove("active");
-      secretInfoPop.classList.remove("active");
-    }
-
-    secretCloseBtn.addEventListener("click", closeSecretModal);
-
-    secretModal.addEventListener("click", function(e) {
-      if (e.target === secretModal) {
-        closeSecretModal();
-      }
-    });
-
-    historyBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHistoryButtonHeartBurst(historyBtn);
-
-      historyInfoPop.classList.remove("active");
-      listEl.innerHTML = "";
-
-      const historyItems = messages.filter(item => item[0] !== "default");
-
-      if (historyItems.length === 0) {
-        listEl.innerHTML = '<div style="text-align:center; color:#ccc;">还没有新的时光札记哦~</div>';
-      } else {
-        historyItems.forEach(item => {
-          const div = document.createElement("div");
-          div.className = "history-item";
-          div.innerHTML = `<div class="history-date">📅 ${item[0]}</div><div>${item[1]}</div>`;
-          listEl.appendChild(div);
-        });
-      }
-
-      setTimeout(() => {
-        historyModal.classList.add("active");
-      }, 180);
-    });
-
-    historyHelpBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-
-      createHeartBurstAroundElement(historyHelpBtn, 8);
-      historyInfoPop.classList.toggle("active");
-    });
-
-    function closeModal() {
-      historyModal.classList.remove("active");
-      historyInfoPop.classList.remove("active");
-    }
-
-    closeBtn.addEventListener("click", closeModal);
-
-    historyModal.addEventListener("click", function(e) {
-      if (e.target === historyModal) {
-        closeModal();
-      }
-    });
-
-    window.onload = function() {
-      initDate();
-      initDailyLink();
-      initPastLinks();
-      renderMailbox();
-      createHearts();
-      playTypewriter(getTodayMessage());
-      initMaintenancePopup();
-    };
-  </script>
 </body>
 </html>
