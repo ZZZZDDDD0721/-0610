@@ -1091,6 +1091,99 @@
     }
 
     /* ==================== 弹窗：心意邮箱 ==================== */
+    /* ==================== 弹窗：心意邮箱密码 ==================== */
+    .mailbox-password-card {
+      position: relative;
+      width: 88%;
+      max-width: 340px;
+      padding: 30px 22px 24px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fffdf8, #f7f1ff);
+      border: 1px solid rgba(194, 169, 139, 0.45);
+      box-shadow: 0 24px 54px rgba(104, 83, 121, 0.2);
+      color: #6f5570;
+      text-align: center;
+      transform: scale(0.92) translateY(18px);
+      transition: all 0.45s cubic-bezier(0.2, 1.15, 0.35, 1);
+    }
+
+    .modal-overlay.active .mailbox-password-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .mailbox-password-icon {
+      font-size: 34px;
+      margin-bottom: 8px;
+    }
+
+    .mailbox-password-title {
+      color: #6f5570;
+      font-size: 19px;
+      font-weight: 900;
+      margin-bottom: 7px;
+    }
+
+    .mailbox-password-subtitle {
+      color: #a58a76;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-bottom: 17px;
+    }
+
+    .mailbox-password-input {
+      width: 100%;
+      height: 46px;
+      padding: 0 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(194, 169, 139, 0.45);
+      background: rgba(255, 255, 255, 0.78);
+      color: #6f5570;
+      font-size: 15px;
+      text-align: center;
+      letter-spacing: 2px;
+      outline: none;
+      box-shadow: inset 0 1px 4px rgba(104, 83, 121, 0.05);
+    }
+
+    .mailbox-password-input:focus {
+      border-color: rgba(167, 132, 170, 0.7);
+      box-shadow: 0 0 0 3px rgba(229, 214, 250, 0.6);
+    }
+
+    .mailbox-password-error {
+      min-height: 20px;
+      margin-top: 8px;
+      color: #d45f8a;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .mailbox-password-submit {
+      width: 100%;
+      min-height: 42px;
+      margin-top: 3px;
+      border-radius: 999px;
+      background: linear-gradient(45deg, #ead6b7, #e5d6fa);
+      color: #6f5570;
+      font-size: 14px;
+      font-weight: 900;
+      box-shadow: 0 8px 16px rgba(104, 83, 121, 0.12);
+    }
+
+    .mailbox-password-submit:active {
+      transform: scale(0.96) translateY(1px);
+    }
+
+    .mailbox-password-cancel {
+      width: 100%;
+      margin-top: 8px;
+      padding: 8px 0;
+      background: transparent;
+      color: #b29aa9;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
     .mailbox-card {
       position: relative;
       width: 90%;
@@ -1660,6 +1753,27 @@
 
 
 
+  <div class="modal-overlay" id="mailboxPasswordModal">
+    <div class="mailbox-password-card">
+      <div class="mailbox-password-icon">🔐</div>
+      <div class="mailbox-password-title">这是只属于你的邮箱</div>
+      <div class="mailbox-password-subtitle">输入密码，才能打开这份藏起来的心意噢</div>
+      <form id="mailboxPasswordForm">
+        <input
+          class="mailbox-password-input"
+          id="mailboxPasswordInput"
+          type="password"
+          autocomplete="off"
+          placeholder="请输入密码"
+          maxlength="32"
+        >
+        <div class="mailbox-password-error" id="mailboxPasswordError"></div>
+        <button class="mailbox-password-submit" type="submit">打开我的心意 💌</button>
+      </form>
+      <button class="mailbox-password-cancel" id="mailboxPasswordCancel" type="button">先不看啦</button>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="mailboxModal">
     <div class="mailbox-card">
       <button class="mailbox-help-btn" id="mailboxHelpBtn" title="关于心意邮箱">?</button>
@@ -1899,6 +2013,10 @@
     // 2. date 早于今天的信，会自动进入“往期信件”。
     // 3. date 晚于今天的信，会先藏起来，等到那天才显示。
     // 4. date 推荐写成 "2026-07-15"，也兼容 "2026年7月15日"。
+    // 心意邮箱密码：修改这里即可更换密码。
+    // 注意：这是纯前端页面，密码只是用于“访问门槛”，并不等同于服务器级安全认证。
+    const MAILBOX_PASSWORD = "ZD0721";
+
     const mailboxLetters = {
       mainTitle: "📮 心意邮箱",
       helpText: "以后都在这给宝贝写小作文噢。只要信件日期过了今天，它就会自动收进往期信件里。",
@@ -2319,6 +2437,19 @@
       mailboxModal.classList.add("active");
     }
 
+    function openMailboxPassword() {
+      mailboxPasswordInput.value = "";
+      mailboxPasswordError.innerText = "";
+      mailboxPasswordModal.classList.add("active");
+      setTimeout(() => mailboxPasswordInput.focus(), 180);
+    }
+
+    function closeMailboxPassword() {
+      mailboxPasswordModal.classList.remove("active");
+      mailboxPasswordInput.value = "";
+      mailboxPasswordError.innerText = "";
+    }
+
     function closeMailbox() {
       mailboxModal.classList.remove("active");
       mailboxInfoPop.classList.remove("active");
@@ -2531,6 +2662,11 @@
     const archiveCloseBtn = document.getElementById("archiveCloseBtn");
 
     const mailboxBtn = document.getElementById("mailboxBtn");
+    const mailboxPasswordModal = document.getElementById("mailboxPasswordModal");
+    const mailboxPasswordForm = document.getElementById("mailboxPasswordForm");
+    const mailboxPasswordInput = document.getElementById("mailboxPasswordInput");
+    const mailboxPasswordError = document.getElementById("mailboxPasswordError");
+    const mailboxPasswordCancel = document.getElementById("mailboxPasswordCancel");
     const mailboxModal = document.getElementById("mailboxModal");
     const mailboxCloseBtn = document.getElementById("mailboxCloseBtn");
     const mailboxHelpBtn = document.getElementById("mailboxHelpBtn");
@@ -2684,7 +2820,33 @@
       e.stopPropagation();
 
       createHeartBurstAroundElement(mailboxBtn, 12);
-      setTimeout(openMailbox, 120);
+      setTimeout(openMailboxPassword, 120);
+    });
+
+    mailboxPasswordForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      if (mailboxPasswordInput.value === MAILBOX_PASSWORD) {
+        createHeartBurstAroundElement(mailboxPasswordForm, 12);
+        closeMailboxPassword();
+        setTimeout(openMailbox, 160);
+      } else {
+        mailboxPasswordError.innerText = "密码不对哦，再想想叭～";
+        mailboxPasswordInput.value = "";
+        mailboxPasswordInput.focus();
+        createHeartBurstAroundElement(mailboxPasswordForm, 6);
+      }
+    });
+
+    mailboxPasswordCancel.addEventListener("click", function(e) {
+      e.stopPropagation();
+      closeMailboxPassword();
+    });
+
+    mailboxPasswordModal.addEventListener("click", function(e) {
+      if (e.target === mailboxPasswordModal) {
+        closeMailboxPassword();
+      }
     });
 
     mailboxHelpBtn.addEventListener("click", function(e) {
