@@ -1111,6 +1111,28 @@
       transform: scale(1) translateY(0);
     }
 
+    .heart-lock-icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3px;
+      height: 44px;
+      margin-bottom: 8px;
+    }
+
+    .heart-lock-icon .heart-icon {
+      color: #e979a8;
+      font-size: 38px;
+      line-height: 1;
+      transform: translateY(1px);
+    }
+
+    .heart-lock-icon .lock-icon {
+      font-size: 27px;
+      line-height: 1;
+      transform: translateY(4px);
+    }
+
     .mailbox-text-icon {
       font-size: 34px;
       margin-bottom: 8px;
@@ -1755,8 +1777,8 @@
 
   <div class="modal-overlay" id="mailboxPasswordModal">
     <div class="mailbox-text-card">
-      <div class="mailbox-text-icon">🔐</div>
-      <div class="mailbox-text-title">宝宝的专属邮箱</div>
+      <div class="mailbox-text-icon heart-lock-icon"><span class="heart-icon">♥</span><span class="lock-icon">🔒</span></div>
+      <div class="mailbox-text-title">这是只属于你的邮箱</div>
       <div class="mailbox-text-subtitle">输入暗号，才能打开这份藏起来的心意噢</div>
       <form id="mailboxPasswordForm">
         <input
@@ -1768,7 +1790,7 @@
           maxlength="32"
         >
         <div class="mailbox-text-error" id="mailboxPasswordError"></div>
-        <button class="mailbox-text-submit" type="submit">打开粥宝的心意 💌</button>
+        <button class="mailbox-text-submit" type="submit">打开我的心意 💌</button>
       </form>
       <button class="mailbox-text-cancel" id="mailboxPasswordCancel" type="button">先不看啦</button>
     </div>
